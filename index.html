@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="light">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Xếp Loại Học Lực Học Sinh</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+
+<style>
+/* ══ TOKENS — LIGHT ═══════════════════════ */
+:root{
+  --bg-page:#eef2ff;--bg-card:#fff;--bg-input:#f8f9ff;
+  --bg-subj:#f8f9ff;--bg-hist:#f8f9ff;--bg-histrow:#fff;
+  --bg-soft:#ede9fe;--bg-prog:rgba(255,255,255,.55);
+  --bg-desc:rgba(255,255,255,.5);--bg-rdtip:rgba(0,0,0,.06);
+  --bg-tblhov:rgba(0,0,0,.03);--bg-chart:#fff;
+  --bd-base:#e0e7ff;--bd-input:#e0e7ff;
+  --tx-1:#1e1b4b;--tx-2:#4b5563;--tx-3:#9ca3af;
+  --c-p1:#4f46e5;--c-p2:#7c3aed;--c-acc:#a78bfa;
+  --dot-clr:#c7d2fe;--scale-op:.22;
+  --g-bg:#d1fae5;--g-bd:#6ee7b7;--g-tx:#065f46;--g-pill:#34d399;
+  --k-bg:#dbeafe;--k-bd:#93c5fd;--k-tx:#1e40af;--k-pill:#60a5fa;
+  --t-bg:#fef9c3;--t-bd:#fde68a;--t-tx:#854d0e;--t-pill:#fbbf24;
+  --y-bg:#fee2e2;--y-bd:#fca5a5;--y-tx:#991b1b;--y-pill:#f87171;
+  --sh-sm:0 2px 8px rgba(99,102,241,.10);
+  --sh-md:0 8px 32px rgba(99,102,241,.16);
+  --sh-lg:0 20px 56px rgba(99,102,241,.22);
+  --td:.3s;
+  /* chart grid lines */
+  --chart-grid:rgba(99,102,241,.15);
+  --chart-tick:#9ca3af;
+  --chart-pt-label:#4b5563;
+}
+/* ══ TOKENS — DARK ════════════════════════ */
+[data-theme="dark"]{
+  --bg-page:#0f0e1a;--bg-card:#1a1830;--bg-input:#231f3a;
+  --bg-subj:#201d35;--bg-hist:#1e1b30;--bg-histrow:#27243f;
+  --bg-soft:#2d2852;--bg-prog:rgba(255,255,255,.04);
+  --bg-desc:rgba(255,255,255,.04);--bg-rdtip:rgba(255,255,255,.08);
+  --bg-tblhov:rgba(255,255,255,.04);--bg-chart:#1a1830;
+  --bd-base:#312e57;--bd-input:#3a3666;
+  --tx-1:#e8e6ff;--tx-2:#a09ec0;--tx-3:#5c597e;
+  --c-p1:#818cf8;--c-p2:#a78bfa;--c-acc:#c4b5fd;
+  --dot-clr:#1e1b35;--scale-op:.35;
+  --g-bg:#052e16;--g-bd:#065f46;--g-tx:#6ee7b7;--g-pill:#059669;
+  --k-bg:#0c1f4a;--k-bd:#1e3a8a;--k-tx:#93c5fd;--k-pill:#1d4ed8;
+  --t-bg:#2d1f00;--t-bd:#78350f;--t-tx:#fde68a;--t-pill:#d97706;
+  --y-bg:#2d0a0a;--y-bd:#7f1d1d;--y-tx:#fca5a5;--y-pill:#dc2626;
+  --sh-sm:0 2px 8px rgba(0,0,0,.4);
+  --sh-md:0 8px 32px rgba(0,0,0,.5);
+  --sh-lg:0 20px 56px rgba(0,0,0,.65);
+  --chart-grid:rgba(200,200,255,.10);
+  --chart-tick:#5c597e;
+  --chart-pt-label:#a09ec0;
+}
+
+/* ══ GLOBAL ════════════════════════════════ */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;
+  transition:background-color var(--td) ease,border-color var(--td) ease,
+             color var(--td) ease,box-shadow var(--td) ease;}
+.btn,.spin,.subj-card,.hist-row{transition:background-color var(--td) ease,
+  border-color var(--td) ease,color var(--td) ease,
+  box-shadow var(--td) ease,transform .15s ease;}
+
+body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
+  background-image:radial-gradient(circle,var(--dot-clr) 1px,transparent 1px);
+  background-size:28px 28px;min-height:100vh;
+  display:flex;flex-direction:column;align-items:center;
+  padding:36px 16px 60px;color:var(--tx-1);}
+
+/* ══ Dark toggle ═══════════════════════════ */
+.dm-toggle{position:fixed;top:18px;right:18px;z-index:100;
+  width:48px;height:48px;border-radius:50%;border:2px solid var(--bd-base);
+  background:var(--bg-card);box-shadow:var(--sh-md);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
+.dm-toggle:hover{transform:scale(1.1) rotate(15deg);box-shadow:var(--sh-lg);}
+.dm-toggle:active{transform:scale(.93);}
+.dm-toggle::after{content:attr(data-ico);}
+
+/* ══ Header ════════════════════════════════ */
+.pg-head{text-align:center;margin-bottom:28px;}
+.pg-head .crown{font-size:3.2rem;display:block;margin-bottom:8px;
+  animation:float 3s ease-in-out infinite;
+  filter:drop-shadow(0 6px 12px rgba(124,58,237,.35));}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.pg-head h1{font-size:clamp(1.4rem,4vw,2rem);font-weight:900;letter-spacing:-.03em;
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.pg-head p{color:var(--tx-2);font-size:.88rem;margin-top:5px;font-weight:500;}
+
+/* ══ Card ══════════════════════════════════ */
+.card{background:var(--bg-card);border-radius:28px;box-shadow:var(--sh-lg);
+  width:100%;max-width:660px;overflow:hidden;
+  animation:slideUp .5s cubic-bezier(.22,1,.36,1) both;}
+@keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.card-stripe{height:5px;transition:none;
+  background:linear-gradient(90deg,#6366f1,#a78bfa,#7c3aed,#818cf8,#4f46e5);
+  background-size:200%;animation:shimmer 3s linear infinite;}
+@keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
+.card-body{padding:30px 30px 34px;}
+
+/* ══ Section label ═════════════════════════ */
+.sec-lbl{display:flex;align-items:center;gap:8px;font-size:.71rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.08em;color:var(--c-p1);margin-bottom:13px;}
+.sec-lbl::after{content:'';flex:1;height:1.5px;
+  background:linear-gradient(90deg,var(--bd-base),transparent);border-radius:99px;}
+
+/* ══ Name ══════════════════════════════════ */
+.name-field{margin-bottom:24px;}
+.fi{position:relative;display:flex;align-items:center;}
+.fi .fi-ico{position:absolute;left:13px;font-size:1.05rem;pointer-events:none;}
+.fi input{width:100%;padding:11px 13px 11px 40px;border:2px solid var(--bd-input);
+  border-radius:14px;font-family:inherit;font-size:.96rem;font-weight:500;
+  color:var(--tx-1);background:var(--bg-input);outline:none;}
+.fi input:focus{border-color:var(--c-p1);background:var(--bg-card);
+  box-shadow:0 0 0 4px rgba(99,102,241,.14);}
+.fi input::placeholder{color:var(--tx-3);font-weight:400;}
+
+/* ══ Subjects ══════════════════════════════ */
+.subj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
+.subj-card{background:var(--bg-subj);border:2px solid var(--bd-base);
+  border-radius:20px;padding:13px 14px 11px;box-shadow:var(--sh-sm);}
+.subj-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
+.subj-card:focus-within{border-color:var(--c-p1);background:var(--bg-card);
+  box-shadow:0 0 0 4px rgba(99,102,241,.14);transform:translateY(-2px);}
+.subj-card.error{border-color:#f87171;animation:shake .3s ease;}
+[data-theme="light"] .subj-card.error{background:#fff5f5;}
+[data-theme="dark"]  .subj-card.error{background:#2d1010;}
+@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
+.subj-lbl{display:flex;align-items:center;gap:7px;margin-bottom:8px;user-select:none;}
+.s-ico{width:27px;height:27px;background:var(--bg-soft);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-size:.92rem;flex-shrink:0;}
+.s-name{font-size:.79rem;font-weight:700;color:var(--tx-2);}
+.score-row{display:flex;align-items:center;gap:6px;}
+.spin{width:25px;height:25px;border-radius:7px;border:1.5px solid var(--bd-base);
+  background:var(--bg-card);color:var(--c-p1);font-size:.95rem;font-weight:700;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.spin:hover{background:var(--bg-soft);}.spin:active{transform:scale(.88);}
+.score-row input[type=number]{flex:1;width:0;border:none;background:transparent;
+  font-family:inherit;font-size:1.3rem;font-weight:800;color:var(--tx-1);
+  outline:none;text-align:center;}
+.score-row input::-webkit-outer-spin-button,
+.score-row input::-webkit-inner-spin-button{-webkit-appearance:none;}
+.score-row input[type=number]{-moz-appearance:textfield;}
+.mini-bar-bg{margin-top:8px;height:4px;border-radius:99px;background:var(--bd-base);overflow:hidden;}
+.mini-bar-fill{height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--c-p1),var(--c-acc));
+  width:0%;transition:width .35s cubic-bezier(.22,1,.36,1);}
+.f-err{font-size:.69rem;color:#f87171;font-weight:500;margin-top:4px;display:none;}
+
+/* ══ Global error ══════════════════════════ */
+.g-err{background:var(--y-bg);border:1.5px solid var(--y-bd);border-radius:11px;
+  padding:10px 14px;font-size:.83rem;font-weight:500;color:var(--y-tx);
+  margin-top:5px;margin-bottom:2px;display:none;animation:fadeIn .25s ease;}
+
+/* ══ Buttons ═══════════════════════════════ */
+.actions{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;margin-top:22px;}
+.btn{border:none;border-radius:13px;font-family:inherit;font-size:.93rem;font-weight:700;
+  cursor:pointer;outline:none;display:flex;align-items:center;
+  justify-content:center;gap:7px;padding:13px 16px;}
+.btn:active{transform:scale(.96);}
+.btn-calc{background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;box-shadow:0 4px 18px rgba(79,70,229,.38);}
+.btn-calc:hover{opacity:.9;transform:translateY(-1px);}
+.btn-save{background:linear-gradient(135deg,#059669,#10b981);
+  color:#fff;box-shadow:0 4px 14px rgba(5,150,105,.30);white-space:nowrap;}
+.btn-save:hover{opacity:.9;transform:translateY(-1px);}
+.btn-save:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.btn-pdf{background:linear-gradient(135deg,#dc2626,#ef4444);
+  color:#fff;box-shadow:0 4px 14px rgba(220,38,38,.30);white-space:nowrap;}
+.btn-pdf:hover{opacity:.9;transform:translateY(-1px);}
+.btn-pdf:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.btn-reset{background:var(--bg-soft);color:var(--c-p1);}
+.btn-reset:hover{background:var(--bd-input);transform:translateY(-1px);}
+
+/* ══ Toast ═════════════════════════════════ */
+.toast{position:fixed;bottom:28px;right:24px;z-index:999;
+  background:var(--tx-1);color:var(--bg-card);
+  padding:12px 20px;border-radius:14px;font-size:.85rem;font-weight:600;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);
+  display:flex;align-items:center;gap:8px;
+  opacity:0;pointer-events:none;transform:translateY(12px);
+  transition:opacity .3s,transform .3s;}
+.toast.show{opacity:1;pointer-events:auto;transform:translateY(0);}
+
+/* ══ Result ════════════════════════════════ */
+.result-wrap{
+  display:none;          /* hidden by default */
+  margin-top:26px;
+  /* ← KHÔNG dùng visibility/opacity ở đây để tránh xung đột với inline style */
+}
+.result-wrap.visible{
+  display:block !important;  /* !important để thắng mọi inline style override */
+  animation:fadeSlide .45s cubic-bezier(.22,1,.36,1) both;
+}
+@keyframes fadeSlide{
+  from{opacity:0;transform:translateY(22px) scale(.98)}
+  to  {opacity:1;transform:translateY(0)    scale(1)}}
+.res-card{border-radius:22px;border:2px solid transparent;overflow:hidden;box-shadow:var(--sh-md);}
+.res-card:hover{box-shadow:var(--sh-lg);}
+.res-card.gioi{background:var(--g-bg);border-color:var(--g-bd)}
+.res-card.kha {background:var(--k-bg);border-color:var(--k-bd)}
+.res-card.tb  {background:var(--t-bg);border-color:var(--t-bd)}
+.res-card.yeu {background:var(--y-bg);border-color:var(--y-bd)}
+.res-inner{padding:22px 22px 20px;}
+.res-top{display:flex;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;gap:10px;margin-bottom:18px;}
+.res-student{display:flex;align-items:center;gap:10px;}
+.res-avatar{width:42px;height:42px;border-radius:11px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;box-shadow:var(--sh-sm);flex-shrink:0;}
+.gioi .res-avatar{background:var(--g-pill)}.kha .res-avatar{background:var(--k-pill)}
+.tb   .res-avatar{background:var(--t-pill)}.yeu .res-avatar{background:var(--y-pill)}
+.r-name{font-size:1.02rem;font-weight:800;color:var(--tx-1);}
+.r-sub{font-size:.76rem;font-weight:500;color:var(--tx-2);margin-top:1px;}
+.rank-pill{display:flex;align-items:center;gap:5px;padding:6px 14px;
+  border-radius:999px;font-size:.86rem;font-weight:800;
+  box-shadow:var(--sh-sm);white-space:nowrap;}
+.gioi .rank-pill{background:var(--g-pill);color:#022c22}
+.kha  .rank-pill{background:var(--k-pill);color:#1e3a8a}
+.tb   .rank-pill{background:var(--t-pill);color:#451a03}
+.yeu  .rank-pill{background:var(--y-pill);color:#fff}
+
+/* ══ Progress section ══════════════════════ */
+.prog-section{margin-bottom:18px;padding:16px 18px 14px;
+  border-radius:16px;background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);}
+.prog-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;}
+.p-label{font-size:.76rem;font-weight:700;color:var(--tx-2);
+  text-transform:uppercase;letter-spacing:.06em;}
+.p-val{font-size:2rem;font-weight:900;line-height:1;}
+.gioi .p-val{color:var(--g-tx)}.kha .p-val{color:var(--k-tx)}
+.tb   .p-val{color:var(--t-tx)}.yeu .p-val{color:var(--y-tx)}
+.scale-bar{position:relative;height:14px;border-radius:99px;margin-bottom:6px;}
+.scale-track{position:absolute;inset:0;border-radius:99px;overflow:hidden;
+  background:linear-gradient(90deg,#f87171 0%,#fbbf24 32%,#60a5fa 50%,#34d399 70%,#059669 100%);
+  opacity:var(--scale-op);}
+.scale-fill{position:absolute;top:0;left:0;height:100%;border-radius:99px;
+  transition:width .7s cubic-bezier(.22,1,.36,1);box-shadow:0 2px 8px rgba(0,0,0,.18);}
+.gioi .scale-fill{background:linear-gradient(90deg,#34d399,#6ee7b7)}
+.kha  .scale-fill{background:linear-gradient(90deg,#60a5fa,#93c5fd)}
+.tb   .scale-fill{background:linear-gradient(90deg,#fbbf24,#fde68a)}
+.yeu  .scale-fill{background:linear-gradient(90deg,#f87171,#fca5a5)}
+.scale-needle{position:absolute;top:-4px;width:4px;height:22px;border-radius:2px;
+  background:var(--tx-1);box-shadow:0 2px 6px rgba(0,0,0,.25);transform:translateX(-50%);
+  transition:left .7s cubic-bezier(.22,1,.36,1);}
+.scale-ticks{display:flex;justify-content:space-between;font-size:.66rem;
+  font-weight:600;color:var(--tx-3);padding:0 2px;}
+
+/* ══ RADAR CHART SECTION (new) ═════════════ */
+.chart-section{
+  margin-bottom:18px;
+  padding:18px 18px 14px;
+  border-radius:16px;
+  background:var(--bg-prog);
+  border:1px solid rgba(128,128,128,.12);
+  animation:fadeIn .5s ease;
+}
+.chart-header{
+  display:flex;align-items:center;justify-content:space-between;
+  margin-bottom:4px;
+}
+.chart-header .ch-label{
+  font-size:.76rem;font-weight:700;color:var(--tx-2);
+  text-transform:uppercase;letter-spacing:.06em;
+}
+/* Legend chips */
+.chart-legend{
+  display:flex;align-items:center;gap:6px;
+  flex-wrap:wrap;margin-bottom:12px;
+}
+.leg-chip{
+  display:flex;align-items:center;gap:5px;
+  font-size:.7rem;font-weight:600;color:var(--tx-2);
+  padding:3px 9px;border-radius:99px;
+  background:var(--bg-rdtip);
+}
+.leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+/* Canvas wrapper — keeps chart square & responsive */
+.chart-wrap{
+  position:relative;
+  width:100%;
+  max-width:340px;
+  margin:0 auto;
+  aspect-ratio:1/1;
+}
+/* Stats row below chart */
+.chart-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:14px;
+}
+.cstat{
+  background:var(--bg-rdtip);
+  border-radius:12px;
+  padding:9px 10px;
+  text-align:center;
+}
+.cstat .cs-val{font-size:1.15rem;font-weight:900;color:var(--tx-1);}
+.cstat .cs-lbl{font-size:.68rem;font-weight:600;color:var(--tx-3);margin-top:2px;}
+/* colour classes for stats */
+.cs-hi{color:#059669!important;}
+.cs-lo{color:#dc2626!important;}
+[data-theme="dark"] .cs-hi{color:#34d399!important;}
+[data-theme="dark"] .cs-lo{color:#f87171!important;}
+
+/* ══ Rank description ══════════════════════ */
+.rank-desc{border-radius:13px;padding:13px 15px;margin-bottom:16px;
+  border:1px solid rgba(128,128,128,.12);background:var(--bg-desc);}
+.rd-title{font-size:.76rem;font-weight:700;color:var(--tx-2);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.rd-text{font-size:.84rem;font-weight:500;line-height:1.55;color:var(--tx-1);}
+.rd-tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
+.rd-tip{font-size:.73rem;font-weight:600;padding:4px 10px;border-radius:99px;
+  background:var(--bg-rdtip);color:var(--tx-2);}
+
+/* ══ Score table ═══════════════════════════ */
+.score-tbl{width:100%;border-collapse:collapse;font-size:.84rem;}
+.score-tbl th{padding:6px 10px;text-align:left;font-size:.71rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:.07em;color:var(--tx-2);
+  border-bottom:1.5px solid rgba(128,128,128,.15);}
+.score-tbl td{padding:8px 10px;border-bottom:1px solid rgba(128,128,128,.08);
+  color:var(--tx-1);font-weight:500;}
+.score-tbl td:last-child{text-align:right;font-weight:800;font-size:.92rem;}
+.score-tbl tbody tr{transition:background .15s;}
+.score-tbl tbody tr:hover{background:var(--bg-tblhov);}
+.score-tbl tr.ttl-row td{border-bottom:none;font-weight:900;font-size:.98rem;padding-top:11px;}
+.tbl-ico{display:inline-flex;align-items:center;justify-content:center;
+  width:21px;height:21px;border-radius:6px;background:rgba(128,128,128,.12);
+  font-size:.73rem;margin-right:5px;}
+.sc-g{color:#059669}.sc-k{color:#2563eb}.sc-t{color:#d97706}.sc-y{color:#dc2626}
+[data-theme="dark"] .sc-g{color:#34d399}[data-theme="dark"] .sc-k{color:#60a5fa}
+[data-theme="dark"] .sc-t{color:#fbbf24}[data-theme="dark"] .sc-y{color:#f87171}
+
+/* ══ History ═══════════════════════════════ */
+.history-wrap{background:var(--bg-hist);border:2px solid var(--bd-base);
+  border-radius:20px;padding:18px 18px 14px;margin-top:24px;
+  display:none;animation:fadeIn .3s ease;}
+.history-wrap.visible{display:block;}
+.history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
+.history-header h3{font-size:.85rem;font-weight:800;color:var(--c-p1);}
+.btn-clear-hist{font-size:.72rem;font-weight:600;color:#f87171;
+  background:none;border:none;cursor:pointer;padding:3px 8px;border-radius:7px;}
+.btn-clear-hist:hover{background:var(--y-bg);}
+.hist-row{display:flex;align-items:center;gap:10px;padding:9px 10px;
+  border-radius:11px;background:var(--bg-histrow);border:1.5px solid var(--bd-base);
+  margin-bottom:8px;cursor:pointer;}
+.hist-row:hover{border-color:var(--c-p1);box-shadow:var(--sh-sm);transform:translateY(-1px);}
+.hist-row:last-child{margin-bottom:0;}
+.hist-rank-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.dot-gioi{background:#34d399}.dot-kha{background:#60a5fa}
+.dot-tb  {background:#fbbf24}.dot-yeu{background:#f87171}
+.hist-name{font-size:.87rem;font-weight:700;flex:1;color:var(--tx-1);
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hist-avg{font-size:.87rem;font-weight:800;margin-left:auto;margin-right:4px;}
+.hist-lbl{font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:99px;}
+.hist-lbl.gioi{background:var(--g-bg);color:var(--g-tx)}
+.hist-lbl.kha {background:var(--k-bg);color:var(--k-tx)}
+.hist-lbl.tb  {background:var(--t-bg);color:var(--t-tx)}
+.hist-lbl.yeu {background:var(--y-bg);color:var(--y-tx)}
+.hist-del{background:none;border:none;cursor:pointer;font-size:.85rem;
+  color:var(--tx-3);padding:3px 5px;border-radius:6px;flex-shrink:0;}
+.hist-del:hover{color:#f87171;background:var(--y-bg);}
+.hist-date{font-size:.68rem;color:var(--tx-3);font-weight:500;white-space:nowrap;}
+
+.pg-foot{margin-top:30px;font-size:.72rem;color:var(--tx-3);text-align:center;font-weight:500;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ══ Responsive ════════════════════════════ */
+@media(max-width:560px){
+  .card-body{padding:20px 16px 26px;}
+  .subj-grid{grid-template-columns:1fr;}
+  .actions{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;}
+  .btn-calc{grid-column:1/-1;}
+  .dm-toggle{top:12px;right:12px;width:42px;height:42px;font-size:1.1rem;}
+  .chart-stats{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+
+<button class="dm-toggle" id="dmBtn" data-ico="🌙" onclick="toggleDark()"></button>
+
+<header class="pg-head">
+  <span class="crown">🎓</span>
+  <h1>Xếp Loại Học Lực Học Sinh</h1>
+  <p>Nhập điểm các môn học để tính kết quả và xếp loại tự động</p>
+</header>
+
+<div class="card">
+  <div class="card-stripe"></div>
+  <div class="card-body">
+
+    <p class="sec-lbl">👤 Thông tin học sinh</p>
+    <div class="name-field">
+      <div class="fi">
+        <span class="fi-ico">🧑‍🎓</span>
+        <input type="text" id="tenHS" placeholder="Nhập họ và tên học sinh…" maxlength="60"/>
+      </div>
+    </div>
+
+    <p class="sec-lbl">📚 Điểm các môn học (0 – 10)</p>
+    <div class="subj-grid" id="subjGrid"></div>
+    <div class="g-err" id="gErr"></div>
+
+    <div class="actions">
+      <button class="btn btn-calc"  onclick="tinhKQ()">✨ Tính kết quả</button>
+      <button class="btn btn-save"  id="btnSave" onclick="luuKQ()"   disabled>💾 Lưu</button>
+      <button class="btn btn-pdf"   id="btnPdf"  onclick="xuatPDF()" disabled>📄 PDF</button>
+      <button class="btn btn-reset" onclick="nhapLai()">🔄 Nhập lại</button>
+    </div>
+
+    <!-- ── KẾT QUẢ ── -->
+    <div class="result-wrap" id="resWrap">
+      <div class="res-card" id="resCard">
+        <div class="res-inner">
+
+          <!-- Tên + badge -->
+          <div class="res-top">
+            <div class="res-student">
+              <div class="res-avatar" id="rAvatar">🏆</div>
+              <div>
+                <div class="r-name" id="rName">—</div>
+                <div class="r-sub">Kết quả học kỳ</div>
+              </div>
+            </div>
+            <div class="rank-pill" id="rPill">—</div>
+          </div>
+
+          <!-- Thanh tiến trình -->
+          <div class="prog-section">
+            <div class="prog-header">
+              <span class="p-label">📊 Điểm trung bình</span>
+              <span class="p-val" id="rAvg">—</span>
+            </div>
+            <div class="scale-bar">
+              <div class="scale-track"></div>
+              <div class="scale-fill"   id="rScaleFill" style="width:0%"></div>
+              <div class="scale-needle" id="rNeedle"    style="left:0%"></div>
+            </div>
+            <div class="scale-ticks">
+              <span>0</span><span>2.5</span><span>5</span>
+              <span>6.5</span><span>8</span><span>10</span>
+            </div>
+          </div>
+
+          <!-- ══ RADAR CHART ══════════════════════ -->
+          <div class="chart-section" id="chartSection">
+            <div class="chart-header">
+              <span class="ch-label">📡 Biểu đồ Radar điểm các môn</span>
+            </div>
+            <div class="chart-legend" id="chartLegend"></div>
+            <div class="chart-wrap">
+              <canvas id="radarChart"></canvas>
+            </div>
+            <!-- Thống kê nhanh bên dưới biểu đồ -->
+            <div class="chart-stats">
+              <div class="cstat">
+                <div class="cs-val cs-hi" id="csMax">—</div>
+                <div class="cs-lbl">Điểm cao nhất</div>
+              </div>
+              <div class="cstat">
+                <div class="cs-val cs-lo" id="csMin">—</div>
+                <div class="cs-lbl">Điểm thấp nhất</div>
+              </div>
+              <div class="cstat">
+                <div class="cs-val" id="csAvg">—</div>
+                <div class="cs-lbl">Trung bình</div>
+              </div>
+            </div>
+          </div>
+          <!-- ══ /RADAR CHART ══════════════════════ -->
+
+          <!-- Mô tả xếp loại -->
+          <div class="rank-desc">
+            <div class="rd-title">📌 Ý nghĩa xếp loại</div>
+            <div class="rd-text" id="rDescText">—</div>
+            <div class="rd-tips" id="rDescTips"></div>
+          </div>
+
+          <!-- Bảng điểm -->
+          <table class="score-tbl">
+            <thead><tr><th>Môn học</th><th style="text-align:right">Điểm</th></tr></thead>
+            <tbody id="rTbody"></tbody>
+          </table>
+
+        </div>
+      </div>
+    </div><!-- /result-wrap -->
+
+    <!-- Lịch sử -->
+    <div class="history-wrap" id="histWrap">
+      <div class="history-header">
+        <h3>📋 Kết quả đã lưu</h3>
+        <button class="btn-clear-hist" onclick="xoaTatCa()">🗑 Xoá tất cả</button>
+      </div>
+      <div id="histList"></div>
+    </div>
+
+  </div>
+</div>
+
+<footer class="pg-foot">© 2025 · Hệ Thống Xếp Loại Học Lực · Dữ liệu lưu trên trình duyệt của bạn</footer>
+<div class="toast" id="toast"></div>
+
+
+<script>
+/* ══════════════════════════════════════════════
+   DATA
+══════════════════════════════════════════════ */
+const MON = [
+  {id:'toan',ten:'Toán',      ico:'➕'},
+  {id:'van', ten:'Ngữ văn',   ico:'📖'},
+  {id:'anh', ten:'Tiếng Anh', ico:'🔤'},
+  {id:'ly',  ten:'Vật lý',    ico:'⚡'},
+  {id:'hoa', ten:'Hóa học',   ico:'🧪'},
+  {id:'sinh',ten:'Sinh học',  ico:'🌿'},
+  {id:'su',  ten:'Lịch sử',   ico:'🏛️'},
+  {id:'dia', ten:'Địa lý',    ico:'🌍'},
+];
+
+const RANK = [
+  { min:8.0, lbl:'Giỏi',       cls:'gioi', ico:'🏆', scCls:'sc-g',
+    rgb:'52,211,153',  // CSS rgb for rgba()
+    pdfColor:[5,150,105], pdfBg:[209,250,229],
+    desc:'Học sinh đạt thành tích xuất sắc, nắm vững kiến thức toàn diện, có khả năng tư duy độc lập và sáng tạo trong học tập.',
+    tips:['Nắm vững lý thuyết','Làm tốt bài tập nâng cao','Tự học hiệu quả','Có tư duy sáng tạo'] },
+  { min:6.5, lbl:'Khá',        cls:'kha',  ico:'🥈', scCls:'sc-k',
+    rgb:'96,165,250',
+    pdfColor:[29,78,216], pdfBg:[219,234,254],
+    desc:'Học sinh có kết quả tốt, hiểu bài và vận dụng kiến thức ở mức khá. Cần cố gắng thêm để đạt mức Giỏi.',
+    tips:['Hiểu bài ở mức khá','Cần ôn luyện thêm','Có nền tảng vững','Tiếp tục phát huy'] },
+  { min:5.0, lbl:'Trung bình', cls:'tb',   ico:'📘', scCls:'sc-t',
+    rgb:'251,191,36',
+    pdfColor:[133,77,14], pdfBg:[254,249,195],
+    desc:'Học sinh đạt mức cơ bản, cần chú ý cải thiện các môn còn yếu, tăng cường luyện tập và ôn bài đều đặn hơn.',
+    tips:['Nắm được kiến thức cơ bản','Cần luyện tập thêm','Chú ý các môn yếu','Tăng thời gian ôn bài'] },
+  { min:0,   lbl:'Yếu',        cls:'yeu',  ico:'⚠️', scCls:'sc-y',
+    rgb:'248,113,113',
+    pdfColor:[153,27,27], pdfBg:[254,226,226],
+    desc:'Học sinh cần nỗ lực nhiều hơn, nên tìm sự hỗ trợ từ thầy cô và gia đình để cải thiện kết quả học tập kịp thời.',
+    tips:['Cần bổ sung kiến thức','Tìm sự hỗ trợ từ thầy cô','Lên kế hoạch học tập','Không bỏ cuộc!'] },
+];
+
+let currentResult = null;
+let radarChartInst = null; // Chart.js instance
+
+/* ══════════════════════════════════════════════
+   DARK MODE
+══════════════════════════════════════════════ */
+const DM_KEY = 'hocLucDarkMode';
+
+function applyTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  const btn = document.getElementById('dmBtn');
+  btn.setAttribute('data-ico', dark ? '☀️' : '🌙');
+  btn.title = dark ? 'Chuyển sang Light Mode' : 'Chuyển sang Dark Mode';
+  // Re-render chart with new theme colours if it exists
+  if (radarChartInst) updateRadarTheme();
+}
+function toggleDark() {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(!isDark);
+  try { localStorage.setItem(DM_KEY, !isDark ? '1' : '0'); } catch(e){}
+  showToast(!isDark ? '🌙 Dark Mode đã bật' : '☀️ Light Mode đã bật');
+}
+(function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem(DM_KEY); } catch(e){}
+  if (saved !== null) { applyTheme(saved === '1'); return; }
+  if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) applyTheme(true);
+})();
+
+/* ══════════════════════════════════════════════
+   BUILD SUBJECT GRID
+══════════════════════════════════════════════ */
+const grid = document.getElementById('subjGrid');
+MON.forEach(m => {
+  const d = document.createElement('div');
+  d.className = 'subj-card'; d.id = 'box_'+m.id;
+  d.innerHTML = `
+    <div class="subj-lbl">
+      <div class="s-ico">${m.ico}</div>
+      <span class="s-name">${m.ten}</span>
+    </div>
+    <div class="score-row">
+      <button class="spin" onclick="adj('${m.id}',-0.5)" tabindex="-1">−</button>
+      <input type="number" id="${m.id}" min="0" max="10" step="0.5" placeholder="—"
+             oninput="updBar('${m.id}')" onchange="clrErr('${m.id}')"/>
+      <button class="spin" onclick="adj('${m.id}',0.5)" tabindex="-1">+</button>
+    </div>
+    <div class="mini-bar-bg"><div class="mini-bar-fill" id="mb_${m.id}"></div></div>
+    <div class="f-err" id="fe_${m.id}">Điểm phải từ 0 đến 10</div>`;
+  grid.appendChild(d);
+});
+
+/* ══════════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════════ */
+function adj(id, step) {
+  const el = document.getElementById(id);
+  let v = parseFloat(el.value)||0;
+  v = Math.min(10, Math.max(0, +(v+step).toFixed(1)));
+  el.value = v; updBar(id); clrErr(id);
+}
+function updBar(id) {
+  const v = Math.min(parseFloat(document.getElementById(id).value)||0, 10);
+  document.getElementById('mb_'+id).style.width = (v/10*100)+'%';
+}
+function clrErr(id) {
+  document.getElementById('box_'+id).classList.remove('error');
+  document.getElementById('fe_'+id).style.display = 'none';
+  document.getElementById('gErr').style.display   = 'none';
+}
+function rankOf(dtb)  { return RANK.find(r => dtb >= r.min) || RANK[RANK.length-1]; }
+function scColor(d)   { return d>=8?'sc-g':d>=6.5?'sc-k':d>=5?'sc-t':'sc-y'; }
+
+let toastTimer;
+function showToast(msg, ok=true) {
+  const t = document.getElementById('toast');
+  t.innerHTML = (ok?'✅ ':'❌ ') + msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+/* ══════════════════════════════════════════════
+   RADAR CHART — draw / update / theme
+══════════════════════════════════════════════ */
+
+/* Returns current CSS-variable values for chart theming */
+function getChartTheme() {
+  const cs = getComputedStyle(document.documentElement);
+  return {
+    grid:  cs.getPropertyValue('--chart-grid').trim(),
+    tick:  cs.getPropertyValue('--chart-tick').trim(),
+    label: cs.getPropertyValue('--chart-pt-label').trim(),
+    bg:    cs.getPropertyValue('--bg-chart').trim(),
+  };
+}
+
+/* Build Chart.js radar config */
+function buildRadarConfig(rows, rnk) {
+  const th     = getChartTheme();
+  const labels = rows.map(r => r.m.ten);
+  const data   = rows.map(r => r.d);
+  const rgb    = rnk.rgb;
+
+  return {
+    type: 'radar',
+    data: {
+      labels,
+      datasets: [{
+        label: 'Điểm',
+        data,
+        backgroundColor:    `rgba(${rgb}, .18)`,
+        borderColor:        `rgba(${rgb}, .95)`,
+        pointBackgroundColor: `rgba(${rgb}, 1)`,
+        pointBorderColor:   '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: `rgba(${rgb}, 1)`,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        borderWidth: 2.5,
+        fill: true,
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: true,
+      animation: { duration: 700, easing: 'easeInOutQuart' },
+      scales: {
+        r: {
+          min: 0, max: 10,
+          ticks: {
+            stepSize: 2,
+            color: th.tick,
+            font: { size: 10, family: 'Inter' },
+            backdropColor: 'transparent',
+          },
+          grid:        { color: th.grid },
+          angleLines:  { color: th.grid },
+          pointLabels: {
+            color: th.label,
+            font: { size: 11, weight: '700', family: 'Inter' },
+          },
+        }
+      },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: 'rgba(15,14,26,.85)',
+          titleColor: '#e8e6ff',
+          bodyColor:  '#a09ec0',
+          padding: 10,
+          cornerRadius: 10,
+          callbacks: {
+            label: ctx => ` Điểm: ${ctx.raw.toFixed(1)}`
+          }
+        }
+      }
+    }
+  };
+}
+
+/* Draw the radar chart */
+function drawRadar(rows, rnk) {
+  const canvas = document.getElementById('radarChart');
+
+  // Destroy old instance if exists
+  if (radarChartInst) { radarChartInst.destroy(); radarChartInst = null; }
+
+  radarChartInst = new Chart(canvas, buildRadarConfig(rows, rnk));
+
+  // Legend chips
+  const leg = document.getElementById('chartLegend');
+  leg.innerHTML = `
+    <div class="leg-chip">
+      <span class="leg-dot" style="background:rgba(${rnk.rgb},1)"></span>
+      Điểm các môn
+    </div>
+    <div class="leg-chip">
+      <span class="leg-dot" style="background:rgba(${rnk.rgb},.35);border:1.5px solid rgba(${rnk.rgb},1)"></span>
+      Vùng điểm
+    </div>`;
+
+  // Quick stats
+  const vals = rows.map(r=>r.d);
+  const maxD = Math.max(...vals), minD = Math.min(...vals);
+  const avgD = vals.reduce((a,b)=>a+b,0)/vals.length;
+  const maxMon = rows[vals.indexOf(maxD)].m.ten;
+  const minMon = rows[vals.indexOf(minD)].m.ten;
+
+  document.getElementById('csMax').textContent = maxD.toFixed(1);
+  document.getElementById('csMin').textContent = minD.toFixed(1);
+  document.getElementById('csAvg').textContent = avgD.toFixed(2);
+  document.getElementById('csMax').title = `Môn cao nhất: ${maxMon}`;
+  document.getElementById('csMin').title = `Môn thấp nhất: ${minMon}`;
+}
+
+/* Re-apply theme colours to existing chart (called on dark-mode toggle) */
+function updateRadarTheme() {
+  if (!radarChartInst || !currentResult) return;
+  const th  = getChartTheme();
+  const opt = radarChartInst.options;
+  const sc  = opt.scales.r;
+  sc.ticks.color        = th.tick;
+  sc.grid.color         = th.grid;
+  sc.angleLines.color   = th.grid;
+  sc.pointLabels.color  = th.label;
+  radarChartInst.update();
+}
+
+/* ══════════════════════════════════════════════
+   TÍNH KẾT QUẢ
+══════════════════════════════════════════════ */
+function tinhKQ() {
+  const gErr = document.getElementById('gErr');
+  gErr.style.display = 'none';
+  let rows=[], hasErr=false, nEmpty=0;
+
+  MON.forEach(m => {
+    const inp=document.getElementById(m.id);
+    const raw=inp.value.trim(), num=parseFloat(raw);
+    const box=document.getElementById('box_'+m.id);
+    const fe =document.getElementById('fe_'+m.id);
+    if (raw===''||isNaN(num)) {
+      box.classList.add('error'); fe.textContent='Vui lòng nhập điểm môn này';
+      fe.style.display='block'; hasErr=true; nEmpty++;
+    } else if (num<0||num>10) {
+      box.classList.add('error'); fe.textContent='Điểm phải từ 0 đến 10';
+      fe.style.display='block'; hasErr=true;
+    } else {
+      box.classList.remove('error'); fe.style.display='none';
+      rows.push({m, d:num});
+    }
+  });
+
+  if (hasErr) {
+    gErr.innerHTML = nEmpty
+      ? `⚠️ Còn <strong>${nEmpty} môn</strong> chưa được nhập điểm.`
+      : '⚠️ Một số điểm không hợp lệ – hãy kiểm tra lại.';
+    gErr.style.display='block'; hideResult(); return;
+  }
+
+  const dtb = Math.round(rows.reduce((s,r)=>s+r.d,0)/rows.length*100)/100;
+  const rnk = rankOf(dtb);
+  const ten = document.getElementById('tenHS').value.trim() || 'Học sinh';
+  currentResult = {ten, dtb, rnk:rnk.cls, rows, ts:Date.now()};
+
+  /* ── Fill card ── */
+  const card = document.getElementById('resCard');
+  ['gioi','kha','tb','yeu'].forEach(c=>card.classList.remove(c));
+  card.classList.add(rnk.cls);
+
+  document.getElementById('rAvatar').textContent = rnk.ico;
+  document.getElementById('rName').textContent   = ten;
+  document.getElementById('rPill').textContent   = rnk.ico+' '+rnk.lbl;
+  document.getElementById('rAvg').textContent    = dtb.toFixed(2);
+
+  const pct = (dtb/10*100).toFixed(1)+'%';
+  document.getElementById('rScaleFill').style.width = '0%';
+  document.getElementById('rNeedle').style.left     = '0%';
+  setTimeout(()=>{
+    document.getElementById('rScaleFill').style.width = pct;
+    document.getElementById('rNeedle').style.left     = pct;
+  }, 120);
+
+  document.getElementById('rDescText').textContent = rnk.desc;
+  document.getElementById('rDescTips').innerHTML   =
+    rnk.tips.map(t=>`<span class="rd-tip">${t}</span>`).join('');
+
+  const tbody = document.getElementById('rTbody');
+  tbody.innerHTML = '';
+  rows.forEach(({m,d}) => {
+    const tr=document.createElement('tr');
+    tr.innerHTML=`<td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
+                  <td class="${scColor(d)}">${d.toFixed(1)}</td>`;
+    tbody.appendChild(tr);
+  });
+  const tr=document.createElement('tr'); tr.className='ttl-row';
+  tr.innerHTML=`<td><span class="tbl-ico">📊</span>Điểm trung bình</td>
+                <td class="${rnk.scCls}">${dtb.toFixed(2)}</td>`;
+  tbody.appendChild(tr);
+
+  /* ── Show result with animation ── */
+  const wrap = document.getElementById('resWrap');
+  // FIX: Xoá inline style trước, SAU ĐÓ mới toggle class
+  // Không set style.display thủ công — để CSS class kiểm soát hoàn toàn
+  wrap.style.display = '';          // xoá inline style (nếu có từ hideResult)
+  wrap.classList.remove('visible'); // bỏ class cũ để reset animation
+  void wrap.offsetWidth;            // force reflow — bắt buộc để animation chạy lại
+  wrap.classList.add('visible');    // thêm class → CSS hiện element + chạy animation
+  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+  /* ── Draw radar chart (slight delay so card is visible first) ── */
+  setTimeout(() => drawRadar(rows, rnk), 200);
+
+  document.getElementById('btnSave').disabled = false;
+  document.getElementById('btnPdf').disabled  = false;
+}
+
+function hideResult() {
+  const w = document.getElementById('resWrap');
+  // FIX: Chỉ dùng class để ẩn, KHÔNG set inline style.display
+  // Nếu set style.display='none' ở đây → nó sẽ override CSS class lần sau
+  w.classList.remove('visible'); // CSS default là display:none → element tự ẩn
+  w.style.display = '';          // đảm bảo xoá sạch bất kỳ inline style nào còn sót
+  document.getElementById('rScaleFill').style.width='0%';
+  document.getElementById('rNeedle').style.left='0%';
+  document.getElementById('btnSave').disabled = true;
+  document.getElementById('btnPdf').disabled  = true;
+  if (radarChartInst) { radarChartInst.destroy(); radarChartInst=null; }
+  currentResult = null;
+}
+
+/* ══════════════════════════════════════════════
+   XUẤT PDF
+══════════════════════════════════════════════ */
+function xuatPDF() {
+  if (!currentResult) return;
+  const {jsPDF} = window.jspdf;
+  const doc = new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
+  const W = doc.internal.pageSize.getWidth();
+  const rnkObj = rankOf(currentResult.dtb);
+
+  const WHITE=[255,255,255], DARK=[30,27,75], GREY=[100,100,120], LGREY=[230,230,240];
+  function setFont(sz,w='normal',c=DARK){doc.setFontSize(sz);doc.setFont('helvetica',w);doc.setTextColor(...c);}
+  function rect(x,y,w,h,c,r=0){doc.setFillColor(...c);r>0?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');}
+
+  /* Header */
+  rect(0,0,W,38,[79,70,229]); rect(W*.55,0,W*.45,38,[124,58,237]);
+  doc.setFillColor(255,255,255); doc.circle(25,19,10,'F');
+  setFont(14,'bold',DARK); doc.text('HT',25,22.5,{align:'center'});
+  setFont(16,'bold',WHITE); doc.text('PHIEU XEP LOAI HOC LUC',45,15);
+  setFont(9,'normal',[200,200,255]); doc.text('He Thong Xep Loai Hoc Luc Hoc Sinh',45,22);
+  const now=new Date();
+  const ds=`Ngay: ${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}  Gio: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  setFont(7.5,'normal',[180,180,230]); doc.text(ds,45,29);
+
+  /* Student card */
+  let y=46;
+  rect(10,y,W-20,22,[245,245,255],5);
+  doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,22,5,5,'S');
+  setFont(7.5,'bold',GREY); doc.text('THONG TIN HOC SINH',18,y+7);
+  setFont(11,'bold',DARK); doc.text(currentResult.ten||'Hoc sinh',18,y+15);
+  const bx=W-60,by=y+4;
+  rect(bx,by,48,14,rnkObj.pdfBg,7);
+  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.5); doc.roundedRect(bx,by,48,14,7,7,'S');
+  setFont(9,'bold',rnkObj.pdfColor); doc.text(rnkObj.lbl.toUpperCase(),bx+24,by+9.5,{align:'center'});
+
+  /* Avg block */
+  y+=28;
+  rect(10,y,W-20,28,rnkObj.pdfBg,6);
+  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.4); doc.roundedRect(10,y,W-20,28,6,6,'S');
+  setFont(7.5,'bold',rnkObj.pdfColor); doc.text('DIEM TRUNG BINH',20,y+10);
+  setFont(7,'normal',GREY); doc.text('Tong hop tat ca cac mon hoc',20,y+17);
+  setFont(22,'bold',rnkObj.pdfColor); doc.text(currentResult.dtb.toFixed(2),W-22,y+20,{align:'right'});
+  setFont(7,'normal',GREY); doc.text('/ 10.00',W-22,y+26,{align:'right'});
+  const bW=W-75, bX=20, bY=y+21.5, bH=3;
+  rect(bX,bY,bW,bH,[220,220,235],2);
+  doc.setFillColor(...rnkObj.pdfColor);
+  doc.roundedRect(bX,bY,(currentResult.dtb/10)*bW,bH,1.5,1.5,'F');
+
+  /* Embed radar chart as image */
+  if (radarChartInst) {
+    y+=34;
+    const imgData = radarChartInst.toBase64Image('image/png', 1);
+    // White background box for chart
+    rect(10,y,W-20,90,[248,248,255],5);
+    doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,90,5,5,'S');
+    setFont(7.5,'bold',[79,70,229]); doc.text('BIEU DO RADAR DIEM CAC MON HOC',W/2,y+8,{align:'center'});
+    const cSize=72, cX=(W-cSize)/2;
+    doc.addImage(imgData,'PNG',cX,y+10,cSize,cSize);
+    // Stats row
+    const sY=y+84, sw=(W-24)/3;
+    const vals=currentResult.rows.map(r=>r.d);
+    const mxD=Math.max(...vals), mnD=Math.min(...vals), avD=vals.reduce((a,b)=>a+b,0)/vals.length;
+    [[mxD,'Cao nhat',[5,150,105]],[mnD,'Thap nhat',[185,28,28]],[avD,'Trung binh',rnkObj.pdfColor]].forEach(([v,l,c],i)=>{
+      const sx=12+i*(sw+2);
+      rect(sx,sY,sw,8,rnkObj.pdfBg,3);
+      setFont(8,'bold',c); doc.text(Number(v).toFixed(2),sx+sw/2,sY+5.5,{align:'center'});
+      setFont(6,'normal',GREY); doc.text(l,sx+sw/2,sY+10,{align:'center'});
+    });
+    y+=98;
+  } else { y+=34; }
+
+  /* Score table */
+  rect(10,y,W-20,8,[79,70,229],0);
+  setFont(8,'bold',WHITE); doc.text('BANG DIEM CHI TIET',W/2,y+5.5,{align:'center'});
+  y+=8;
+  rect(10,y,W-20,8,[240,240,255],0);
+  setFont(7.5,'bold',DARK); doc.text('MON HOC',18,y+5.5);
+  doc.text('DIEM',W-18,y+5.5,{align:'right'});
+  doc.text('NHAN XET',W/2,y+5.5,{align:'center'});
+  y+=8;
+  currentResult.rows.forEach(({m,d},i)=>{
+    rect(10,y,W-20,9,i%2===0?WHITE:[248,248,255]);
+    setFont(8.5,'normal',DARK); doc.text(m.ten,18,y+6);
+    let sc=d>=8?[5,150,105]:d>=6.5?[29,78,216]:d>=5?[180,100,10]:[185,28,28];
+    setFont(9,'bold',sc); doc.text(d.toFixed(1),W-18,y+6.2,{align:'right'});
+    let cmt=d>=8?'Xuat sac':d>=6.5?'Kha':d>=5?'Trung binh':'Can co gang';
+    setFont(7,'normal',GREY); doc.text(cmt,W/2,y+6,{align:'center'});
+    doc.setDrawColor(...LGREY); doc.setLineWidth(.2); doc.line(10,y+9,W-10,y+9);
+    y+=9;
+  });
+  rect(10,y,W-20,10,rnkObj.pdfBg);
+  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.4); doc.rect(10,y,W-20,10,'S');
+  setFont(9,'bold',rnkObj.pdfColor); doc.text('DIEM TRUNG BINH',18,y+6.8);
+  setFont(11,'bold',rnkObj.pdfColor); doc.text(currentResult.dtb.toFixed(2),W-18,y+7,{align:'right'});
+  y+=10;
+
+  /* Rank desc */
+  y+=6;
+  if(y<235){
+    rect(10,y,W-20,30,[248,248,255],5);
+    doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,30,5,5,'S');
+    setFont(7.5,'bold',[79,70,229]); doc.text('Y NGHIA XEP LOAI',18,y+8);
+    rect(W-60,y+3,48,8,rnkObj.pdfBg,4);
+    setFont(7.5,'bold',rnkObj.pdfColor); doc.text(rnkObj.lbl,W-36,y+8.5,{align:'center'});
+    setFont(7.5,'normal',GREY);
+    doc.text(doc.splitTextToSize(rnkObj.desc,W-38).slice(0,2),18,y+16);
+    let cx=18;
+    rnkObj.tips.forEach(t=>{const tw=doc.getTextWidth(t)+6;if(cx+tw>W-12)return;
+      rect(cx,y+22,tw,5.5,[230,230,250],3);
+      setFont(6.5,'normal',[79,70,229]); doc.text(t,cx+tw/2,y+26.2,{align:'center'});cx+=tw+3;});
+  }
+
+  /* Footer */
+  const fY=doc.internal.pageSize.getHeight()-12;
+  doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.line(10,fY-4,W-10,fY-4);
+  setFont(7,'normal',GREY); doc.text('He Thong Xep Loai Hoc Luc',W/2,fY,{align:'center'});
+  setFont(7,'normal',[180,180,200]); doc.text(`In luc: ${ds}`,W/2,fY+5,{align:'center'});
+
+  const safe=(currentResult.ten||'hocsinh').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
+  doc.save(`KetQua_${safe}_${now.getDate()}${now.getMonth()+1}${now.getFullYear()}.pdf`);
+  showToast('Đã xuất PDF thành công (có biểu đồ Radar)!');
+}
+
+/* ══════════════════════════════════════════════
+   LƯU / LỊCH SỬ
+══════════════════════════════════════════════ */
+const SK='hocLucHistory';
+function docLS(){try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];}}
+function ghiLS(a){try{localStorage.setItem(SK,JSON.stringify(a));}catch(e){}}
+
+function luuKQ(){
+  if(!currentResult)return;
+  const arr=docLS(); arr.unshift({...currentResult,id:currentResult.ts});
+  if(arr.length>20)arr.splice(20); ghiLS(arr);
+  document.getElementById('btnSave').disabled=true;
+  showToast('Đã lưu kết quả của '+currentResult.ten); renderLichSu();
+}
+function renderLichSu(){
+  const arr=docLS(),wrap=document.getElementById('histWrap'),list=document.getElementById('histList');
+  if(!arr.length){wrap.classList.remove('visible');return;}
+  wrap.classList.add('visible'); list.innerHTML='';
+  arr.forEach((rec,idx)=>{
+    const ro=RANK.find(r=>rec.rnk===r.cls)||RANK[RANK.length-1];
+    const d=new Date(rec.ts);
+    const ds=`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    const row=document.createElement('div'); row.className='hist-row'; row.title='Nhấn để nạp lại';
+    row.innerHTML=`<div class="hist-rank-dot dot-${rec.rnk}"></div>
+      <span class="hist-name">${rec.ten}</span>
+      <span class="hist-avg ${ro.scCls}">${Number(rec.dtb).toFixed(2)}</span>
+      <span class="hist-lbl ${rec.rnk}">${ro.lbl}</span>
+      <span class="hist-date">${ds}</span>
+      <button class="hist-del" onclick="xoaRec(${idx},event)" title="Xoá">✕</button>`;
+    row.addEventListener('click',()=>napLai(rec)); list.appendChild(row);
+  });
+}
+function napLai(rec){
+  document.getElementById('tenHS').value=rec.ten;
+  MON.forEach(m=>{
+    const s=rec.rows.find(r=>r.m&&r.m.id===m.id);
+    const el=document.getElementById(m.id); el.value=s?s.d:''; if(s)updBar(m.id); clrErr(m.id);
+  });
+  tinhKQ(); window.scrollTo({top:0,behavior:'smooth'}); showToast('Đã nạp kết quả của '+rec.ten);
+}
+function xoaRec(idx,e){
+  e.stopPropagation(); const arr=docLS(); arr.splice(idx,1); ghiLS(arr); renderLichSu(); showToast('Đã xoá bản ghi',false);
+}
+function xoaTatCa(){
+  if(!confirm('Xoá toàn bộ lịch sử?'))return; ghiLS([]); renderLichSu(); showToast('Đã xoá tất cả',false);
+}
+
+/* ══════════════════════════════════════════════
+   NHẬP LẠI
+══════════════════════════════════════════════ */
+function nhapLai(){
+  document.getElementById('tenHS').value='';
+  MON.forEach(m=>{
+    document.getElementById(m.id).value='';
+    document.getElementById('box_'+m.id).classList.remove('error');
+    document.getElementById('fe_'+m.id).style.display='none';
+    document.getElementById('mb_'+m.id).style.width='0%'; clrErr(m.id);
+  });
+  document.getElementById('gErr').style.display='none'; hideResult();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+renderLichSu();
+</script>
+</body>
+</html>
