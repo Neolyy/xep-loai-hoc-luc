@@ -10,7 +10,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <style>
-/* ══ TOKENS LIGHT ══════════════════════════ */
 :root{
   --bg-page:#eef2ff;--bg-card:#fff;--bg-input:#f8f9ff;
   --bg-subj:#f8f9ff;--bg-hist:#f8f9ff;--bg-histrow:#fff;
@@ -32,7 +31,6 @@
   --chart-grid:rgba(99,102,241,.15);
   --chart-tick:#9ca3af;--chart-pt-label:#4b5563;
 }
-/* ══ TOKENS DARK ═══════════════════════════ */
 [data-theme="dark"]{
   --bg-page:#0f0e1a;--bg-card:#1a1830;--bg-input:#231f3a;
   --bg-subj:#201d35;--bg-hist:#1e1b30;--bg-histrow:#27243f;
@@ -51,29 +49,22 @@
   --sh-lg:0 20px 56px rgba(0,0,0,.65);
   --chart-grid:rgba(200,200,255,.10);--chart-tick:#5c597e;--chart-pt-label:#a09ec0;
 }
-
-/* ══ RESET & BASE ═══════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;
   transition:background-color var(--td) ease,border-color var(--td) ease,
   color var(--td) ease,box-shadow var(--td) ease;}
 .btn,.spin,.mon-card,.hist-row{transition:background-color var(--td) ease,
   border-color var(--td) ease,color var(--td) ease,box-shadow var(--td) ease,transform .15s ease;}
-
 body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   background-image:radial-gradient(circle,var(--dot-clr) 1px,transparent 1px);
   background-size:28px 28px;min-height:100vh;
   display:flex;flex-direction:column;align-items:center;
   padding:36px 16px 60px;color:var(--tx-1);}
-
-/* ══ DARK TOGGLE ════════════════════════════ */
 .dm-toggle{position:fixed;top:18px;right:18px;z-index:200;
   width:48px;height:48px;border-radius:50%;border:2px solid var(--bd-base);
   background:var(--bg-card);box-shadow:var(--sh-md);cursor:pointer;
   display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
 .dm-toggle:hover{transform:scale(1.1) rotate(15deg);box-shadow:var(--sh-lg);}
 .dm-toggle::after{content:attr(data-ico);}
-
-/* ══ HEADER ═════════════════════════════════ */
 .pg-head{text-align:center;margin-bottom:28px;}
 .pg-head .crown{font-size:3.2rem;display:block;margin-bottom:8px;
   animation:float 3s ease-in-out infinite;
@@ -83,8 +74,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .pg-head p{color:var(--tx-2);font-size:.88rem;margin-top:5px;font-weight:500;}
-
-/* ══ CARD ═══════════════════════════════════ */
 .card{background:var(--bg-card);border-radius:28px;box-shadow:var(--sh-lg);
   width:100%;max-width:900px;overflow:hidden;
   animation:slideUp .5s cubic-bezier(.22,1,.36,1) both;}
@@ -94,14 +83,10 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   background-size:200%;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
 .card-body{padding:28px 28px 32px;}
-
-/* ══ SECTION LABEL ══════════════════════════ */
 .sec-lbl{display:flex;align-items:center;gap:8px;font-size:.71rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.08em;color:var(--c-p1);margin-bottom:14px;}
 .sec-lbl::after{content:'';flex:1;height:1.5px;
   background:linear-gradient(90deg,var(--bd-base),transparent);border-radius:99px;}
-
-/* ══ NAME FIELD ═════════════════════════════ */
 .name-field{margin-bottom:24px;}
 .fi{position:relative;display:flex;align-items:center;}
 .fi .fi-ico{position:absolute;left:13px;font-size:1.05rem;pointer-events:none;}
@@ -111,10 +96,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .fi input:focus{border-color:var(--c-p1);background:var(--bg-card);
   box-shadow:0 0 0 4px rgba(99,102,241,.14);}
 .fi input::placeholder{color:var(--tx-3);font-weight:400;}
-
-/* ══ MÔN HỌC CARD ═══════════════════════════ */
 .mon-list{display:flex;flex-direction:column;gap:14px;margin-bottom:10px;}
-
 .mon-card{
   background:var(--bg-subj);border:2px solid var(--bd-base);
   border-radius:20px;overflow:hidden;box-shadow:var(--sh-sm);
@@ -122,8 +104,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 }
 .mon-card:focus-within{border-color:var(--c-p1);box-shadow:var(--sh-md);}
 .mon-card.has-error{border-color:#f87171;}
-
-/* Card header (click to expand) */
 .mon-header{
   display:flex;align-items:center;gap:12px;
   padding:13px 16px;cursor:pointer;user-select:none;
@@ -149,23 +129,17 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 [data-theme="dark"] .mon-tbm-display.sc-k{color:#60a5fa}
 [data-theme="dark"] .mon-tbm-display.sc-t{color:#fbbf24}
 [data-theme="dark"] .mon-tbm-display.sc-y{color:#f87171}
-
 .mon-chevron{font-size:.8rem;color:var(--tx-3);margin-left:4px;
   transition:transform .25s ease;flex-shrink:0;}
 .mon-card.open .mon-chevron{transform:rotate(180deg);}
-
-/* Card body (collapsible) */
 .mon-body{
   display:none;padding:0 16px 16px;
   border-top:1.5px solid var(--bd-base);
   animation:fadeIn .2s ease;
 }
 .mon-card.open .mon-body{display:block;}
-
-/* Semester layout */
 .semesters{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
 @media(max-width:600px){.semesters{grid-template-columns:1fr;}}
-
 .sem-block{
   background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);
   border-radius:14px;padding:12px 14px;
@@ -179,19 +153,14 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   font-size:.82rem;font-weight:700;color:var(--tx-2);
   background:var(--bg-soft);padding:2px 8px;border-radius:99px;
 }
-
-/* Input rows inside semester */
 .inp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
 .inp-row:last-child{margin-bottom:0;}
 .inp-lbl{
   font-size:.73rem;font-weight:600;color:var(--tx-2);
   min-width:72px;flex-shrink:0;
 }
-/* TX row */
 .tx-row{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap;}
 .tx-inp-wrap{position:relative;display:flex;align-items:center;}
-
-/* Shared input style */
 .d-inp{
   width:52px;padding:6px 8px;
   border:1.5px solid var(--bd-base);border-radius:9px;
@@ -204,8 +173,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .d-inp.err{border-color:#f87171;background:#fff5f5;}
 [data-theme="dark"] .d-inp.err{background:#2d1010;}
 .d-inp::placeholder{color:var(--tx-3);font-weight:400;font-size:.8rem;}
-
-/* TX buttons */
 .btn-tx-del,.btn-tx-add{
   width:22px;height:22px;border-radius:6px;border:1.5px solid var(--bd-base);
   background:var(--bg-card);cursor:pointer;font-size:.85rem;font-weight:700;
@@ -215,16 +182,12 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .btn-tx-del{color:#ef4444;}.btn-tx-del:hover{background:#fee2e2;}
 .btn-tx-add{color:#059669;}.btn-tx-add:hover{background:#d1fae5;}
 .btn-tx-del:active,.btn-tx-add:active{transform:scale(.88);}
-
-/* HK display pill inside sem */
 .hk-display{
   margin-top:8px;padding:6px 12px;border-radius:10px;
   background:var(--bg-rdtip);font-size:.78rem;font-weight:700;
   color:var(--tx-2);display:flex;align-items:center;justify-content:space-between;
 }
 .hk-val{font-size:.92rem;font-weight:900;color:var(--tx-1);}
-
-/* ══ YEAR SUMMARY BAR ═══════════════════════ */
 .year-bar{
   margin-top:10px;padding:10px 14px;border-radius:12px;
   background:var(--bg-prog);border:1px solid rgba(128,128,128,.1);
@@ -234,13 +197,9 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .year-bar .yb-label{font-size:.73rem;font-weight:700;color:var(--tx-2);}
 .year-bar .yb-formula{font-size:.68rem;color:var(--tx-3);margin-top:1px;}
 .year-bar .yb-val{font-size:1.2rem;font-weight:900;}
-
-/* ══ GLOBAL ERROR ════════════════════════════ */
 .g-err{background:var(--y-bg);border:1.5px solid var(--y-bd);border-radius:11px;
   padding:10px 14px;font-size:.83rem;font-weight:500;color:var(--y-tx);
   margin-top:5px;margin-bottom:2px;display:none;animation:fadeIn .25s ease;}
-
-/* ══ ACTION BUTTONS ══════════════════════════ */
 .actions{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;margin-top:22px;}
 .btn{border:none;border-radius:13px;font-family:inherit;font-size:.93rem;font-weight:700;
   cursor:pointer;outline:none;display:flex;align-items:center;
@@ -259,8 +218,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .btn-pdf:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .btn-reset{background:var(--bg-soft);color:var(--c-p1);}
 .btn-reset:hover{background:var(--bd-input);transform:translateY(-1px);}
-
-/* ══ TOAST ══════════════════════════════════ */
 .toast{position:fixed;bottom:28px;right:24px;z-index:999;
   background:var(--tx-1);color:var(--bg-card);
   padding:12px 20px;border-radius:14px;font-size:.85rem;font-weight:600;
@@ -268,8 +225,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   opacity:0;pointer-events:none;transform:translateY(12px);
   transition:opacity .3s,transform .3s;}
 .toast.show{opacity:1;pointer-events:auto;transform:translateY(0);}
-
-/* ══ RESULT WRAP ═════════════════════════════ */
 .result-wrap{display:none;margin-top:26px;}
 .result-wrap.visible{display:block !important;
   animation:fadeSlide .45s cubic-bezier(.22,1,.36,1) both;}
@@ -300,8 +255,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .kha  .rank-pill{background:var(--k-pill);color:#1e3a8a}
 .tb   .rank-pill{background:var(--t-pill);color:#451a03}
 .yeu  .rank-pill{background:var(--y-pill);color:#fff}
-
-/* Progress bar */
 .prog-section{margin-bottom:18px;padding:16px 18px 14px;
   border-radius:16px;background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);}
 .prog-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;}
@@ -325,8 +278,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   transition:left .7s cubic-bezier(.22,1,.36,1);}
 .scale-ticks{display:flex;justify-content:space-between;font-size:.66rem;
   font-weight:600;color:var(--tx-3);padding:0 2px;}
-
-/* Radar chart */
 .chart-section{margin-bottom:18px;padding:18px 18px 14px;border-radius:16px;
   background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);animation:fadeIn .5s ease;}
 .ch-label{font-size:.76rem;font-weight:700;color:var(--tx-2);
@@ -344,8 +295,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .cs-lo{color:#dc2626!important;}
 [data-theme="dark"] .cs-hi{color:#34d399!important;}
 [data-theme="dark"] .cs-lo{color:#f87171!important;}
-
-/* Rank desc */
 .rank-desc{border-radius:13px;padding:13px 15px;margin-bottom:16px;
   border:1px solid rgba(128,128,128,.12);background:var(--bg-desc);}
 .rd-title{font-size:.76rem;font-weight:700;color:var(--tx-2);
@@ -354,8 +303,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .rd-tips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;}
 .rd-tip{font-size:.73rem;font-weight:600;padding:4px 10px;border-radius:99px;
   background:var(--bg-rdtip);color:var(--tx-2);}
-
-/* Score table */
 .score-tbl{width:100%;border-collapse:collapse;font-size:.84rem;}
 .score-tbl th{padding:6px 10px;text-align:left;font-size:.71rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.07em;color:var(--tx-2);
@@ -371,8 +318,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .tbl-ico{display:inline-flex;align-items:center;justify-content:center;
   width:20px;height:20px;border-radius:6px;background:rgba(128,128,128,.12);
   font-size:.72rem;margin-right:5px;}
-
-/* History */
 .history-wrap{background:var(--bg-hist);border:2px solid var(--bd-base);
   border-radius:20px;padding:18px 18px 14px;margin-top:24px;display:none;animation:fadeIn .3s ease;}
 .history-wrap.visible{display:block;}
@@ -401,10 +346,8 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   color:var(--tx-3);padding:3px 5px;border-radius:6px;flex-shrink:0;}
 .hist-del:hover{color:#f87171;background:var(--y-bg);}
 .hist-date{font-size:.68rem;color:var(--tx-3);font-weight:500;white-space:nowrap;}
-
 .pg-foot{margin-top:30px;font-size:.72rem;color:var(--tx-3);text-align:center;font-weight:500;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-
 @media(max-width:600px){
   .card-body{padding:18px 14px 24px;}
   .actions{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;}
@@ -446,7 +389,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       <button class="btn btn-reset" onclick="nhapLai()">🔄 Nhập lại</button>
     </div>
 
-    <!-- KẾT QUẢ -->
     <div class="result-wrap" id="resWrap">
       <div class="res-card" id="resCard">
         <div class="res-inner">
@@ -496,9 +438,9 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
             <thead>
               <tr>
                 <th>Môn học</th>
-                <th style="text-align:right">HK1</th>
-                <th style="text-align:right">HK2</th>
-                <th style="text-align:right">TBM năm</th>
+                <th style="text-align:right">TBM HK1</th>
+                <th style="text-align:right">TBM HK2</th>
+                <th style="text-align:right">TBM cả năm</th>
               </tr>
             </thead>
             <tbody id="rTbody"></tbody>
@@ -507,7 +449,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       </div>
     </div>
 
-    <!-- LỊCH SỬ -->
     <div class="history-wrap" id="histWrap">
       <div class="history-header">
         <h3>📋 Kết quả đã lưu</h3>
@@ -568,7 +509,6 @@ const RANK = [
 ════════════════════════════════════════════════ */
 let currentResult  = null;
 let radarChartInst = null;
-// Lưu số lượng cột TX hiện tại của từng môn (mặc định 4)
 const txCount = {};
 MON.forEach(m => txCount[m.id] = 4);
 
@@ -606,7 +546,6 @@ function buildMonUI() {
     card.className = 'mon-card';
     card.id = 'card_' + m.id;
     card.innerHTML = `
-      <!-- HEADER (click toggle) -->
       <div class="mon-header" onclick="toggleMon('${m.id}')">
         <div class="mon-ico-chip">${m.ico}</div>
         <div class="mon-title-wrap">
@@ -616,31 +555,25 @@ function buildMonUI() {
         <div class="mon-tbm-display" id="tbm_${m.id}">—</div>
         <div class="mon-chevron">▼</div>
       </div>
-
-      <!-- BODY (collapsible) -->
       <div class="mon-body">
         <div class="semesters">
-          <!-- HỌC KỲ 1 -->
           <div class="sem-block">
             <div class="sem-title">
               📘 Học kỳ 1
               <span class="sem-result" id="hk1r_${m.id}">HK1: —</span>
             </div>
-            <!-- TX HK1 -->
             <div class="inp-row">
               <span class="inp-lbl">TX (HK1)</span>
               <div class="tx-row" id="tx1_${m.id}"></div>
               <button class="btn-tx-del" onclick="delTX('${m.id}',1)" title="Xoá 1 cột TX">−</button>
               <button class="btn-tx-add" onclick="addTX('${m.id}',1)" title="Thêm 1 cột TX">+</button>
             </div>
-            <!-- GK1 -->
             <div class="inp-row">
               <span class="inp-lbl">Giữa kỳ 1</span>
               <input class="d-inp" type="number" id="gk1_${m.id}"
                      min="0" max="10" step="0.1" placeholder="—"
                      oninput="recalcMon('${m.id}')"/>
             </div>
-            <!-- CK1 -->
             <div class="inp-row">
               <span class="inp-lbl">Cuối kỳ 1</span>
               <input class="d-inp" type="number" id="ck1_${m.id}"
@@ -652,28 +585,23 @@ function buildMonUI() {
               <span class="hk-val" id="hk1v_${m.id}">—</span>
             </div>
           </div>
-
-          <!-- HỌC KỲ 2 -->
           <div class="sem-block">
             <div class="sem-title">
               📗 Học kỳ 2
               <span class="sem-result" id="hk2r_${m.id}">HK2: —</span>
             </div>
-            <!-- TX HK2 -->
             <div class="inp-row">
               <span class="inp-lbl">TX (HK2)</span>
               <div class="tx-row" id="tx2_${m.id}"></div>
               <button class="btn-tx-del" onclick="delTX('${m.id}',2)" title="Xoá 1 cột TX">−</button>
               <button class="btn-tx-add" onclick="addTX('${m.id}',2)" title="Thêm 1 cột TX">+</button>
             </div>
-            <!-- GK2 -->
             <div class="inp-row">
               <span class="inp-lbl">Giữa kỳ 2</span>
               <input class="d-inp" type="number" id="gk2_${m.id}"
                      min="0" max="10" step="0.1" placeholder="—"
                      oninput="recalcMon('${m.id}')"/>
             </div>
-            <!-- CK2 -->
             <div class="inp-row">
               <span class="inp-lbl">Cuối kỳ 2</span>
               <input class="d-inp" type="number" id="ck2_${m.id}"
@@ -686,8 +614,6 @@ function buildMonUI() {
             </div>
           </div>
         </div>
-
-        <!-- TBM CẢ NĂM -->
         <div class="year-bar" id="yearbar_${m.id}">
           <div>
             <div class="yb-label">📊 TBM cả năm</div>
@@ -697,13 +623,11 @@ function buildMonUI() {
         </div>
       </div>`;
     list.appendChild(card);
-    // Build TX inputs
     buildTX(m.id, 1);
     buildTX(m.id, 2);
   });
 }
 
-/* ── Build TX inputs cho 1 học kỳ ── */
 function buildTX(mid, hk) {
   const wrap = document.getElementById(`tx${hk}_${mid}`);
   wrap.innerHTML = '';
@@ -720,13 +644,10 @@ function buildTX(mid, hk) {
   }
 }
 
-/* ── Toggle mở/đóng card ── */
 function toggleMon(mid) {
-  const card = document.getElementById('card_' + mid);
-  card.classList.toggle('open');
+  document.getElementById('card_' + mid).classList.toggle('open');
 }
 
-/* ── Thêm / xoá cột TX ── */
 function addTX(mid, hk) {
   if (txCount[mid] >= 6) return;
   txCount[mid]++;
@@ -741,19 +662,8 @@ function delTX(mid, hk) {
 }
 
 /* ════════════════════════════════════════════════
-   6. LOGIC TÍNH ĐIỂM THEO CHUẨN VN
-   ──────────────────────────────────────────────
-   TB_TX = trung bình các ô TX có giá trị
-   HK    = (TB_TX×2 + GK×3 + CK×5) / 10   [nếu đủ]
-   Nếu thiếu: bỏ qua hệ số, lấy trung bình bình thường
-
-   TBM năm:
-   - Chỉ HK1       → TBM = HK1
-   - Chỉ HK2       → TBM = HK2
-   - Cả HK1 + HK2  → TBM = (HK1 + HK2×2) / 3
+   6. LOGIC TÍNH ĐIỂM
 ════════════════════════════════════════════════ */
-
-/* Lấy số từ input, trả về null nếu trống/invalid */
 function getVal(id) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -761,24 +671,20 @@ function getVal(id) {
   return (!el.value.trim() || isNaN(v) || v < 0 || v > 10) ? null : v;
 }
 
-/* Kiểm tra input có lỗi (nhập nhưng không hợp lệ) */
 function isInvalid(id) {
   const el = document.getElementById(id);
-  if (!el || !el.value.trim()) return false; // trống → OK
+  if (!el || !el.value.trim()) return false;
   const v = parseFloat(el.value);
   return isNaN(v) || v < 0 || v > 10;
 }
 
-/* Trung bình các giá trị không null */
 function avg(arr) {
   const v = arr.filter(x => x !== null);
   return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null;
 }
 
-/* Tính điểm HK theo công thức VN */
 function tinhHK(txVals, gk, ck) {
   const tbTX = avg(txVals);
-  // Xây mảng có hệ số
   const parts = [];
   if (tbTX !== null) parts.push({v: tbTX, w: 2});
   if (gk    !== null) parts.push({v: gk,   w: 3});
@@ -789,18 +695,15 @@ function tinhHK(txVals, gk, ck) {
   return sumV / sumW;
 }
 
-/* Tính TBM năm */
 function tinhTBMNam(hk1, hk2) {
-  if (hk1 !== null && hk2 !== null) return (hk1 + hk2*2) / 3;
+  if (hk1 !== null && hk2 !== null) return (hk1 + hk2 * 2) / 3;
   if (hk1 !== null) return hk1;
   if (hk2 !== null) return hk2;
   return null;
 }
 
-/* Tính và hiển thị realtime cho 1 môn */
 function recalcMon(mid) {
   const n = txCount[mid];
-  // Lấy TX HK1 & HK2
   const tx1 = Array.from({length:n}, (_,i) => getVal(`tx1_${mid}_${i}`));
   const tx2 = Array.from({length:n}, (_,i) => getVal(`tx2_${mid}_${i}`));
   const gk1 = getVal(`gk1_${mid}`), ck1 = getVal(`ck1_${mid}`);
@@ -810,42 +713,39 @@ function recalcMon(mid) {
   const hk2 = tinhHK(tx2, gk2, ck2);
   const tbm = tinhTBMNam(hk1, hk2);
 
-  // Cập nhật HK hiển thị
   const fmt = v => v !== null ? v.toFixed(2) : '—';
   document.getElementById(`hk1v_${mid}`).textContent = fmt(hk1);
   document.getElementById(`hk2v_${mid}`).textContent = fmt(hk2);
   document.getElementById(`hk1r_${mid}`).textContent = `HK1: ${fmt(hk1)}`;
   document.getElementById(`hk2r_${mid}`).textContent = `HK2: ${fmt(hk2)}`;
 
-  // TBM năm
-  const tbmEl  = document.getElementById(`tbmYear_${mid}`);
-  const subEl  = document.getElementById(`sub_${mid}`);
-  const hdrEl  = document.getElementById(`tbm_${mid}`);
-  const fmlEl  = document.getElementById(`formula_${mid}`);
+  const tbmEl = document.getElementById(`tbmYear_${mid}`);
+  const subEl = document.getElementById(`sub_${mid}`);
+  const hdrEl = document.getElementById(`tbm_${mid}`);
+  const fmlEl = document.getElementById(`formula_${mid}`);
 
   if (tbm !== null) {
     const r = Math.round(tbm*100)/100;
     const cl = scColor(r);
-    tbmEl.textContent  = r.toFixed(2);
-    hdrEl.textContent  = r.toFixed(2);
-    hdrEl.className    = 'mon-tbm-display ' + cl;
-    subEl.textContent  =
-      hk1!==null && hk2!==null
-        ? `HK1: ${hk1.toFixed(2)} | HK2: ${hk2.toFixed(2)} | TBM: ${r.toFixed(2)}`
-        : hk1!==null
-          ? `HK1: ${hk1.toFixed(2)} | TBM: ${r.toFixed(2)}`
-          : `HK2: ${hk2.toFixed(2)} | TBM: ${r.toFixed(2)}`;
-    fmlEl.textContent  =
-      hk1!==null && hk2!==null
-        ? `(HK1 + HK2×2) / 3 = ${r.toFixed(2)}`
-        : hk1!==null ? `Chỉ có HK1 = ${r.toFixed(2)}`
-                     : `Chỉ có HK2 = ${r.toFixed(2)}`;
+    tbmEl.textContent = r.toFixed(2);
+    hdrEl.textContent = r.toFixed(2);
+    hdrEl.className   = 'mon-tbm-display ' + cl;
+    const parts = [];
+    if (hk1 !== null) parts.push(`HK1: ${hk1.toFixed(2)}`);
+    if (hk2 !== null) parts.push(`HK2: ${hk2.toFixed(2)}`);
+    subEl.textContent = parts.join(' | ') + ` | TBM: ${r.toFixed(2)}`;
+    if (hk1 !== null && hk2 !== null)
+      fmlEl.textContent = `(HK1 + HK2×2) / 3 = ${r.toFixed(2)}`;
+    else if (hk1 !== null)
+      fmlEl.textContent = `Chỉ có HK1 = ${r.toFixed(2)}`;
+    else
+      fmlEl.textContent = `Chỉ có HK2 = ${r.toFixed(2)}`;
   } else {
-    tbmEl.textContent  = '—';
-    hdrEl.textContent  = '—';
-    hdrEl.className    = 'mon-tbm-display';
-    subEl.textContent  = 'Chưa nhập điểm';
-    fmlEl.textContent  = 'Chưa có dữ liệu';
+    tbmEl.textContent = '—';
+    hdrEl.textContent = '—';
+    hdrEl.className   = 'mon-tbm-display';
+    subEl.textContent = 'Chưa nhập điểm';
+    fmlEl.textContent = 'Chưa có dữ liệu';
   }
 }
 
@@ -864,7 +764,6 @@ function showToast(msg, ok=true) {
   toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
 }
 
-/* Kiểm tra có ô nhập sai dữ liệu */
 function hasInputError(mid) {
   const n = txCount[mid];
   const ids = [
@@ -875,7 +774,8 @@ function hasInputError(mid) {
   return ids.some(id => isInvalid(id));
 }
 
-/* Thu thập TBM từng môn */
+/* FIX 2: collectRows trả về tất cả môn có ít nhất 1 HK;
+   tbm có thể null nếu thiếu 1 học kỳ */
 function collectRows() {
   const rows = [];
   MON.forEach(m => {
@@ -884,8 +784,11 @@ function collectRows() {
     const tx2 = Array.from({length:n},(_,i)=>getVal(`tx2_${m.id}_${i}`));
     const hk1 = tinhHK(tx1, getVal(`gk1_${m.id}`), getVal(`ck1_${m.id}`));
     const hk2 = tinhHK(tx2, getVal(`gk2_${m.id}`), getVal(`ck2_${m.id}`));
-    const tbm = tinhTBMNam(hk1, hk2);
-    if (tbm !== null) rows.push({m, hk1, hk2, tbm: Math.round(tbm*100)/100});
+    const tbmRaw = tinhTBMNam(hk1, hk2);
+    const tbm = tbmRaw !== null ? Math.round(tbmRaw*100)/100 : null;
+    if (hk1 !== null || hk2 !== null) {
+      rows.push({m, hk1, hk2, tbm});
+    }
   });
   return rows;
 }
@@ -897,29 +800,29 @@ function tinhKQ() {
   const gErr = document.getElementById('gErr');
   gErr.style.display = 'none';
 
-  // Kiểm tra lỗi nhập liệu
   const errMons = MON.filter(m => hasInputError(m.id)).map(m=>m.ten);
   if (errMons.length) {
     gErr.innerHTML = `⚠️ Điểm không hợp lệ (ngoài 0–10) tại: <strong>${errMons.join(', ')}</strong>`;
     gErr.style.display = 'block'; hideResult(); return;
   }
 
-  const rows = collectRows();
+  /* allRows = môn có ít nhất 1 HK; tbm luôn khác null nếu có bất kỳ HK nào */
+  const allRows = collectRows();
+  const rows = allRows; // tất cả đều hợp lệ vì tinhTBMNam đã fallback
+
   if (!rows.length) {
-    gErr.innerHTML = '⚠️ Hãy nhập ít nhất <strong>1 môn</strong> để tính điểm trung bình.';
+    gErr.innerHTML = '⚠️ Hãy nhập ít nhất <strong>1 môn</strong> để tính kết quả.';
     gErr.style.display = 'block'; hideResult(); return;
   }
 
-  // TBM chung = trung bình TBM các môn
   const tbmChung = Math.round(
     rows.reduce((s,r)=>s+r.tbm,0)/rows.length * 100
   ) / 100;
 
   const rnk = rankOf(tbmChung);
   const ten = document.getElementById('tenHS').value.trim() || 'Học sinh';
-  currentResult = {ten, dtb:tbmChung, rnk:rnk.cls, rows, ts:Date.now()};
+  currentResult = {ten, dtb:tbmChung, rnk:rnk.cls, rows:allRows, ts:Date.now()};
 
-  // Fill card
   const card = document.getElementById('resCard');
   ['gioi','kha','tb','yeu'].forEach(c=>card.classList.remove(c));
   card.classList.add(rnk.cls);
@@ -940,17 +843,17 @@ function tinhKQ() {
   document.getElementById('rDescTips').innerHTML   =
     rnk.tips.map(t=>`<span class="rd-tip">${t}</span>`).join('');
 
-  // Bảng điểm
+  /* FIX 4: Render bảng — dùng allRows, TBM năm hiển thị "—" nếu null */
   const tbody = document.getElementById('rTbody');
   tbody.innerHTML = '';
-  rows.forEach(({m,hk1,hk2,tbm}) => {
+  allRows.forEach(({m,hk1,hk2,tbm}) => {
     const tr = document.createElement('tr');
-    const cl = scColor(tbm);
+    const cl = tbm !== null ? scColor(tbm) : '';
     tr.innerHTML = `
       <td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
       <td style="text-align:right;color:var(--tx-2)">${hk1!==null?hk1.toFixed(2):'—'}</td>
       <td style="text-align:right;color:var(--tx-2)">${hk2!==null?hk2.toFixed(2):'—'}</td>
-      <td class="${cl}" style="text-align:right">${tbm.toFixed(2)}</td>`;
+      <td class="${cl}" style="text-align:right">${tbm!==null?tbm.toFixed(2):'—'}</td>`;
     tbody.appendChild(tr);
   });
   const tr = document.createElement('tr'); tr.className='ttl-row';
@@ -958,7 +861,6 @@ function tinhKQ() {
                   <td class="${rnk.scCls}" style="text-align:right">${tbmChung.toFixed(2)}</td>`;
   tbody.appendChild(tr);
 
-  // Show result
   const wrap = document.getElementById('resWrap');
   wrap.style.display = '';
   wrap.classList.remove('visible');
@@ -966,6 +868,7 @@ function tinhKQ() {
   wrap.classList.add('visible');
   wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
 
+  /* Radar dùng tất cả môn hợp lệ */
   setTimeout(() => drawRadar(rows, rnk), 200);
 
   document.getElementById('btnSave').disabled = false;
@@ -1072,7 +975,6 @@ function xuatPDF() {
   const sf=(sz,w='normal',c=DARK)=>{doc.setFontSize(sz);doc.setFont('helvetica',w);doc.setTextColor(...c);};
   const rc=(x,y,w,h,c,r=0)=>{doc.setFillColor(...c);r>0?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');};
 
-  // Header
   rc(0,0,W,36,[79,70,229]);rc(W*.55,0,W*.45,36,[124,58,237]);
   doc.setFillColor(255,255,255);doc.circle(23,18,9,'F');
   sf(13,'bold',DARK);doc.text('HT',23,21.5,{align:'center'});
@@ -1082,7 +984,6 @@ function xuatPDF() {
   const ds=`${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
   sf(7,'normal',[180,180,230]);doc.text(`Ngay: ${ds}`,38,27);
 
-  // Student
   let y=42;
   rc(10,y,W-20,20,[245,245,255],4);
   doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.roundedRect(10,y,W-20,20,4,4,'S');
@@ -1092,7 +993,6 @@ function xuatPDF() {
   doc.setDrawColor(...rnkObj.pdfColor);doc.roundedRect(W-58,y+3,46,14,6,6,'S');
   sf(9,'bold',rnkObj.pdfColor);doc.text(rnkObj.lbl.toUpperCase(),W-35,y+12,{align:'center'});
 
-  // Avg
   y+=26;
   rc(10,y,W-20,26,rnkObj.pdfBg,5);
   doc.setDrawColor(...rnkObj.pdfColor);doc.setLineWidth(.4);doc.roundedRect(10,y,W-20,26,5,5,'S');
@@ -1104,7 +1004,6 @@ function xuatPDF() {
   doc.setFillColor(...rnkObj.pdfColor);
   doc.roundedRect(bX2,bY2,bW2*currentResult.dtb/10,bH2,1.5,1.5,'F');
 
-  // Radar image
   if (radarChartInst) {
     y+=32;
     const img=radarChartInst.toBase64Image('image/png',1);
@@ -1115,24 +1014,27 @@ function xuatPDF() {
     y+=86+4;
   } else { y+=32; }
 
-  // Score table
   rc(10,y,W-20,8,[79,70,229]);
   sf(7.5,'bold',WHITE);doc.text('BANG DIEM CHI TIET TUNG MON',W/2,y+5.5,{align:'center'});
   y+=8;
   rc(10,y,W-20,7,[235,235,250]);
   sf(7,'bold',DARK);doc.text('MON HOC',16,y+5);
-  doc.text('HK1',W-60,y+5,{align:'right'});
-  doc.text('HK2',W-38,y+5,{align:'right'});
+  doc.text('TBM HK1',W-60,y+5,{align:'right'});
+  doc.text('TBM HK2',W-38,y+5,{align:'right'});
   doc.text('TBM NAM',W-14,y+5,{align:'right'});
   y+=7;
   currentResult.rows.forEach(({m,hk1,hk2,tbm},i)=>{
     rc(10,y,W-20,8,i%2===0?WHITE:[248,248,255]);
     sf(8,'normal',DARK);doc.text(m.ten,16,y+5.5);
     sf(7.5,'normal',GREY);
-    doc.text(hk1!==null?hk1.toFixed(2):'—',W-60,y+5.5,{align:'right'});
-    doc.text(hk2!==null?hk2.toFixed(2):'—',W-38,y+5.5,{align:'right'});
-    const sc2=tbm>=8?[5,150,105]:tbm>=6.5?[29,78,216]:tbm>=5?[180,100,10]:[185,28,28];
-    sf(8.5,'bold',sc2);doc.text(tbm.toFixed(2),W-14,y+5.5,{align:'right'});
+    doc.text(hk1!==null?Number(hk1).toFixed(2):'—',W-60,y+5.5,{align:'right'});
+    doc.text(hk2!==null?Number(hk2).toFixed(2):'—',W-38,y+5.5,{align:'right'});
+    if (tbm !== null) {
+      const sc2=tbm>=8?[5,150,105]:tbm>=6.5?[29,78,216]:tbm>=5?[180,100,10]:[185,28,28];
+      sf(8.5,'bold',sc2);doc.text(Number(tbm).toFixed(2),W-14,y+5.5,{align:'right'});
+    } else {
+      sf(8.5,'normal',GREY);doc.text('—',W-14,y+5.5,{align:'right'});
+    }
     doc.setDrawColor(...LGREY);doc.setLineWidth(.2);doc.line(10,y+8,W-10,y+8);
     y+=8;
   });
@@ -1142,7 +1044,6 @@ function xuatPDF() {
   sf(10,'bold',rnkObj.pdfColor);doc.text(currentResult.dtb.toFixed(2),W-14,y+6.5,{align:'right'});
   y+=9;
 
-  // Footer
   const fY=doc.internal.pageSize.getHeight()-10;
   doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.line(10,fY-4,W-10,fY-4);
   sf(6.5,'normal',GREY);doc.text('He Thong Xep Loai Hoc Luc · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
@@ -1194,7 +1095,6 @@ function renderLichSu() {
 
 function napLai(rec) {
   document.getElementById('tenHS').value = rec.ten;
-  // Chỉ hiển thị kết quả, không restore từng ô (dữ liệu chi tiết phức tạp)
   currentResult = rec;
   if (rec.rows && rec.rows.length) {
     const rnk = rankOf(rec.dtb);
@@ -1208,14 +1108,15 @@ function napLai(rec) {
     document.getElementById('rAvg').textContent    = Number(rec.dtb).toFixed(2);
     document.getElementById('rDescText').textContent = rnk.desc;
     document.getElementById('rDescTips').innerHTML   = rnk.tips.map(t=>`<span class="rd-tip">${t}</span>`).join('');
+
     const tbody = document.getElementById('rTbody'); tbody.innerHTML='';
     rec.rows.forEach(({m,hk1,hk2,tbm})=>{
       const tr=document.createElement('tr');
-      const cl=scColor(tbm);
+      const cl=tbm!=null?scColor(Number(tbm)):'';
       tr.innerHTML=`<td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
         <td style="text-align:right;color:var(--tx-2)">${hk1!=null?Number(hk1).toFixed(2):'—'}</td>
         <td style="text-align:right;color:var(--tx-2)">${hk2!=null?Number(hk2).toFixed(2):'—'}</td>
-        <td class="${cl}" style="text-align:right">${Number(tbm).toFixed(2)}</td>`;
+        <td class="${cl}" style="text-align:right">${tbm!=null?Number(tbm).toFixed(2):'—'}</td>`;
       tbody.appendChild(tr);
     });
     const tr=document.createElement('tr');tr.className='ttl-row';
@@ -1223,10 +1124,14 @@ function napLai(rec) {
     tr.innerHTML=`<td colspan="3"><span class="tbl-ico">📊</span>TBM cả năm</td>
       <td class="${rnkO.scCls}" style="text-align:right">${Number(rec.dtb).toFixed(2)}</td>`;
     tbody.appendChild(tr);
+
     const pct=(rec.dtb/10*100).toFixed(1)+'%';
     wrap.style.display=''; wrap.classList.remove('visible'); void wrap.offsetWidth; wrap.classList.add('visible');
     setTimeout(()=>{ document.getElementById('rScaleFill').style.width=pct; document.getElementById('rNeedle').style.left=pct; },120);
-    setTimeout(()=>drawRadar(rec.rows,rnk),200);
+
+    /* Radar chỉ dùng môn có tbm khác null */
+    const radarRows = rec.rows.filter(r => r.tbm != null);
+    if (radarRows.length) setTimeout(()=>drawRadar(radarRows, rnk), 200);
     document.getElementById('btnPdf').disabled=false;
   }
   window.scrollTo({top:0,behavior:'smooth'});
