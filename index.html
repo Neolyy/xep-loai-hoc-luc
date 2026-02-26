@@ -9,9 +9,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-
 <style>
-/* ══ TOKENS — LIGHT ═══════════════════════ */
+/* ══ TOKENS LIGHT ══════════════════════════ */
 :root{
   --bg-page:#eef2ff;--bg-card:#fff;--bg-input:#f8f9ff;
   --bg-subj:#f8f9ff;--bg-hist:#f8f9ff;--bg-histrow:#fff;
@@ -30,12 +29,10 @@
   --sh-md:0 8px 32px rgba(99,102,241,.16);
   --sh-lg:0 20px 56px rgba(99,102,241,.22);
   --td:.3s;
-  /* chart grid lines */
   --chart-grid:rgba(99,102,241,.15);
-  --chart-tick:#9ca3af;
-  --chart-pt-label:#4b5563;
+  --chart-tick:#9ca3af;--chart-pt-label:#4b5563;
 }
-/* ══ TOKENS — DARK ════════════════════════ */
+/* ══ TOKENS DARK ═══════════════════════════ */
 [data-theme="dark"]{
   --bg-page:#0f0e1a;--bg-card:#1a1830;--bg-input:#231f3a;
   --bg-subj:#201d35;--bg-hist:#1e1b30;--bg-histrow:#27243f;
@@ -50,21 +47,17 @@
   --k-bg:#0c1f4a;--k-bd:#1e3a8a;--k-tx:#93c5fd;--k-pill:#1d4ed8;
   --t-bg:#2d1f00;--t-bd:#78350f;--t-tx:#fde68a;--t-pill:#d97706;
   --y-bg:#2d0a0a;--y-bd:#7f1d1d;--y-tx:#fca5a5;--y-pill:#dc2626;
-  --sh-sm:0 2px 8px rgba(0,0,0,.4);
-  --sh-md:0 8px 32px rgba(0,0,0,.5);
+  --sh-sm:0 2px 8px rgba(0,0,0,.4);--sh-md:0 8px 32px rgba(0,0,0,.5);
   --sh-lg:0 20px 56px rgba(0,0,0,.65);
-  --chart-grid:rgba(200,200,255,.10);
-  --chart-tick:#5c597e;
-  --chart-pt-label:#a09ec0;
+  --chart-grid:rgba(200,200,255,.10);--chart-tick:#5c597e;--chart-pt-label:#a09ec0;
 }
 
-/* ══ GLOBAL ════════════════════════════════ */
+/* ══ RESET & BASE ═══════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;
   transition:background-color var(--td) ease,border-color var(--td) ease,
-             color var(--td) ease,box-shadow var(--td) ease;}
-.btn,.spin,.subj-card,.hist-row{transition:background-color var(--td) ease,
-  border-color var(--td) ease,color var(--td) ease,
-  box-shadow var(--td) ease,transform .15s ease;}
+  color var(--td) ease,box-shadow var(--td) ease;}
+.btn,.spin,.mon-card,.hist-row{transition:background-color var(--td) ease,
+  border-color var(--td) ease,color var(--td) ease,box-shadow var(--td) ease,transform .15s ease;}
 
 body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   background-image:radial-gradient(circle,var(--dot-clr) 1px,transparent 1px);
@@ -72,16 +65,15 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   display:flex;flex-direction:column;align-items:center;
   padding:36px 16px 60px;color:var(--tx-1);}
 
-/* ══ Dark toggle ═══════════════════════════ */
-.dm-toggle{position:fixed;top:18px;right:18px;z-index:100;
+/* ══ DARK TOGGLE ════════════════════════════ */
+.dm-toggle{position:fixed;top:18px;right:18px;z-index:200;
   width:48px;height:48px;border-radius:50%;border:2px solid var(--bd-base);
   background:var(--bg-card);box-shadow:var(--sh-md);cursor:pointer;
   display:flex;align-items:center;justify-content:center;font-size:1.3rem;}
 .dm-toggle:hover{transform:scale(1.1) rotate(15deg);box-shadow:var(--sh-lg);}
-.dm-toggle:active{transform:scale(.93);}
 .dm-toggle::after{content:attr(data-ico);}
 
-/* ══ Header ════════════════════════════════ */
+/* ══ HEADER ═════════════════════════════════ */
 .pg-head{text-align:center;margin-bottom:28px;}
 .pg-head .crown{font-size:3.2rem;display:block;margin-bottom:8px;
   animation:float 3s ease-in-out infinite;
@@ -92,24 +84,24 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
 .pg-head p{color:var(--tx-2);font-size:.88rem;margin-top:5px;font-weight:500;}
 
-/* ══ Card ══════════════════════════════════ */
+/* ══ CARD ═══════════════════════════════════ */
 .card{background:var(--bg-card);border-radius:28px;box-shadow:var(--sh-lg);
-  width:100%;max-width:660px;overflow:hidden;
+  width:100%;max-width:900px;overflow:hidden;
   animation:slideUp .5s cubic-bezier(.22,1,.36,1) both;}
 @keyframes slideUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
 .card-stripe{height:5px;transition:none;
   background:linear-gradient(90deg,#6366f1,#a78bfa,#7c3aed,#818cf8,#4f46e5);
   background-size:200%;animation:shimmer 3s linear infinite;}
 @keyframes shimmer{0%{background-position:0%}100%{background-position:200%}}
-.card-body{padding:30px 30px 34px;}
+.card-body{padding:28px 28px 32px;}
 
-/* ══ Section label ═════════════════════════ */
+/* ══ SECTION LABEL ══════════════════════════ */
 .sec-lbl{display:flex;align-items:center;gap:8px;font-size:.71rem;font-weight:700;
-  text-transform:uppercase;letter-spacing:.08em;color:var(--c-p1);margin-bottom:13px;}
+  text-transform:uppercase;letter-spacing:.08em;color:var(--c-p1);margin-bottom:14px;}
 .sec-lbl::after{content:'';flex:1;height:1.5px;
   background:linear-gradient(90deg,var(--bd-base),transparent);border-radius:99px;}
 
-/* ══ Name ══════════════════════════════════ */
+/* ══ NAME FIELD ═════════════════════════════ */
 .name-field{margin-bottom:24px;}
 .fi{position:relative;display:flex;align-items:center;}
 .fi .fi-ico{position:absolute;left:13px;font-size:1.05rem;pointer-events:none;}
@@ -120,44 +112,135 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   box-shadow:0 0 0 4px rgba(99,102,241,.14);}
 .fi input::placeholder{color:var(--tx-3);font-weight:400;}
 
-/* ══ Subjects ══════════════════════════════ */
-.subj-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:8px;}
-.subj-card{background:var(--bg-subj);border:2px solid var(--bd-base);
-  border-radius:20px;padding:13px 14px 11px;box-shadow:var(--sh-sm);}
-.subj-card:hover{transform:translateY(-2px);box-shadow:var(--sh-md);}
-.subj-card:focus-within{border-color:var(--c-p1);background:var(--bg-card);
-  box-shadow:0 0 0 4px rgba(99,102,241,.14);transform:translateY(-2px);}
-.subj-card.error{border-color:#f87171;animation:shake .3s ease;}
-[data-theme="light"] .subj-card.error{background:#fff5f5;}
-[data-theme="dark"]  .subj-card.error{background:#2d1010;}
-@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-5px)}75%{transform:translateX(5px)}}
-.subj-lbl{display:flex;align-items:center;gap:7px;margin-bottom:8px;user-select:none;}
-.s-ico{width:27px;height:27px;background:var(--bg-soft);border-radius:8px;
-  display:flex;align-items:center;justify-content:center;font-size:.92rem;flex-shrink:0;}
-.s-name{font-size:.79rem;font-weight:700;color:var(--tx-2);}
-.score-row{display:flex;align-items:center;gap:6px;}
-.spin{width:25px;height:25px;border-radius:7px;border:1.5px solid var(--bd-base);
-  background:var(--bg-card);color:var(--c-p1);font-size:.95rem;font-weight:700;
-  cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.spin:hover{background:var(--bg-soft);}.spin:active{transform:scale(.88);}
-.score-row input[type=number]{flex:1;width:0;border:none;background:transparent;
-  font-family:inherit;font-size:1.3rem;font-weight:800;color:var(--tx-1);
-  outline:none;text-align:center;}
-.score-row input::-webkit-outer-spin-button,
-.score-row input::-webkit-inner-spin-button{-webkit-appearance:none;}
-.score-row input[type=number]{-moz-appearance:textfield;}
-.mini-bar-bg{margin-top:8px;height:4px;border-radius:99px;background:var(--bd-base);overflow:hidden;}
-.mini-bar-fill{height:100%;border-radius:99px;
-  background:linear-gradient(90deg,var(--c-p1),var(--c-acc));
-  width:0%;transition:width .35s cubic-bezier(.22,1,.36,1);}
-.f-err{font-size:.69rem;color:#f87171;font-weight:500;margin-top:4px;display:none;}
+/* ══ MÔN HỌC CARD ═══════════════════════════ */
+.mon-list{display:flex;flex-direction:column;gap:14px;margin-bottom:10px;}
 
-/* ══ Global error ══════════════════════════ */
+.mon-card{
+  background:var(--bg-subj);border:2px solid var(--bd-base);
+  border-radius:20px;overflow:hidden;box-shadow:var(--sh-sm);
+  transition:box-shadow var(--td) ease,border-color var(--td) ease;
+}
+.mon-card:focus-within{border-color:var(--c-p1);box-shadow:var(--sh-md);}
+.mon-card.has-error{border-color:#f87171;}
+
+/* Card header (click to expand) */
+.mon-header{
+  display:flex;align-items:center;gap:12px;
+  padding:13px 16px;cursor:pointer;user-select:none;
+  background:var(--bg-subj);
+}
+.mon-header:hover{background:var(--bg-soft);}
+.mon-ico-chip{
+  width:32px;height:32px;border-radius:10px;background:var(--bg-soft);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
+}
+.mon-title-wrap{flex:1;}
+.mon-title{font-size:.9rem;font-weight:800;color:var(--tx-1);}
+.mon-subtitle{font-size:.72rem;color:var(--tx-3);margin-top:1px;font-weight:500;}
+.mon-tbm-display{
+  font-size:1.1rem;font-weight:900;
+  min-width:48px;text-align:right;
+}
+.mon-tbm-display.sc-g{color:#059669}
+.mon-tbm-display.sc-k{color:#2563eb}
+.mon-tbm-display.sc-t{color:#d97706}
+.mon-tbm-display.sc-y{color:#dc2626}
+[data-theme="dark"] .mon-tbm-display.sc-g{color:#34d399}
+[data-theme="dark"] .mon-tbm-display.sc-k{color:#60a5fa}
+[data-theme="dark"] .mon-tbm-display.sc-t{color:#fbbf24}
+[data-theme="dark"] .mon-tbm-display.sc-y{color:#f87171}
+
+.mon-chevron{font-size:.8rem;color:var(--tx-3);margin-left:4px;
+  transition:transform .25s ease;flex-shrink:0;}
+.mon-card.open .mon-chevron{transform:rotate(180deg);}
+
+/* Card body (collapsible) */
+.mon-body{
+  display:none;padding:0 16px 16px;
+  border-top:1.5px solid var(--bd-base);
+  animation:fadeIn .2s ease;
+}
+.mon-card.open .mon-body{display:block;}
+
+/* Semester layout */
+.semesters{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px;}
+@media(max-width:600px){.semesters{grid-template-columns:1fr;}}
+
+.sem-block{
+  background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);
+  border-radius:14px;padding:12px 14px;
+}
+.sem-title{
+  font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:.07em;
+  color:var(--c-p1);margin-bottom:10px;
+  display:flex;align-items:center;justify-content:space-between;
+}
+.sem-result{
+  font-size:.82rem;font-weight:700;color:var(--tx-2);
+  background:var(--bg-soft);padding:2px 8px;border-radius:99px;
+}
+
+/* Input rows inside semester */
+.inp-row{display:flex;align-items:center;gap:8px;margin-bottom:7px;}
+.inp-row:last-child{margin-bottom:0;}
+.inp-lbl{
+  font-size:.73rem;font-weight:600;color:var(--tx-2);
+  min-width:72px;flex-shrink:0;
+}
+/* TX row */
+.tx-row{display:flex;align-items:center;gap:6px;flex:1;flex-wrap:wrap;}
+.tx-inp-wrap{position:relative;display:flex;align-items:center;}
+
+/* Shared input style */
+.d-inp{
+  width:52px;padding:6px 8px;
+  border:1.5px solid var(--bd-base);border-radius:9px;
+  font-family:inherit;font-size:.88rem;font-weight:700;
+  color:var(--tx-1);background:var(--bg-card);outline:none;
+  text-align:center;
+  transition:border-color .2s,box-shadow .2s;
+}
+.d-inp:focus{border-color:var(--c-p1);box-shadow:0 0 0 3px rgba(99,102,241,.13);}
+.d-inp.err{border-color:#f87171;background:#fff5f5;}
+[data-theme="dark"] .d-inp.err{background:#2d1010;}
+.d-inp::placeholder{color:var(--tx-3);font-weight:400;font-size:.8rem;}
+
+/* TX buttons */
+.btn-tx-del,.btn-tx-add{
+  width:22px;height:22px;border-radius:6px;border:1.5px solid var(--bd-base);
+  background:var(--bg-card);cursor:pointer;font-size:.85rem;font-weight:700;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  transition:background .15s,transform .1s;
+}
+.btn-tx-del{color:#ef4444;}.btn-tx-del:hover{background:#fee2e2;}
+.btn-tx-add{color:#059669;}.btn-tx-add:hover{background:#d1fae5;}
+.btn-tx-del:active,.btn-tx-add:active{transform:scale(.88);}
+
+/* HK display pill inside sem */
+.hk-display{
+  margin-top:8px;padding:6px 12px;border-radius:10px;
+  background:var(--bg-rdtip);font-size:.78rem;font-weight:700;
+  color:var(--tx-2);display:flex;align-items:center;justify-content:space-between;
+}
+.hk-val{font-size:.92rem;font-weight:900;color:var(--tx-1);}
+
+/* ══ YEAR SUMMARY BAR ═══════════════════════ */
+.year-bar{
+  margin-top:10px;padding:10px 14px;border-radius:12px;
+  background:var(--bg-prog);border:1px solid rgba(128,128,128,.1);
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  flex-wrap:wrap;
+}
+.year-bar .yb-label{font-size:.73rem;font-weight:700;color:var(--tx-2);}
+.year-bar .yb-formula{font-size:.68rem;color:var(--tx-3);margin-top:1px;}
+.year-bar .yb-val{font-size:1.2rem;font-weight:900;}
+
+/* ══ GLOBAL ERROR ════════════════════════════ */
 .g-err{background:var(--y-bg);border:1.5px solid var(--y-bd);border-radius:11px;
   padding:10px 14px;font-size:.83rem;font-weight:500;color:var(--y-tx);
   margin-top:5px;margin-bottom:2px;display:none;animation:fadeIn .25s ease;}
 
-/* ══ Buttons ═══════════════════════════════ */
+/* ══ ACTION BUTTONS ══════════════════════════ */
 .actions{display:grid;grid-template-columns:1fr auto auto auto;gap:10px;margin-top:22px;}
 .btn{border:none;border-radius:13px;font-family:inherit;font-size:.93rem;font-weight:700;
   cursor:pointer;outline:none;display:flex;align-items:center;
@@ -177,26 +260,19 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .btn-reset{background:var(--bg-soft);color:var(--c-p1);}
 .btn-reset:hover{background:var(--bd-input);transform:translateY(-1px);}
 
-/* ══ Toast ═════════════════════════════════ */
+/* ══ TOAST ══════════════════════════════════ */
 .toast{position:fixed;bottom:28px;right:24px;z-index:999;
   background:var(--tx-1);color:var(--bg-card);
   padding:12px 20px;border-radius:14px;font-size:.85rem;font-weight:600;
-  box-shadow:0 8px 32px rgba(0,0,0,.3);
-  display:flex;align-items:center;gap:8px;
+  box-shadow:0 8px 32px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;
   opacity:0;pointer-events:none;transform:translateY(12px);
   transition:opacity .3s,transform .3s;}
 .toast.show{opacity:1;pointer-events:auto;transform:translateY(0);}
 
-/* ══ Result ════════════════════════════════ */
-.result-wrap{
-  display:none;          /* hidden by default */
-  margin-top:26px;
-  /* ← KHÔNG dùng visibility/opacity ở đây để tránh xung đột với inline style */
-}
-.result-wrap.visible{
-  display:block !important;  /* !important để thắng mọi inline style override */
-  animation:fadeSlide .45s cubic-bezier(.22,1,.36,1) both;
-}
+/* ══ RESULT WRAP ═════════════════════════════ */
+.result-wrap{display:none;margin-top:26px;}
+.result-wrap.visible{display:block !important;
+  animation:fadeSlide .45s cubic-bezier(.22,1,.36,1) both;}
 @keyframes fadeSlide{
   from{opacity:0;transform:translateY(22px) scale(.98)}
   to  {opacity:1;transform:translateY(0)    scale(1)}}
@@ -225,7 +301,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .tb   .rank-pill{background:var(--t-pill);color:#451a03}
 .yeu  .rank-pill{background:var(--y-pill);color:#fff}
 
-/* ══ Progress section ══════════════════════ */
+/* Progress bar */
 .prog-section{margin-bottom:18px;padding:16px 18px 14px;
   border-radius:16px;background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);}
 .prog-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:10px;}
@@ -250,65 +326,26 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .scale-ticks{display:flex;justify-content:space-between;font-size:.66rem;
   font-weight:600;color:var(--tx-3);padding:0 2px;}
 
-/* ══ RADAR CHART SECTION (new) ═════════════ */
-.chart-section{
-  margin-bottom:18px;
-  padding:18px 18px 14px;
-  border-radius:16px;
-  background:var(--bg-prog);
-  border:1px solid rgba(128,128,128,.12);
-  animation:fadeIn .5s ease;
-}
-.chart-header{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:4px;
-}
-.chart-header .ch-label{
-  font-size:.76rem;font-weight:700;color:var(--tx-2);
-  text-transform:uppercase;letter-spacing:.06em;
-}
-/* Legend chips */
-.chart-legend{
-  display:flex;align-items:center;gap:6px;
-  flex-wrap:wrap;margin-bottom:12px;
-}
-.leg-chip{
-  display:flex;align-items:center;gap:5px;
-  font-size:.7rem;font-weight:600;color:var(--tx-2);
-  padding:3px 9px;border-radius:99px;
-  background:var(--bg-rdtip);
-}
+/* Radar chart */
+.chart-section{margin-bottom:18px;padding:18px 18px 14px;border-radius:16px;
+  background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);animation:fadeIn .5s ease;}
+.ch-label{font-size:.76rem;font-weight:700;color:var(--tx-2);
+  text-transform:uppercase;letter-spacing:.06em;}
+.chart-legend{display:flex;align-items:center;gap:6px;flex-wrap:wrap;margin-bottom:12px;}
+.leg-chip{display:flex;align-items:center;gap:5px;font-size:.7rem;font-weight:600;
+  color:var(--tx-2);padding:3px 9px;border-radius:99px;background:var(--bg-rdtip);}
 .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-/* Canvas wrapper — keeps chart square & responsive */
-.chart-wrap{
-  position:relative;
-  width:100%;
-  max-width:340px;
-  margin:0 auto;
-  aspect-ratio:1/1;
-}
-/* Stats row below chart */
-.chart-stats{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:8px;
-  margin-top:14px;
-}
-.cstat{
-  background:var(--bg-rdtip);
-  border-radius:12px;
-  padding:9px 10px;
-  text-align:center;
-}
-.cstat .cs-val{font-size:1.15rem;font-weight:900;color:var(--tx-1);}
-.cstat .cs-lbl{font-size:.68rem;font-weight:600;color:var(--tx-3);margin-top:2px;}
-/* colour classes for stats */
+.chart-wrap{position:relative;width:100%;max-width:380px;margin:0 auto;aspect-ratio:1/1;}
+.chart-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;}
+.cstat{background:var(--bg-rdtip);border-radius:12px;padding:9px 10px;text-align:center;}
+.cs-val{font-size:1.15rem;font-weight:900;color:var(--tx-1);}
+.cs-lbl{font-size:.68rem;font-weight:600;color:var(--tx-3);margin-top:2px;}
 .cs-hi{color:#059669!important;}
 .cs-lo{color:#dc2626!important;}
 [data-theme="dark"] .cs-hi{color:#34d399!important;}
 [data-theme="dark"] .cs-lo{color:#f87171!important;}
 
-/* ══ Rank description ══════════════════════ */
+/* Rank desc */
 .rank-desc{border-radius:13px;padding:13px 15px;margin-bottom:16px;
   border:1px solid rgba(128,128,128,.12);background:var(--bg-desc);}
 .rd-title{font-size:.76rem;font-weight:700;color:var(--tx-2);
@@ -318,28 +355,26 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .rd-tip{font-size:.73rem;font-weight:600;padding:4px 10px;border-radius:99px;
   background:var(--bg-rdtip);color:var(--tx-2);}
 
-/* ══ Score table ═══════════════════════════ */
+/* Score table */
 .score-tbl{width:100%;border-collapse:collapse;font-size:.84rem;}
 .score-tbl th{padding:6px 10px;text-align:left;font-size:.71rem;font-weight:700;
   text-transform:uppercase;letter-spacing:.07em;color:var(--tx-2);
   border-bottom:1.5px solid rgba(128,128,128,.15);}
 .score-tbl td{padding:8px 10px;border-bottom:1px solid rgba(128,128,128,.08);
   color:var(--tx-1);font-weight:500;}
-.score-tbl td:last-child{text-align:right;font-weight:800;font-size:.92rem;}
-.score-tbl tbody tr{transition:background .15s;}
+.score-tbl td:last-child{text-align:right;font-weight:800;}
 .score-tbl tbody tr:hover{background:var(--bg-tblhov);}
 .score-tbl tr.ttl-row td{border-bottom:none;font-weight:900;font-size:.98rem;padding-top:11px;}
-.tbl-ico{display:inline-flex;align-items:center;justify-content:center;
-  width:21px;height:21px;border-radius:6px;background:rgba(128,128,128,.12);
-  font-size:.73rem;margin-right:5px;}
 .sc-g{color:#059669}.sc-k{color:#2563eb}.sc-t{color:#d97706}.sc-y{color:#dc2626}
 [data-theme="dark"] .sc-g{color:#34d399}[data-theme="dark"] .sc-k{color:#60a5fa}
 [data-theme="dark"] .sc-t{color:#fbbf24}[data-theme="dark"] .sc-y{color:#f87171}
+.tbl-ico{display:inline-flex;align-items:center;justify-content:center;
+  width:20px;height:20px;border-radius:6px;background:rgba(128,128,128,.12);
+  font-size:.72rem;margin-right:5px;}
 
-/* ══ History ═══════════════════════════════ */
+/* History */
 .history-wrap{background:var(--bg-hist);border:2px solid var(--bd-base);
-  border-radius:20px;padding:18px 18px 14px;margin-top:24px;
-  display:none;animation:fadeIn .3s ease;}
+  border-radius:20px;padding:18px 18px 14px;margin-top:24px;display:none;animation:fadeIn .3s ease;}
 .history-wrap.visible{display:block;}
 .history-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:13px;}
 .history-header h3{font-size:.85rem;font-weight:800;color:var(--c-p1);}
@@ -353,7 +388,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .hist-row:last-child{margin-bottom:0;}
 .hist-rank-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
 .dot-gioi{background:#34d399}.dot-kha{background:#60a5fa}
-.dot-tb  {background:#fbbf24}.dot-yeu{background:#f87171}
+.dot-tb{background:#fbbf24}.dot-yeu{background:#f87171}
 .hist-name{font-size:.87rem;font-weight:700;flex:1;color:var(--tx-1);
   white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 .hist-avg{font-size:.87rem;font-weight:800;margin-left:auto;margin-right:4px;}
@@ -370,14 +405,11 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .pg-foot{margin-top:30px;font-size:.72rem;color:var(--tx-3);text-align:center;font-weight:500;}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-/* ══ Responsive ════════════════════════════ */
-@media(max-width:560px){
-  .card-body{padding:20px 16px 26px;}
-  .subj-grid{grid-template-columns:1fr;}
-  .actions{grid-template-columns:1fr 1fr;grid-template-rows:auto auto auto;}
+@media(max-width:600px){
+  .card-body{padding:18px 14px 24px;}
+  .actions{grid-template-columns:1fr 1fr;grid-template-rows:auto auto;}
   .btn-calc{grid-column:1/-1;}
   .dm-toggle{top:12px;right:12px;width:42px;height:42px;font-size:1.1rem;}
-  .chart-stats{grid-template-columns:repeat(3,1fr);}
 }
 </style>
 </head>
@@ -388,7 +420,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 <header class="pg-head">
   <span class="crown">🎓</span>
   <h1>Xếp Loại Học Lực Học Sinh</h1>
-  <p>Nhập điểm các môn học để tính kết quả và xếp loại tự động</p>
+  <p>Bảng điểm chi tiết theo chuẩn học bạ Việt Nam</p>
 </header>
 
 <div class="card">
@@ -403,8 +435,8 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       </div>
     </div>
 
-    <p class="sec-lbl">📚 Điểm các môn học (0 – 10)</p>
-    <div class="subj-grid" id="subjGrid"></div>
+    <p class="sec-lbl">📚 Điểm các môn học</p>
+    <div class="mon-list" id="monList"></div>
     <div class="g-err" id="gErr"></div>
 
     <div class="actions">
@@ -414,12 +446,10 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       <button class="btn btn-reset" onclick="nhapLai()">🔄 Nhập lại</button>
     </div>
 
-    <!-- ── KẾT QUẢ ── -->
+    <!-- KẾT QUẢ -->
     <div class="result-wrap" id="resWrap">
       <div class="res-card" id="resCard">
         <div class="res-inner">
-
-          <!-- Tên + badge -->
           <div class="res-top">
             <div class="res-student">
               <div class="res-avatar" id="rAvatar">🏆</div>
@@ -430,11 +460,9 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
             </div>
             <div class="rank-pill" id="rPill">—</div>
           </div>
-
-          <!-- Thanh tiến trình -->
           <div class="prog-section">
             <div class="prog-header">
-              <span class="p-label">📊 Điểm trung bình</span>
+              <span class="p-label">📊 Điểm trung bình cả năm</span>
               <span class="p-val" id="rAvg">—</span>
             </div>
             <div class="scale-bar">
@@ -447,52 +475,39 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
               <span>6.5</span><span>8</span><span>10</span>
             </div>
           </div>
-
-          <!-- ══ RADAR CHART ══════════════════════ -->
-          <div class="chart-section" id="chartSection">
-            <div class="chart-header">
-              <span class="ch-label">📡 Biểu đồ Radar điểm các môn</span>
+          <div class="chart-section">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;">
+              <span class="ch-label">📡 Biểu đồ Radar TBM các môn</span>
             </div>
             <div class="chart-legend" id="chartLegend"></div>
-            <div class="chart-wrap">
-              <canvas id="radarChart"></canvas>
-            </div>
-            <!-- Thống kê nhanh bên dưới biểu đồ -->
+            <div class="chart-wrap"><canvas id="radarChart"></canvas></div>
             <div class="chart-stats">
-              <div class="cstat">
-                <div class="cs-val cs-hi" id="csMax">—</div>
-                <div class="cs-lbl">Điểm cao nhất</div>
-              </div>
-              <div class="cstat">
-                <div class="cs-val cs-lo" id="csMin">—</div>
-                <div class="cs-lbl">Điểm thấp nhất</div>
-              </div>
-              <div class="cstat">
-                <div class="cs-val" id="csAvg">—</div>
-                <div class="cs-lbl">Trung bình</div>
-              </div>
+              <div class="cstat"><div class="cs-val cs-hi" id="csMax">—</div><div class="cs-lbl">Môn cao nhất</div></div>
+              <div class="cstat"><div class="cs-val cs-lo" id="csMin">—</div><div class="cs-lbl">Môn thấp nhất</div></div>
+              <div class="cstat"><div class="cs-val" id="csAvg">—</div><div class="cs-lbl">TBM cả năm</div></div>
             </div>
           </div>
-          <!-- ══ /RADAR CHART ══════════════════════ -->
-
-          <!-- Mô tả xếp loại -->
           <div class="rank-desc">
             <div class="rd-title">📌 Ý nghĩa xếp loại</div>
             <div class="rd-text" id="rDescText">—</div>
             <div class="rd-tips" id="rDescTips"></div>
           </div>
-
-          <!-- Bảng điểm -->
           <table class="score-tbl">
-            <thead><tr><th>Môn học</th><th style="text-align:right">Điểm</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Môn học</th>
+                <th style="text-align:right">HK1</th>
+                <th style="text-align:right">HK2</th>
+                <th style="text-align:right">TBM năm</th>
+              </tr>
+            </thead>
             <tbody id="rTbody"></tbody>
           </table>
-
         </div>
       </div>
-    </div><!-- /result-wrap -->
+    </div>
 
-    <!-- Lịch sử -->
+    <!-- LỊCH SỬ -->
     <div class="history-wrap" id="histWrap">
       <div class="history-header">
         <h3>📋 Kết quả đã lưu</h3>
@@ -504,124 +519,341 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   </div>
 </div>
 
-<footer class="pg-foot">© 2025 · Hệ Thống Xếp Loại Học Lực · Dữ liệu lưu trên trình duyệt của bạn</footer>
+<footer class="pg-foot">© 2025 · Hệ Thống Xếp Loại Học Lực · Chuẩn học bạ Việt Nam</footer>
 <div class="toast" id="toast"></div>
 
-
 <script>
-/* ══════════════════════════════════════════════
-   DATA
-══════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   1. DỮ LIỆU MÔN HỌC
+════════════════════════════════════════════════ */
 const MON = [
-  {id:'toan',ten:'Toán',      ico:'➕'},
-  {id:'van', ten:'Ngữ văn',   ico:'📖'},
-  {id:'anh', ten:'Tiếng Anh', ico:'🔤'},
-  {id:'ly',  ten:'Vật lý',    ico:'⚡'},
-  {id:'hoa', ten:'Hóa học',   ico:'🧪'},
-  {id:'sinh',ten:'Sinh học',  ico:'🌿'},
-  {id:'su',  ten:'Lịch sử',   ico:'🏛️'},
-  {id:'dia', ten:'Địa lý',    ico:'🌍'},
-  {id:'gdcd', ten:'GDKT&PL', ico:'⚖️'},
-  {id:'tin',  ten:'Tin học', ico:'💻'},
-  {id:'cn',   ten:'Công nghệ', ico:'🛠️'},
-  {id:'theduc', ten:'Thể dục', ico:'🏃'},
+  {id:'toan',  ten:'Toán',                    ico:'➕'},
+  {id:'van',   ten:'Ngữ văn',                  ico:'📖'},
+  {id:'anh',   ten:'Tiếng Anh',               ico:'🔤'},
+  {id:'ly',    ten:'Vật lý',                   ico:'⚡'},
+  {id:'hoa',   ten:'Hóa học',                  ico:'🧪'},
+  {id:'sinh',  ten:'Sinh học',                 ico:'🌿'},
+  {id:'su',    ten:'Lịch sử',                  ico:'🏛️'},
+  {id:'dia',   ten:'Địa lý',                   ico:'🌍'},
+  {id:'gdcd',  ten:'GDKT & Pháp luật',         ico:'⚖️'},
+  {id:'tin',   ten:'Tin học',                  ico:'💻'},
+  {id:'gdqp',  ten:'GD Quốc phòng',            ico:'🛡️'},
+  {id:'cn',    ten:'Công nghệ',                ico:'🛠️'},
 ];
 
+/* ════════════════════════════════════════════════
+   2. XẾP LOẠI
+════════════════════════════════════════════════ */
 const RANK = [
-  { min:8.0, lbl:'Giỏi',       cls:'gioi', ico:'🏆', scCls:'sc-g',
-    rgb:'52,211,153',  // CSS rgb for rgba()
-    pdfColor:[5,150,105], pdfBg:[209,250,229],
-    desc:'Học sinh đạt thành tích xuất sắc, nắm vững kiến thức toàn diện, có khả năng tư duy độc lập và sáng tạo trong học tập.',
-    tips:['Nắm vững lý thuyết','Làm tốt bài tập nâng cao','Tự học hiệu quả','Có tư duy sáng tạo'] },
-  { min:6.5, lbl:'Khá',        cls:'kha',  ico:'🥈', scCls:'sc-k',
-    rgb:'96,165,250',
-    pdfColor:[29,78,216], pdfBg:[219,234,254],
-    desc:'Học sinh có kết quả tốt, hiểu bài và vận dụng kiến thức ở mức khá. Cần cố gắng thêm để đạt mức Giỏi.',
-    tips:['Hiểu bài ở mức khá','Cần ôn luyện thêm','Có nền tảng vững','Tiếp tục phát huy'] },
-  { min:5.0, lbl:'Trung bình', cls:'tb',   ico:'📘', scCls:'sc-t',
-    rgb:'251,191,36',
-    pdfColor:[133,77,14], pdfBg:[254,249,195],
-    desc:'Học sinh đạt mức cơ bản, cần chú ý cải thiện các môn còn yếu, tăng cường luyện tập và ôn bài đều đặn hơn.',
-    tips:['Nắm được kiến thức cơ bản','Cần luyện tập thêm','Chú ý các môn yếu','Tăng thời gian ôn bài'] },
-  { min:0,   lbl:'Yếu',        cls:'yeu',  ico:'⚠️', scCls:'sc-y',
-    rgb:'248,113,113',
-    pdfColor:[153,27,27], pdfBg:[254,226,226],
-    desc:'Học sinh cần nỗ lực nhiều hơn, nên tìm sự hỗ trợ từ thầy cô và gia đình để cải thiện kết quả học tập kịp thời.',
-    tips:['Cần bổ sung kiến thức','Tìm sự hỗ trợ từ thầy cô','Lên kế hoạch học tập','Không bỏ cuộc!'] },
+  {min:8.0,lbl:'Giỏi',      cls:'gioi',ico:'🏆',scCls:'sc-g',
+   rgb:'52,211,153',pdfColor:[5,150,105],pdfBg:[209,250,229],
+   desc:'Học sinh đạt thành tích xuất sắc, nắm vững kiến thức toàn diện, có khả năng tư duy độc lập và sáng tạo.',
+   tips:['Nắm vững lý thuyết','Làm tốt bài tập nâng cao','Tự học hiệu quả','Tư duy sáng tạo']},
+  {min:6.5,lbl:'Khá',       cls:'kha', ico:'🥈',scCls:'sc-k',
+   rgb:'96,165,250',pdfColor:[29,78,216],pdfBg:[219,234,254],
+   desc:'Học sinh có kết quả tốt, hiểu bài và vận dụng kiến thức ở mức khá. Cần cố gắng thêm để đạt mức Giỏi.',
+   tips:['Hiểu bài ở mức khá','Cần ôn luyện thêm','Có nền tảng vững','Tiếp tục phát huy']},
+  {min:5.0,lbl:'Trung bình',cls:'tb',  ico:'📘',scCls:'sc-t',
+   rgb:'251,191,36',pdfColor:[133,77,14],pdfBg:[254,249,195],
+   desc:'Học sinh đạt mức cơ bản, cần cải thiện các môn còn yếu và tăng cường ôn luyện đều đặn hơn.',
+   tips:['Nắm kiến thức cơ bản','Cần luyện tập thêm','Chú ý môn yếu','Tăng thời gian ôn bài']},
+  {min:0,  lbl:'Yếu',       cls:'yeu', ico:'⚠️',scCls:'sc-y',
+   rgb:'248,113,113',pdfColor:[153,27,27],pdfBg:[254,226,226],
+   desc:'Học sinh cần nỗ lực nhiều hơn, nên tìm sự hỗ trợ từ thầy cô và gia đình để cải thiện kịp thời.',
+   tips:['Bổ sung kiến thức','Tìm hỗ trợ thầy cô','Lập kế hoạch học','Không bỏ cuộc!']},
 ];
 
-let currentResult = null;
-let radarChartInst = null; // Chart.js instance
+/* ════════════════════════════════════════════════
+   3. STATE
+════════════════════════════════════════════════ */
+let currentResult  = null;
+let radarChartInst = null;
+// Lưu số lượng cột TX hiện tại của từng môn (mặc định 4)
+const txCount = {};
+MON.forEach(m => txCount[m.id] = 4);
 
-/* ══════════════════════════════════════════════
-   DARK MODE
-══════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   4. DARK MODE
+════════════════════════════════════════════════ */
 const DM_KEY = 'hocLucDarkMode';
-
 function applyTheme(dark) {
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
   const btn = document.getElementById('dmBtn');
   btn.setAttribute('data-ico', dark ? '☀️' : '🌙');
-  btn.title = dark ? 'Chuyển sang Light Mode' : 'Chuyển sang Dark Mode';
-  // Re-render chart with new theme colours if it exists
   if (radarChartInst) updateRadarTheme();
 }
 function toggleDark() {
-  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-  applyTheme(!isDark);
-  try { localStorage.setItem(DM_KEY, !isDark ? '1' : '0'); } catch(e){}
-  showToast(!isDark ? '🌙 Dark Mode đã bật' : '☀️ Light Mode đã bật');
+  const d = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(!d);
+  try { localStorage.setItem(DM_KEY, !d ? '1' : '0'); } catch(e){}
+  showToast(!d ? '🌙 Dark Mode đã bật' : '☀️ Light Mode đã bật');
 }
 (function initTheme() {
-  let saved = null;
-  try { saved = localStorage.getItem(DM_KEY); } catch(e){}
-  if (saved !== null) { applyTheme(saved === '1'); return; }
+  let s = null;
+  try { s = localStorage.getItem(DM_KEY); } catch(e){}
+  if (s !== null) { applyTheme(s === '1'); return; }
   if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) applyTheme(true);
 })();
 
-/* ══════════════════════════════════════════════
-   BUILD SUBJECT GRID
-══════════════════════════════════════════════ */
-const grid = document.getElementById('subjGrid');
-MON.forEach(m => {
-  const d = document.createElement('div');
-  d.className = 'subj-card'; d.id = 'box_'+m.id;
-  d.innerHTML = `
-    <div class="subj-lbl">
-      <div class="s-ico">${m.ico}</div>
-      <span class="s-name">${m.ten}</span>
-    </div>
-    <div class="score-row">
-      <button class="spin" onclick="adj('${m.id}',-0.5)" tabindex="-1">−</button>
-      <input type="number" id="${m.id}" min="0" max="10" step="0.5" placeholder="—"
-             oninput="updBar('${m.id}')" onchange="clrErr('${m.id}')"/>
-      <button class="spin" onclick="adj('${m.id}',0.5)" tabindex="-1">+</button>
-    </div>
-    <div class="mini-bar-bg"><div class="mini-bar-fill" id="mb_${m.id}"></div></div>
-    <div class="f-err" id="fe_${m.id}">Điểm phải từ 0 đến 10</div>`;
-  grid.appendChild(d);
-});
+/* ════════════════════════════════════════════════
+   5. XÂY DỰNG UI MÔN HỌC
+════════════════════════════════════════════════ */
+function buildMonUI() {
+  const list = document.getElementById('monList');
+  list.innerHTML = '';
+  MON.forEach(m => {
+    const card = document.createElement('div');
+    card.className = 'mon-card';
+    card.id = 'card_' + m.id;
+    card.innerHTML = `
+      <!-- HEADER (click toggle) -->
+      <div class="mon-header" onclick="toggleMon('${m.id}')">
+        <div class="mon-ico-chip">${m.ico}</div>
+        <div class="mon-title-wrap">
+          <div class="mon-title">${m.ten}</div>
+          <div class="mon-subtitle" id="sub_${m.id}">Chưa nhập điểm</div>
+        </div>
+        <div class="mon-tbm-display" id="tbm_${m.id}">—</div>
+        <div class="mon-chevron">▼</div>
+      </div>
 
-/* ══════════════════════════════════════════════
-   HELPERS
-══════════════════════════════════════════════ */
-function adj(id, step) {
+      <!-- BODY (collapsible) -->
+      <div class="mon-body">
+        <div class="semesters">
+          <!-- HỌC KỲ 1 -->
+          <div class="sem-block">
+            <div class="sem-title">
+              📘 Học kỳ 1
+              <span class="sem-result" id="hk1r_${m.id}">HK1: —</span>
+            </div>
+            <!-- TX HK1 -->
+            <div class="inp-row">
+              <span class="inp-lbl">TX (HK1)</span>
+              <div class="tx-row" id="tx1_${m.id}"></div>
+              <button class="btn-tx-del" onclick="delTX('${m.id}',1)" title="Xoá 1 cột TX">−</button>
+              <button class="btn-tx-add" onclick="addTX('${m.id}',1)" title="Thêm 1 cột TX">+</button>
+            </div>
+            <!-- GK1 -->
+            <div class="inp-row">
+              <span class="inp-lbl">Giữa kỳ 1</span>
+              <input class="d-inp" type="number" id="gk1_${m.id}"
+                     min="0" max="10" step="0.1" placeholder="—"
+                     oninput="recalcMon('${m.id}')"/>
+            </div>
+            <!-- CK1 -->
+            <div class="inp-row">
+              <span class="inp-lbl">Cuối kỳ 1</span>
+              <input class="d-inp" type="number" id="ck1_${m.id}"
+                     min="0" max="10" step="0.1" placeholder="—"
+                     oninput="recalcMon('${m.id}')"/>
+            </div>
+            <div class="hk-display">
+              <span>Điểm HK1</span>
+              <span class="hk-val" id="hk1v_${m.id}">—</span>
+            </div>
+          </div>
+
+          <!-- HỌC KỲ 2 -->
+          <div class="sem-block">
+            <div class="sem-title">
+              📗 Học kỳ 2
+              <span class="sem-result" id="hk2r_${m.id}">HK2: —</span>
+            </div>
+            <!-- TX HK2 -->
+            <div class="inp-row">
+              <span class="inp-lbl">TX (HK2)</span>
+              <div class="tx-row" id="tx2_${m.id}"></div>
+              <button class="btn-tx-del" onclick="delTX('${m.id}',2)" title="Xoá 1 cột TX">−</button>
+              <button class="btn-tx-add" onclick="addTX('${m.id}',2)" title="Thêm 1 cột TX">+</button>
+            </div>
+            <!-- GK2 -->
+            <div class="inp-row">
+              <span class="inp-lbl">Giữa kỳ 2</span>
+              <input class="d-inp" type="number" id="gk2_${m.id}"
+                     min="0" max="10" step="0.1" placeholder="—"
+                     oninput="recalcMon('${m.id}')"/>
+            </div>
+            <!-- CK2 -->
+            <div class="inp-row">
+              <span class="inp-lbl">Cuối kỳ 2</span>
+              <input class="d-inp" type="number" id="ck2_${m.id}"
+                     min="0" max="10" step="0.1" placeholder="—"
+                     oninput="recalcMon('${m.id}')"/>
+            </div>
+            <div class="hk-display">
+              <span>Điểm HK2</span>
+              <span class="hk-val" id="hk2v_${m.id}">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- TBM CẢ NĂM -->
+        <div class="year-bar" id="yearbar_${m.id}">
+          <div>
+            <div class="yb-label">📊 TBM cả năm</div>
+            <div class="yb-formula" id="formula_${m.id}">Chưa có dữ liệu</div>
+          </div>
+          <div class="yb-val" id="tbmYear_${m.id}">—</div>
+        </div>
+      </div>`;
+    list.appendChild(card);
+    // Build TX inputs
+    buildTX(m.id, 1);
+    buildTX(m.id, 2);
+  });
+}
+
+/* ── Build TX inputs cho 1 học kỳ ── */
+function buildTX(mid, hk) {
+  const wrap = document.getElementById(`tx${hk}_${mid}`);
+  wrap.innerHTML = '';
+  const n = txCount[mid];
+  for (let i = 0; i < n; i++) {
+    const inp = document.createElement('input');
+    inp.className = 'd-inp';
+    inp.type = 'number';
+    inp.min = '0'; inp.max = '10'; inp.step = '0.1';
+    inp.placeholder = `TX${i+1}`;
+    inp.id = `tx${hk}_${mid}_${i}`;
+    inp.setAttribute('oninput', `recalcMon('${mid}')`);
+    wrap.appendChild(inp);
+  }
+}
+
+/* ── Toggle mở/đóng card ── */
+function toggleMon(mid) {
+  const card = document.getElementById('card_' + mid);
+  card.classList.toggle('open');
+}
+
+/* ── Thêm / xoá cột TX ── */
+function addTX(mid, hk) {
+  if (txCount[mid] >= 6) return;
+  txCount[mid]++;
+  buildTX(mid, 1); buildTX(mid, 2);
+  recalcMon(mid);
+}
+function delTX(mid, hk) {
+  if (txCount[mid] <= 1) return;
+  txCount[mid]--;
+  buildTX(mid, 1); buildTX(mid, 2);
+  recalcMon(mid);
+}
+
+/* ════════════════════════════════════════════════
+   6. LOGIC TÍNH ĐIỂM THEO CHUẨN VN
+   ──────────────────────────────────────────────
+   TB_TX = trung bình các ô TX có giá trị
+   HK    = (TB_TX×2 + GK×3 + CK×5) / 10   [nếu đủ]
+   Nếu thiếu: bỏ qua hệ số, lấy trung bình bình thường
+
+   TBM năm:
+   - Chỉ HK1       → TBM = HK1
+   - Chỉ HK2       → TBM = HK2
+   - Cả HK1 + HK2  → TBM = (HK1 + HK2×2) / 3
+════════════════════════════════════════════════ */
+
+/* Lấy số từ input, trả về null nếu trống/invalid */
+function getVal(id) {
   const el = document.getElementById(id);
-  let v = parseFloat(el.value)||0;
-  v = Math.min(10, Math.max(0, +(v+step).toFixed(1)));
-  el.value = v; updBar(id); clrErr(id);
+  if (!el) return null;
+  const v = parseFloat(el.value);
+  return (!el.value.trim() || isNaN(v) || v < 0 || v > 10) ? null : v;
 }
-function updBar(id) {
-  const v = Math.min(parseFloat(document.getElementById(id).value)||0, 10);
-  document.getElementById('mb_'+id).style.width = (v/10*100)+'%';
+
+/* Kiểm tra input có lỗi (nhập nhưng không hợp lệ) */
+function isInvalid(id) {
+  const el = document.getElementById(id);
+  if (!el || !el.value.trim()) return false; // trống → OK
+  const v = parseFloat(el.value);
+  return isNaN(v) || v < 0 || v > 10;
 }
-function clrErr(id) {
-  document.getElementById('box_'+id).classList.remove('error');
-  document.getElementById('fe_'+id).style.display = 'none';
-  document.getElementById('gErr').style.display   = 'none';
+
+/* Trung bình các giá trị không null */
+function avg(arr) {
+  const v = arr.filter(x => x !== null);
+  return v.length ? v.reduce((a,b)=>a+b,0)/v.length : null;
 }
-function rankOf(dtb)  { return RANK.find(r => dtb >= r.min) || RANK[RANK.length-1]; }
-function scColor(d)   { return d>=8?'sc-g':d>=6.5?'sc-k':d>=5?'sc-t':'sc-y'; }
+
+/* Tính điểm HK theo công thức VN */
+function tinhHK(txVals, gk, ck) {
+  const tbTX = avg(txVals);
+  // Xây mảng có hệ số
+  const parts = [];
+  if (tbTX !== null) parts.push({v: tbTX, w: 2});
+  if (gk    !== null) parts.push({v: gk,   w: 3});
+  if (ck    !== null) parts.push({v: ck,   w: 5});
+  if (!parts.length) return null;
+  const sumW = parts.reduce((s,p)=>s+p.w, 0);
+  const sumV = parts.reduce((s,p)=>s+p.v*p.w, 0);
+  return sumV / sumW;
+}
+
+/* Tính TBM năm */
+function tinhTBMNam(hk1, hk2) {
+  if (hk1 !== null && hk2 !== null) return (hk1 + hk2*2) / 3;
+  if (hk1 !== null) return hk1;
+  if (hk2 !== null) return hk2;
+  return null;
+}
+
+/* Tính và hiển thị realtime cho 1 môn */
+function recalcMon(mid) {
+  const n = txCount[mid];
+  // Lấy TX HK1 & HK2
+  const tx1 = Array.from({length:n}, (_,i) => getVal(`tx1_${mid}_${i}`));
+  const tx2 = Array.from({length:n}, (_,i) => getVal(`tx2_${mid}_${i}`));
+  const gk1 = getVal(`gk1_${mid}`), ck1 = getVal(`ck1_${mid}`);
+  const gk2 = getVal(`gk2_${mid}`), ck2 = getVal(`ck2_${mid}`);
+
+  const hk1 = tinhHK(tx1, gk1, ck1);
+  const hk2 = tinhHK(tx2, gk2, ck2);
+  const tbm = tinhTBMNam(hk1, hk2);
+
+  // Cập nhật HK hiển thị
+  const fmt = v => v !== null ? v.toFixed(2) : '—';
+  document.getElementById(`hk1v_${mid}`).textContent = fmt(hk1);
+  document.getElementById(`hk2v_${mid}`).textContent = fmt(hk2);
+  document.getElementById(`hk1r_${mid}`).textContent = `HK1: ${fmt(hk1)}`;
+  document.getElementById(`hk2r_${mid}`).textContent = `HK2: ${fmt(hk2)}`;
+
+  // TBM năm
+  const tbmEl  = document.getElementById(`tbmYear_${mid}`);
+  const subEl  = document.getElementById(`sub_${mid}`);
+  const hdrEl  = document.getElementById(`tbm_${mid}`);
+  const fmlEl  = document.getElementById(`formula_${mid}`);
+
+  if (tbm !== null) {
+    const r = Math.round(tbm*100)/100;
+    const cl = scColor(r);
+    tbmEl.textContent  = r.toFixed(2);
+    hdrEl.textContent  = r.toFixed(2);
+    hdrEl.className    = 'mon-tbm-display ' + cl;
+    subEl.textContent  =
+      hk1!==null && hk2!==null
+        ? `HK1: ${hk1.toFixed(2)} | HK2: ${hk2.toFixed(2)} | TBM: ${r.toFixed(2)}`
+        : hk1!==null
+          ? `HK1: ${hk1.toFixed(2)} | TBM: ${r.toFixed(2)}`
+          : `HK2: ${hk2.toFixed(2)} | TBM: ${r.toFixed(2)}`;
+    fmlEl.textContent  =
+      hk1!==null && hk2!==null
+        ? `(HK1 + HK2×2) / 3 = ${r.toFixed(2)}`
+        : hk1!==null ? `Chỉ có HK1 = ${r.toFixed(2)}`
+                     : `Chỉ có HK2 = ${r.toFixed(2)}`;
+  } else {
+    tbmEl.textContent  = '—';
+    hdrEl.textContent  = '—';
+    hdrEl.className    = 'mon-tbm-display';
+    subEl.textContent  = 'Chưa nhập điểm';
+    fmlEl.textContent  = 'Chưa có dữ liệu';
+  }
+}
+
+/* ════════════════════════════════════════════════
+   7. HELPERS CHUNG
+════════════════════════════════════════════════ */
+function rankOf(d)  { return RANK.find(r => d >= r.min) || RANK[RANK.length-1]; }
+function scColor(d) { return d>=8?'sc-g':d>=6.5?'sc-k':d>=5?'sc-t':'sc-y'; }
 
 let toastTimer;
 function showToast(msg, ok=true) {
@@ -632,181 +864,71 @@ function showToast(msg, ok=true) {
   toastTimer = setTimeout(()=>t.classList.remove('show'), 2800);
 }
 
-/* ══════════════════════════════════════════════
-   RADAR CHART — draw / update / theme
-══════════════════════════════════════════════ */
-
-/* Returns current CSS-variable values for chart theming */
-function getChartTheme() {
-  const cs = getComputedStyle(document.documentElement);
-  return {
-    grid:  cs.getPropertyValue('--chart-grid').trim(),
-    tick:  cs.getPropertyValue('--chart-tick').trim(),
-    label: cs.getPropertyValue('--chart-pt-label').trim(),
-    bg:    cs.getPropertyValue('--bg-chart').trim(),
-  };
+/* Kiểm tra có ô nhập sai dữ liệu */
+function hasInputError(mid) {
+  const n = txCount[mid];
+  const ids = [
+    ...Array.from({length:n},(_,i)=>`tx1_${mid}_${i}`),
+    ...Array.from({length:n},(_,i)=>`tx2_${mid}_${i}`),
+    `gk1_${mid}`,`ck1_${mid}`,`gk2_${mid}`,`ck2_${mid}`
+  ];
+  return ids.some(id => isInvalid(id));
 }
 
-/* Build Chart.js radar config */
-function buildRadarConfig(rows, rnk) {
-  const th     = getChartTheme();
-  const labels = rows.map(r => r.m.ten);
-  const data   = rows.map(r => r.d);
-  const rgb    = rnk.rgb;
-
-  return {
-    type: 'radar',
-    data: {
-      labels,
-      datasets: [{
-        label: 'Điểm',
-        data,
-        backgroundColor:    `rgba(${rgb}, .18)`,
-        borderColor:        `rgba(${rgb}, .95)`,
-        pointBackgroundColor: `rgba(${rgb}, 1)`,
-        pointBorderColor:   '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: `rgba(${rgb}, 1)`,
-        pointRadius: 5,
-        pointHoverRadius: 7,
-        borderWidth: 2.5,
-        fill: true,
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: true,
-      animation: { duration: 700, easing: 'easeInOutQuart' },
-      scales: {
-        r: {
-          min: 0, max: 10,
-          ticks: {
-            stepSize: 2,
-            color: th.tick,
-            font: { size: 10, family: 'Inter' },
-            backdropColor: 'transparent',
-          },
-          grid:        { color: th.grid },
-          angleLines:  { color: th.grid },
-          pointLabels: {
-            color: th.label,
-            font: { size: 11, weight: '700', family: 'Inter' },
-          },
-        }
-      },
-      plugins: {
-        legend: { display: false },
-        tooltip: {
-          backgroundColor: 'rgba(15,14,26,.85)',
-          titleColor: '#e8e6ff',
-          bodyColor:  '#a09ec0',
-          padding: 10,
-          cornerRadius: 10,
-          callbacks: {
-            label: ctx => ` Điểm: ${ctx.raw.toFixed(1)}`
-          }
-        }
-      }
-    }
-  };
+/* Thu thập TBM từng môn */
+function collectRows() {
+  const rows = [];
+  MON.forEach(m => {
+    const n = txCount[m.id];
+    const tx1 = Array.from({length:n},(_,i)=>getVal(`tx1_${m.id}_${i}`));
+    const tx2 = Array.from({length:n},(_,i)=>getVal(`tx2_${m.id}_${i}`));
+    const hk1 = tinhHK(tx1, getVal(`gk1_${m.id}`), getVal(`ck1_${m.id}`));
+    const hk2 = tinhHK(tx2, getVal(`gk2_${m.id}`), getVal(`ck2_${m.id}`));
+    const tbm = tinhTBMNam(hk1, hk2);
+    if (tbm !== null) rows.push({m, hk1, hk2, tbm: Math.round(tbm*100)/100});
+  });
+  return rows;
 }
 
-/* Draw the radar chart */
-function drawRadar(rows, rnk) {
-  const canvas = document.getElementById('radarChart');
-
-  // Destroy old instance if exists
-  if (radarChartInst) { radarChartInst.destroy(); radarChartInst = null; }
-
-  radarChartInst = new Chart(canvas, buildRadarConfig(rows, rnk));
-
-  // Legend chips
-  const leg = document.getElementById('chartLegend');
-  leg.innerHTML = `
-    <div class="leg-chip">
-      <span class="leg-dot" style="background:rgba(${rnk.rgb},1)"></span>
-      Điểm các môn
-    </div>
-    <div class="leg-chip">
-      <span class="leg-dot" style="background:rgba(${rnk.rgb},.35);border:1.5px solid rgba(${rnk.rgb},1)"></span>
-      Vùng điểm
-    </div>`;
-
-  // Quick stats
-  const vals = rows.map(r=>r.d);
-  const maxD = Math.max(...vals), minD = Math.min(...vals);
-  const avgD = vals.reduce((a,b)=>a+b,0)/vals.length;
-  const maxMon = rows[vals.indexOf(maxD)].m.ten;
-  const minMon = rows[vals.indexOf(minD)].m.ten;
-
-  document.getElementById('csMax').textContent = maxD.toFixed(1);
-  document.getElementById('csMin').textContent = minD.toFixed(1);
-  document.getElementById('csAvg').textContent = avgD.toFixed(2);
-  document.getElementById('csMax').title = `Môn cao nhất: ${maxMon}`;
-  document.getElementById('csMin').title = `Môn thấp nhất: ${minMon}`;
-}
-
-/* Re-apply theme colours to existing chart (called on dark-mode toggle) */
-function updateRadarTheme() {
-  if (!radarChartInst || !currentResult) return;
-  const th  = getChartTheme();
-  const opt = radarChartInst.options;
-  const sc  = opt.scales.r;
-  sc.ticks.color        = th.tick;
-  sc.grid.color         = th.grid;
-  sc.angleLines.color   = th.grid;
-  sc.pointLabels.color  = th.label;
-  radarChartInst.update();
-}
-
-/* ══════════════════════════════════════════════
-   TÍNH KẾT QUẢ
-══════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   8. TÍNH KẾT QUẢ
+════════════════════════════════════════════════ */
 function tinhKQ() {
   const gErr = document.getElementById('gErr');
   gErr.style.display = 'none';
-  let rows=[], hasErr=false, nEmpty=0;
 
-  MON.forEach(m => {
-    const inp=document.getElementById(m.id);
-    const raw=inp.value.trim(), num=parseFloat(raw);
-    const box=document.getElementById('box_'+m.id);
-    const fe =document.getElementById('fe_'+m.id);
-    if (raw===''||isNaN(num)) {
-      box.classList.add('error'); fe.textContent='Vui lòng nhập điểm môn này';
-      fe.style.display='block'; hasErr=true; nEmpty++;
-    } else if (num<0||num>10) {
-      box.classList.add('error'); fe.textContent='Điểm phải từ 0 đến 10';
-      fe.style.display='block'; hasErr=true;
-    } else {
-      box.classList.remove('error'); fe.style.display='none';
-      rows.push({m, d:num});
-    }
-  });
-
-  if (hasErr) {
-    gErr.innerHTML = nEmpty
-      ? `⚠️ Còn <strong>${nEmpty} môn</strong> chưa được nhập điểm.`
-      : '⚠️ Một số điểm không hợp lệ – hãy kiểm tra lại.';
-    gErr.style.display='block'; hideResult(); return;
+  // Kiểm tra lỗi nhập liệu
+  const errMons = MON.filter(m => hasInputError(m.id)).map(m=>m.ten);
+  if (errMons.length) {
+    gErr.innerHTML = `⚠️ Điểm không hợp lệ (ngoài 0–10) tại: <strong>${errMons.join(', ')}</strong>`;
+    gErr.style.display = 'block'; hideResult(); return;
   }
 
-  const dtb = Math.round(rows.reduce((s,r)=>s+r.d,0)/rows.length*100)/100;
-  const rnk = rankOf(dtb);
-  const ten = document.getElementById('tenHS').value.trim() || 'Học sinh';
-  currentResult = {ten, dtb, rnk:rnk.cls, rows, ts:Date.now()};
+  const rows = collectRows();
+  if (!rows.length) {
+    gErr.innerHTML = '⚠️ Hãy nhập ít nhất <strong>1 môn</strong> để tính điểm trung bình.';
+    gErr.style.display = 'block'; hideResult(); return;
+  }
 
-  /* ── Fill card ── */
+  // TBM chung = trung bình TBM các môn
+  const tbmChung = Math.round(
+    rows.reduce((s,r)=>s+r.tbm,0)/rows.length * 100
+  ) / 100;
+
+  const rnk = rankOf(tbmChung);
+  const ten = document.getElementById('tenHS').value.trim() || 'Học sinh';
+  currentResult = {ten, dtb:tbmChung, rnk:rnk.cls, rows, ts:Date.now()};
+
+  // Fill card
   const card = document.getElementById('resCard');
   ['gioi','kha','tb','yeu'].forEach(c=>card.classList.remove(c));
   card.classList.add(rnk.cls);
-
   document.getElementById('rAvatar').textContent = rnk.ico;
   document.getElementById('rName').textContent   = ten;
   document.getElementById('rPill').textContent   = rnk.ico+' '+rnk.lbl;
-  document.getElementById('rAvg').textContent    = dtb.toFixed(2);
+  document.getElementById('rAvg').textContent    = tbmChung.toFixed(2);
 
-  const pct = (dtb/10*100).toFixed(1)+'%';
+  const pct = (tbmChung/10*100).toFixed(1)+'%';
   document.getElementById('rScaleFill').style.width = '0%';
   document.getElementById('rNeedle').style.left     = '0%';
   setTimeout(()=>{
@@ -818,30 +940,32 @@ function tinhKQ() {
   document.getElementById('rDescTips').innerHTML   =
     rnk.tips.map(t=>`<span class="rd-tip">${t}</span>`).join('');
 
+  // Bảng điểm
   const tbody = document.getElementById('rTbody');
   tbody.innerHTML = '';
-  rows.forEach(({m,d}) => {
-    const tr=document.createElement('tr');
-    tr.innerHTML=`<td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
-                  <td class="${scColor(d)}">${d.toFixed(1)}</td>`;
+  rows.forEach(({m,hk1,hk2,tbm}) => {
+    const tr = document.createElement('tr');
+    const cl = scColor(tbm);
+    tr.innerHTML = `
+      <td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
+      <td style="text-align:right;color:var(--tx-2)">${hk1!==null?hk1.toFixed(2):'—'}</td>
+      <td style="text-align:right;color:var(--tx-2)">${hk2!==null?hk2.toFixed(2):'—'}</td>
+      <td class="${cl}" style="text-align:right">${tbm.toFixed(2)}</td>`;
     tbody.appendChild(tr);
   });
-  const tr=document.createElement('tr'); tr.className='ttl-row';
-  tr.innerHTML=`<td><span class="tbl-ico">📊</span>Điểm trung bình</td>
-                <td class="${rnk.scCls}">${dtb.toFixed(2)}</td>`;
+  const tr = document.createElement('tr'); tr.className='ttl-row';
+  tr.innerHTML = `<td colspan="3"><span class="tbl-ico">📊</span>TBM cả năm</td>
+                  <td class="${rnk.scCls}" style="text-align:right">${tbmChung.toFixed(2)}</td>`;
   tbody.appendChild(tr);
 
-  /* ── Show result with animation ── */
+  // Show result
   const wrap = document.getElementById('resWrap');
-  // FIX: Xoá inline style trước, SAU ĐÓ mới toggle class
-  // Không set style.display thủ công — để CSS class kiểm soát hoàn toàn
-  wrap.style.display = '';          // xoá inline style (nếu có từ hideResult)
-  wrap.classList.remove('visible'); // bỏ class cũ để reset animation
-  void wrap.offsetWidth;            // force reflow — bắt buộc để animation chạy lại
-  wrap.classList.add('visible');    // thêm class → CSS hiện element + chạy animation
+  wrap.style.display = '';
+  wrap.classList.remove('visible');
+  void wrap.offsetWidth;
+  wrap.classList.add('visible');
   wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
 
-  /* ── Draw radar chart (slight delay so card is visible first) ── */
   setTimeout(() => drawRadar(rows, rnk), 200);
 
   document.getElementById('btnSave').disabled = false;
@@ -850,203 +974,302 @@ function tinhKQ() {
 
 function hideResult() {
   const w = document.getElementById('resWrap');
-  // FIX: Chỉ dùng class để ẩn, KHÔNG set inline style.display
-  // Nếu set style.display='none' ở đây → nó sẽ override CSS class lần sau
-  w.classList.remove('visible'); // CSS default là display:none → element tự ẩn
-  w.style.display = '';          // đảm bảo xoá sạch bất kỳ inline style nào còn sót
-  document.getElementById('rScaleFill').style.width='0%';
-  document.getElementById('rNeedle').style.left='0%';
+  w.classList.remove('visible'); w.style.display = '';
+  document.getElementById('rScaleFill').style.width = '0%';
+  document.getElementById('rNeedle').style.left     = '0%';
   document.getElementById('btnSave').disabled = true;
   document.getElementById('btnPdf').disabled  = true;
-  if (radarChartInst) { radarChartInst.destroy(); radarChartInst=null; }
+  if (radarChartInst) { radarChartInst.destroy(); radarChartInst = null; }
   currentResult = null;
 }
 
-/* ══════════════════════════════════════════════
-   XUẤT PDF
-══════════════════════════════════════════════ */
+/* ════════════════════════════════════════════════
+   9. RADAR CHART
+════════════════════════════════════════════════ */
+function getChartTheme() {
+  const cs = getComputedStyle(document.documentElement);
+  return {
+    grid:  cs.getPropertyValue('--chart-grid').trim(),
+    tick:  cs.getPropertyValue('--chart-tick').trim(),
+    label: cs.getPropertyValue('--chart-pt-label').trim(),
+  };
+}
+
+function drawRadar(rows, rnk) {
+  const canvas = document.getElementById('radarChart');
+  if (radarChartInst) { radarChartInst.destroy(); radarChartInst = null; }
+  const th  = getChartTheme();
+  const rgb = rnk.rgb;
+
+  radarChartInst = new Chart(canvas, {
+    type:'radar',
+    data:{
+      labels: rows.map(r => r.m.ten),
+      datasets:[{
+        label:'TBM',
+        data: rows.map(r => r.tbm),
+        backgroundColor:      `rgba(${rgb},.18)`,
+        borderColor:          `rgba(${rgb},.95)`,
+        pointBackgroundColor: `rgba(${rgb},1)`,
+        pointBorderColor:     '#fff',
+        pointHoverBackgroundColor:'#fff',
+        pointHoverBorderColor:`rgba(${rgb},1)`,
+        pointRadius:5, pointHoverRadius:7, borderWidth:2.5, fill:true,
+      }]
+    },
+    options:{
+      responsive:true, maintainAspectRatio:true,
+      animation:{duration:700,easing:'easeInOutQuart'},
+      scales:{r:{
+        min:0, max:10,
+        ticks:{stepSize:2,color:th.tick,font:{size:10,family:'Inter'},backdropColor:'transparent'},
+        grid:{color:th.grid}, angleLines:{color:th.grid},
+        pointLabels:{color:th.label,font:{size:10,weight:'700',family:'Inter'}},
+      }},
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'rgba(15,14,26,.85)',titleColor:'#e8e6ff',bodyColor:'#a09ec0',
+          padding:10,cornerRadius:10,
+          callbacks:{label:ctx=>` TBM: ${ctx.raw.toFixed(2)}`}
+        }
+      }
+    }
+  });
+
+  document.getElementById('chartLegend').innerHTML = `
+    <div class="leg-chip"><span class="leg-dot" style="background:rgba(${rgb},1)"></span>TBM môn</div>
+    <div class="leg-chip"><span class="leg-dot" style="background:rgba(${rgb},.3);border:1.5px solid rgba(${rgb},1)"></span>Vùng điểm</div>`;
+
+  const vals = rows.map(r=>r.tbm);
+  const mx=Math.max(...vals), mn=Math.min(...vals), av=vals.reduce((a,b)=>a+b,0)/vals.length;
+  document.getElementById('csMax').textContent = mx.toFixed(2);
+  document.getElementById('csMin').textContent = mn.toFixed(2);
+  document.getElementById('csAvg').textContent = av.toFixed(2);
+  document.getElementById('csMax').title = `Cao nhất: ${rows[vals.indexOf(mx)].m.ten}`;
+  document.getElementById('csMin').title = `Thấp nhất: ${rows[vals.indexOf(mn)].m.ten}`;
+}
+
+function updateRadarTheme() {
+  if (!radarChartInst) return;
+  const th = getChartTheme();
+  const sc = radarChartInst.options.scales.r;
+  sc.ticks.color = th.tick; sc.grid.color = th.grid;
+  sc.angleLines.color = th.grid; sc.pointLabels.color = th.label;
+  radarChartInst.update();
+}
+
+/* ════════════════════════════════════════════════
+   10. XUẤT PDF
+════════════════════════════════════════════════ */
 function xuatPDF() {
   if (!currentResult) return;
   const {jsPDF} = window.jspdf;
   const doc = new jsPDF({unit:'mm',format:'a4',orientation:'portrait'});
   const W = doc.internal.pageSize.getWidth();
   const rnkObj = rankOf(currentResult.dtb);
+  const WHITE=[255,255,255],DARK=[30,27,75],GREY=[100,100,120],LGREY=[230,230,240];
+  const sf=(sz,w='normal',c=DARK)=>{doc.setFontSize(sz);doc.setFont('helvetica',w);doc.setTextColor(...c);};
+  const rc=(x,y,w,h,c,r=0)=>{doc.setFillColor(...c);r>0?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');};
 
-  const WHITE=[255,255,255], DARK=[30,27,75], GREY=[100,100,120], LGREY=[230,230,240];
-  function setFont(sz,w='normal',c=DARK){doc.setFontSize(sz);doc.setFont('helvetica',w);doc.setTextColor(...c);}
-  function rect(x,y,w,h,c,r=0){doc.setFillColor(...c);r>0?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');}
-
-  /* Header */
-  rect(0,0,W,38,[79,70,229]); rect(W*.55,0,W*.45,38,[124,58,237]);
-  doc.setFillColor(255,255,255); doc.circle(25,19,10,'F');
-  setFont(14,'bold',DARK); doc.text('HT',25,22.5,{align:'center'});
-  setFont(16,'bold',WHITE); doc.text('PHIEU XEP LOAI HOC LUC',45,15);
-  setFont(9,'normal',[200,200,255]); doc.text('He Thong Xep Loai Hoc Luc Hoc Sinh',45,22);
+  // Header
+  rc(0,0,W,36,[79,70,229]);rc(W*.55,0,W*.45,36,[124,58,237]);
+  doc.setFillColor(255,255,255);doc.circle(23,18,9,'F');
+  sf(13,'bold',DARK);doc.text('HT',23,21.5,{align:'center'});
+  sf(15,'bold',WHITE);doc.text('PHIEU XEP LOAI HOC LUC',38,13);
+  sf(8,'normal',[200,200,255]);doc.text('He Thong Xep Loai Hoc Luc - Chuan VN',38,20);
   const now=new Date();
-  const ds=`Ngay: ${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}  Gio: ${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
-  setFont(7.5,'normal',[180,180,230]); doc.text(ds,45,29);
+  const ds=`${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
+  sf(7,'normal',[180,180,230]);doc.text(`Ngay: ${ds}`,38,27);
 
-  /* Student card */
-  let y=46;
-  rect(10,y,W-20,22,[245,245,255],5);
-  doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,22,5,5,'S');
-  setFont(7.5,'bold',GREY); doc.text('THONG TIN HOC SINH',18,y+7);
-  setFont(11,'bold',DARK); doc.text(currentResult.ten||'Hoc sinh',18,y+15);
-  const bx=W-60,by=y+4;
-  rect(bx,by,48,14,rnkObj.pdfBg,7);
-  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.5); doc.roundedRect(bx,by,48,14,7,7,'S');
-  setFont(9,'bold',rnkObj.pdfColor); doc.text(rnkObj.lbl.toUpperCase(),bx+24,by+9.5,{align:'center'});
+  // Student
+  let y=42;
+  rc(10,y,W-20,20,[245,245,255],4);
+  doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.roundedRect(10,y,W-20,20,4,4,'S');
+  sf(7,'bold',GREY);doc.text('HOC SINH',16,y+6);
+  sf(11,'bold',DARK);doc.text(currentResult.ten||'Hoc sinh',16,y+14);
+  rc(W-58,y+3,46,14,rnkObj.pdfBg,6);
+  doc.setDrawColor(...rnkObj.pdfColor);doc.roundedRect(W-58,y+3,46,14,6,6,'S');
+  sf(9,'bold',rnkObj.pdfColor);doc.text(rnkObj.lbl.toUpperCase(),W-35,y+12,{align:'center'});
 
-  /* Avg block */
-  y+=28;
-  rect(10,y,W-20,28,rnkObj.pdfBg,6);
-  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.4); doc.roundedRect(10,y,W-20,28,6,6,'S');
-  setFont(7.5,'bold',rnkObj.pdfColor); doc.text('DIEM TRUNG BINH',20,y+10);
-  setFont(7,'normal',GREY); doc.text('Tong hop tat ca cac mon hoc',20,y+17);
-  setFont(22,'bold',rnkObj.pdfColor); doc.text(currentResult.dtb.toFixed(2),W-22,y+20,{align:'right'});
-  setFont(7,'normal',GREY); doc.text('/ 10.00',W-22,y+26,{align:'right'});
-  const bW=W-75, bX=20, bY=y+21.5, bH=3;
-  rect(bX,bY,bW,bH,[220,220,235],2);
+  // Avg
+  y+=26;
+  rc(10,y,W-20,26,rnkObj.pdfBg,5);
+  doc.setDrawColor(...rnkObj.pdfColor);doc.setLineWidth(.4);doc.roundedRect(10,y,W-20,26,5,5,'S');
+  sf(7,'bold',rnkObj.pdfColor);doc.text('DIEM TRUNG BINH CA NAM',18,y+9);
+  sf(20,'bold',rnkObj.pdfColor);doc.text(currentResult.dtb.toFixed(2),W-20,y+20,{align:'right'});
+  sf(7,'normal',GREY);doc.text('/ 10.00',W-20,y+25,{align:'right'});
+  const bW2=W-72,bX2=18,bY2=y+20,bH2=3;
+  rc(bX2,bY2,bW2,bH2,[215,215,235],2);
   doc.setFillColor(...rnkObj.pdfColor);
-  doc.roundedRect(bX,bY,(currentResult.dtb/10)*bW,bH,1.5,1.5,'F');
+  doc.roundedRect(bX2,bY2,bW2*currentResult.dtb/10,bH2,1.5,1.5,'F');
 
-  /* Embed radar chart as image */
+  // Radar image
   if (radarChartInst) {
-    y+=34;
-    const imgData = radarChartInst.toBase64Image('image/png', 1);
-    // White background box for chart
-    rect(10,y,W-20,90,[248,248,255],5);
-    doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,90,5,5,'S');
-    setFont(7.5,'bold',[79,70,229]); doc.text('BIEU DO RADAR DIEM CAC MON HOC',W/2,y+8,{align:'center'});
-    const cSize=72, cX=(W-cSize)/2;
-    doc.addImage(imgData,'PNG',cX,y+10,cSize,cSize);
-    // Stats row
-    const sY=y+84, sw=(W-24)/3;
-    const vals=currentResult.rows.map(r=>r.d);
-    const mxD=Math.max(...vals), mnD=Math.min(...vals), avD=vals.reduce((a,b)=>a+b,0)/vals.length;
-    [[mxD,'Cao nhat',[5,150,105]],[mnD,'Thap nhat',[185,28,28]],[avD,'Trung binh',rnkObj.pdfColor]].forEach(([v,l,c],i)=>{
-      const sx=12+i*(sw+2);
-      rect(sx,sY,sw,8,rnkObj.pdfBg,3);
-      setFont(8,'bold',c); doc.text(Number(v).toFixed(2),sx+sw/2,sY+5.5,{align:'center'});
-      setFont(6,'normal',GREY); doc.text(l,sx+sw/2,sY+10,{align:'center'});
-    });
-    y+=98;
-  } else { y+=34; }
+    y+=32;
+    const img=radarChartInst.toBase64Image('image/png',1);
+    rc(10,y,W-20,86,[248,248,255],4);
+    doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.roundedRect(10,y,W-20,86,4,4,'S');
+    sf(7,'bold',[79,70,229]);doc.text('BIEU DO RADAR TBM CAC MON',W/2,y+7,{align:'center'});
+    const cs=68,cx=(W-cs)/2;doc.addImage(img,'PNG',cx,y+9,cs,cs);
+    y+=86+4;
+  } else { y+=32; }
 
-  /* Score table */
-  rect(10,y,W-20,8,[79,70,229],0);
-  setFont(8,'bold',WHITE); doc.text('BANG DIEM CHI TIET',W/2,y+5.5,{align:'center'});
+  // Score table
+  rc(10,y,W-20,8,[79,70,229]);
+  sf(7.5,'bold',WHITE);doc.text('BANG DIEM CHI TIET TUNG MON',W/2,y+5.5,{align:'center'});
   y+=8;
-  rect(10,y,W-20,8,[240,240,255],0);
-  setFont(7.5,'bold',DARK); doc.text('MON HOC',18,y+5.5);
-  doc.text('DIEM',W-18,y+5.5,{align:'right'});
-  doc.text('NHAN XET',W/2,y+5.5,{align:'center'});
-  y+=8;
-  currentResult.rows.forEach(({m,d},i)=>{
-    rect(10,y,W-20,9,i%2===0?WHITE:[248,248,255]);
-    setFont(8.5,'normal',DARK); doc.text(m.ten,18,y+6);
-    let sc=d>=8?[5,150,105]:d>=6.5?[29,78,216]:d>=5?[180,100,10]:[185,28,28];
-    setFont(9,'bold',sc); doc.text(d.toFixed(1),W-18,y+6.2,{align:'right'});
-    let cmt=d>=8?'Xuat sac':d>=6.5?'Kha':d>=5?'Trung binh':'Can co gang';
-    setFont(7,'normal',GREY); doc.text(cmt,W/2,y+6,{align:'center'});
-    doc.setDrawColor(...LGREY); doc.setLineWidth(.2); doc.line(10,y+9,W-10,y+9);
-    y+=9;
+  rc(10,y,W-20,7,[235,235,250]);
+  sf(7,'bold',DARK);doc.text('MON HOC',16,y+5);
+  doc.text('HK1',W-60,y+5,{align:'right'});
+  doc.text('HK2',W-38,y+5,{align:'right'});
+  doc.text('TBM NAM',W-14,y+5,{align:'right'});
+  y+=7;
+  currentResult.rows.forEach(({m,hk1,hk2,tbm},i)=>{
+    rc(10,y,W-20,8,i%2===0?WHITE:[248,248,255]);
+    sf(8,'normal',DARK);doc.text(m.ten,16,y+5.5);
+    sf(7.5,'normal',GREY);
+    doc.text(hk1!==null?hk1.toFixed(2):'—',W-60,y+5.5,{align:'right'});
+    doc.text(hk2!==null?hk2.toFixed(2):'—',W-38,y+5.5,{align:'right'});
+    const sc2=tbm>=8?[5,150,105]:tbm>=6.5?[29,78,216]:tbm>=5?[180,100,10]:[185,28,28];
+    sf(8.5,'bold',sc2);doc.text(tbm.toFixed(2),W-14,y+5.5,{align:'right'});
+    doc.setDrawColor(...LGREY);doc.setLineWidth(.2);doc.line(10,y+8,W-10,y+8);
+    y+=8;
   });
-  rect(10,y,W-20,10,rnkObj.pdfBg);
-  doc.setDrawColor(...rnkObj.pdfColor); doc.setLineWidth(.4); doc.rect(10,y,W-20,10,'S');
-  setFont(9,'bold',rnkObj.pdfColor); doc.text('DIEM TRUNG BINH',18,y+6.8);
-  setFont(11,'bold',rnkObj.pdfColor); doc.text(currentResult.dtb.toFixed(2),W-18,y+7,{align:'right'});
-  y+=10;
+  rc(10,y,W-20,9,rnkObj.pdfBg);
+  doc.setDrawColor(...rnkObj.pdfColor);doc.setLineWidth(.4);doc.rect(10,y,W-20,9,'S');
+  sf(8.5,'bold',rnkObj.pdfColor);doc.text('DIEM TB CA NAM',16,y+6.3);
+  sf(10,'bold',rnkObj.pdfColor);doc.text(currentResult.dtb.toFixed(2),W-14,y+6.5,{align:'right'});
+  y+=9;
 
-  /* Rank desc */
-  y+=6;
-  if(y<235){
-    rect(10,y,W-20,30,[248,248,255],5);
-    doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.roundedRect(10,y,W-20,30,5,5,'S');
-    setFont(7.5,'bold',[79,70,229]); doc.text('Y NGHIA XEP LOAI',18,y+8);
-    rect(W-60,y+3,48,8,rnkObj.pdfBg,4);
-    setFont(7.5,'bold',rnkObj.pdfColor); doc.text(rnkObj.lbl,W-36,y+8.5,{align:'center'});
-    setFont(7.5,'normal',GREY);
-    doc.text(doc.splitTextToSize(rnkObj.desc,W-38).slice(0,2),18,y+16);
-    let cx=18;
-    rnkObj.tips.forEach(t=>{const tw=doc.getTextWidth(t)+6;if(cx+tw>W-12)return;
-      rect(cx,y+22,tw,5.5,[230,230,250],3);
-      setFont(6.5,'normal',[79,70,229]); doc.text(t,cx+tw/2,y+26.2,{align:'center'});cx+=tw+3;});
-  }
-
-  /* Footer */
-  const fY=doc.internal.pageSize.getHeight()-12;
-  doc.setDrawColor(...LGREY); doc.setLineWidth(.3); doc.line(10,fY-4,W-10,fY-4);
-  setFont(7,'normal',GREY); doc.text('He Thong Xep Loai Hoc Luc',W/2,fY,{align:'center'});
-  setFont(7,'normal',[180,180,200]); doc.text(`In luc: ${ds}`,W/2,fY+5,{align:'center'});
+  // Footer
+  const fY=doc.internal.pageSize.getHeight()-10;
+  doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.line(10,fY-4,W-10,fY-4);
+  sf(6.5,'normal',GREY);doc.text('He Thong Xep Loai Hoc Luc · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
 
   const safe=(currentResult.ten||'hocsinh').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
-  doc.save(`KetQua_${safe}_${now.getDate()}${now.getMonth()+1}${now.getFullYear()}.pdf`);
-  showToast('Đã xuất PDF thành công (có biểu đồ Radar)!');
+  doc.save(`BangDiem_${safe}_${ds.replace(/\//g,'')}.pdf`);
+  showToast('Đã xuất PDF bảng điểm chi tiết!');
 }
 
-/* ══════════════════════════════════════════════
-   LƯU / LỊCH SỬ
-══════════════════════════════════════════════ */
-const SK='hocLucHistory';
-function docLS(){try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];}}
-function ghiLS(a){try{localStorage.setItem(SK,JSON.stringify(a));}catch(e){}}
+/* ════════════════════════════════════════════════
+   11. LƯU / LỊCH SỬ
+════════════════════════════════════════════════ */
+const SK = 'hocLucHistoryV2';
+function docLS()  { try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];} }
+function ghiLS(a) { try{localStorage.setItem(SK,JSON.stringify(a));}catch(e){} }
 
-function luuKQ(){
-  if(!currentResult)return;
-  const arr=docLS(); arr.unshift({...currentResult,id:currentResult.ts});
-  if(arr.length>20)arr.splice(20); ghiLS(arr);
-  document.getElementById('btnSave').disabled=true;
-  showToast('Đã lưu kết quả của '+currentResult.ten); renderLichSu();
+function luuKQ() {
+  if (!currentResult) return;
+  const arr = docLS();
+  arr.unshift({...currentResult, id:currentResult.ts});
+  if (arr.length > 20) arr.splice(20);
+  ghiLS(arr);
+  document.getElementById('btnSave').disabled = true;
+  showToast('Đã lưu kết quả của ' + currentResult.ten);
+  renderLichSu();
 }
-function renderLichSu(){
-  const arr=docLS(),wrap=document.getElementById('histWrap'),list=document.getElementById('histList');
-  if(!arr.length){wrap.classList.remove('visible');return;}
-  wrap.classList.add('visible'); list.innerHTML='';
-  arr.forEach((rec,idx)=>{
-    const ro=RANK.find(r=>rec.rnk===r.cls)||RANK[RANK.length-1];
-    const d=new Date(rec.ts);
-    const ds=`${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
-    const row=document.createElement('div'); row.className='hist-row'; row.title='Nhấn để nạp lại';
-    row.innerHTML=`<div class="hist-rank-dot dot-${rec.rnk}"></div>
+
+function renderLichSu() {
+  const arr=docLS(), wrap=document.getElementById('histWrap'), list=document.getElementById('histList');
+  if (!arr.length) { wrap.classList.remove('visible'); return; }
+  wrap.classList.add('visible'); list.innerHTML = '';
+  arr.forEach((rec,idx) => {
+    const ro = RANK.find(r=>rec.rnk===r.cls)||RANK[RANK.length-1];
+    const d  = new Date(rec.ts);
+    const ds = `${d.getDate()}/${d.getMonth()+1}/${d.getFullYear()} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
+    const row = document.createElement('div');
+    row.className = 'hist-row'; row.title = 'Nhấn để xem';
+    row.innerHTML = `
+      <div class="hist-rank-dot dot-${rec.rnk}"></div>
       <span class="hist-name">${rec.ten}</span>
       <span class="hist-avg ${ro.scCls}">${Number(rec.dtb).toFixed(2)}</span>
       <span class="hist-lbl ${rec.rnk}">${ro.lbl}</span>
       <span class="hist-date">${ds}</span>
       <button class="hist-del" onclick="xoaRec(${idx},event)" title="Xoá">✕</button>`;
-    row.addEventListener('click',()=>napLai(rec)); list.appendChild(row);
+    row.addEventListener('click', ()=>napLai(rec));
+    list.appendChild(row);
   });
 }
-function napLai(rec){
-  document.getElementById('tenHS').value=rec.ten;
-  MON.forEach(m=>{
-    const s=rec.rows.find(r=>r.m&&r.m.id===m.id);
-    const el=document.getElementById(m.id); el.value=s?s.d:''; if(s)updBar(m.id); clrErr(m.id);
-  });
-  tinhKQ(); window.scrollTo({top:0,behavior:'smooth'}); showToast('Đã nạp kết quả của '+rec.ten);
+
+function napLai(rec) {
+  document.getElementById('tenHS').value = rec.ten;
+  // Chỉ hiển thị kết quả, không restore từng ô (dữ liệu chi tiết phức tạp)
+  currentResult = rec;
+  if (rec.rows && rec.rows.length) {
+    const rnk = rankOf(rec.dtb);
+    const wrap = document.getElementById('resWrap');
+    const card = document.getElementById('resCard');
+    ['gioi','kha','tb','yeu'].forEach(c=>card.classList.remove(c));
+    card.classList.add(rnk.cls);
+    document.getElementById('rAvatar').textContent = rnk.ico;
+    document.getElementById('rName').textContent   = rec.ten;
+    document.getElementById('rPill').textContent   = rnk.ico+' '+rnk.lbl;
+    document.getElementById('rAvg').textContent    = Number(rec.dtb).toFixed(2);
+    document.getElementById('rDescText').textContent = rnk.desc;
+    document.getElementById('rDescTips').innerHTML   = rnk.tips.map(t=>`<span class="rd-tip">${t}</span>`).join('');
+    const tbody = document.getElementById('rTbody'); tbody.innerHTML='';
+    rec.rows.forEach(({m,hk1,hk2,tbm})=>{
+      const tr=document.createElement('tr');
+      const cl=scColor(tbm);
+      tr.innerHTML=`<td><span class="tbl-ico">${m.ico}</span>${m.ten}</td>
+        <td style="text-align:right;color:var(--tx-2)">${hk1!=null?Number(hk1).toFixed(2):'—'}</td>
+        <td style="text-align:right;color:var(--tx-2)">${hk2!=null?Number(hk2).toFixed(2):'—'}</td>
+        <td class="${cl}" style="text-align:right">${Number(tbm).toFixed(2)}</td>`;
+      tbody.appendChild(tr);
+    });
+    const tr=document.createElement('tr');tr.className='ttl-row';
+    const rnkO=rankOf(rec.dtb);
+    tr.innerHTML=`<td colspan="3"><span class="tbl-ico">📊</span>TBM cả năm</td>
+      <td class="${rnkO.scCls}" style="text-align:right">${Number(rec.dtb).toFixed(2)}</td>`;
+    tbody.appendChild(tr);
+    const pct=(rec.dtb/10*100).toFixed(1)+'%';
+    wrap.style.display=''; wrap.classList.remove('visible'); void wrap.offsetWidth; wrap.classList.add('visible');
+    setTimeout(()=>{ document.getElementById('rScaleFill').style.width=pct; document.getElementById('rNeedle').style.left=pct; },120);
+    setTimeout(()=>drawRadar(rec.rows,rnk),200);
+    document.getElementById('btnPdf').disabled=false;
+  }
+  window.scrollTo({top:0,behavior:'smooth'});
+  showToast('Đã nạp kết quả của '+rec.ten);
 }
-function xoaRec(idx,e){
-  e.stopPropagation(); const arr=docLS(); arr.splice(idx,1); ghiLS(arr); renderLichSu(); showToast('Đã xoá bản ghi',false);
+
+function xoaRec(idx,e) {
+  e.stopPropagation();
+  const arr=docLS(); arr.splice(idx,1); ghiLS(arr); renderLichSu(); showToast('Đã xoá bản ghi',false);
 }
-function xoaTatCa(){
+function xoaTatCa() {
   if(!confirm('Xoá toàn bộ lịch sử?'))return; ghiLS([]); renderLichSu(); showToast('Đã xoá tất cả',false);
 }
 
-/* ══════════════════════════════════════════════
-   NHẬP LẠI
-══════════════════════════════════════════════ */
-function nhapLai(){
-  document.getElementById('tenHS').value='';
-  MON.forEach(m=>{
-    document.getElementById(m.id).value='';
-    document.getElementById('box_'+m.id).classList.remove('error');
-    document.getElementById('fe_'+m.id).style.display='none';
-    document.getElementById('mb_'+m.id).style.width='0%'; clrErr(m.id);
+/* ════════════════════════════════════════════════
+   12. NHẬP LẠI
+════════════════════════════════════════════════ */
+function nhapLai() {
+  document.getElementById('tenHS').value = '';
+  MON.forEach(m => {
+    const n = txCount[m.id];
+    for(let hk=1;hk<=2;hk++){
+      for(let i=0;i<n;i++){
+        const el=document.getElementById(`tx${hk}_${m.id}_${i}`);
+        if(el) el.value='';
+      }
+      ['gk','ck'].forEach(p=>{
+        const el=document.getElementById(`${p}${hk}_${m.id}`);
+        if(el) el.value='';
+      });
+    }
+    recalcMon(m.id);
+    document.getElementById('card_'+m.id).classList.remove('open','has-error');
   });
-  document.getElementById('gErr').style.display='none'; hideResult();
+  document.getElementById('gErr').style.display = 'none';
+  hideResult();
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
+/* ════════════════════════════════════════════════
+   13. INIT
+════════════════════════════════════════════════ */
+buildMonUI();
 renderLichSu();
 </script>
 </body>
