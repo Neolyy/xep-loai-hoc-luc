@@ -137,7 +137,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 [data-theme="dark"] .mon-tbm-display.sc-k{color:#60a5fa}
 [data-theme="dark"] .mon-tbm-display.sc-t{color:#fbbf24}
 [data-theme="dark"] .mon-tbm-display.sc-y{color:#f87171}
-/* ── DELETE button on custom subject card ── */
 .mon-del-btn{background:none;border:none;cursor:pointer;font-size:.85rem;
   color:var(--tx-3);padding:3px 7px;border-radius:8px;flex-shrink:0;margin-left:4px;
   transition:color .15s,background .15s,transform .1s;}
@@ -205,7 +204,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .btn-pdf:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .btn-reset{background:var(--bg-soft);color:var(--c-p1);}
 .btn-reset:hover{background:var(--bd-input);transform:translateY(-1px);}
-/* ── ADD SUBJECT BUTTON ── */
 .btn-add-subj{
   display:flex;align-items:center;justify-content:center;gap:8px;
   width:100%;padding:11px 16px;margin-top:14px;margin-bottom:2px;
@@ -217,7 +215,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   background:var(--bg-soft);border-color:var(--c-p1);
   transform:translateY(-1px);box-shadow:var(--sh-sm);}
 .btn-add-subj:active{transform:scale(.97);}
-/* ── ADD SUBJECT MODAL ── */
 .asModal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);
   z-index:600;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
 .asModal-overlay.open{display:flex;}
@@ -565,7 +562,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 .sound-vol::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;
   border-radius:50%;background:var(--c-p1);cursor:pointer;}
 .pomo-stats{display:flex;gap:10px;flex-wrap:wrap;}
-.pomo-ring-fill.phase-break{stroke:#34d399;}
 .analytics-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:22px;}
 @media(max-width:580px){.analytics-grid{grid-template-columns:1fr;}}
 .an-card{background:var(--bg-glass);backdrop-filter:blur(10px);
@@ -607,6 +603,225 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   .pomo-config{grid-template-columns:1fr 1fr;}
   .pomo-sound-bar{flex-direction:column;align-items:flex-start;}
 }
+.ai-block{
+  background:var(--bg-glass);
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1.5px solid var(--bd-glass);
+  border-radius:20px;padding:20px 22px;margin-bottom:20px;
+  box-shadow:0 4px 24px rgba(99,102,241,.08);
+  animation:fadeIn .35s ease;}
+.ai-block-title{
+  display:flex;align-items:center;gap:9px;
+  font-size:.88rem;font-weight:800;color:var(--c-p1);
+  margin-bottom:16px;padding-bottom:12px;
+  border-bottom:1.5px solid var(--bd-base);}
+.ai-block-title .ai-ico{font-size:1.3rem;}
+.ai-no-data{
+  text-align:center;padding:24px 16px;
+  background:var(--bg-rdtip);border-radius:14px;
+  font-size:.85rem;color:var(--tx-3);font-weight:500;}
+.ai-no-data .ai-nd-ico{font-size:2rem;display:block;margin-bottom:8px;}
+.ai-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+@media(max-width:560px){.ai-stat-row{grid-template-columns:1fr 1fr;}}
+.ai-stat{
+  background:var(--bg-subj);border:1.5px solid var(--bd-base);
+  border-radius:14px;padding:11px 13px;text-align:center;
+  transition:transform .2s,box-shadow .2s;}
+.ai-stat:hover{transform:translateY(-2px);box-shadow:var(--sh-sm);}
+.ai-stat-val{font-size:1.3rem;font-weight:900;color:var(--c-p1);}
+.ai-stat-lbl{font-size:.66rem;font-weight:600;color:var(--tx-3);margin-top:3px;}
+.ai-summary{
+  background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);
+  border-radius:14px;padding:13px 15px;margin-bottom:14px;
+  font-size:.85rem;line-height:1.6;color:var(--tx-1);font-weight:500;}
+.ai-tips-list{display:flex;flex-direction:column;gap:9px;}
+.ai-tip{
+  display:flex;align-items:flex-start;gap:10px;
+  background:var(--bg-histrow);border:1.5px solid var(--bd-base);
+  border-radius:13px;padding:11px 14px;
+  font-size:.84rem;color:var(--tx-1);font-weight:500;line-height:1.5;}
+.ai-tip-num{
+  width:22px;height:22px;border-radius:7px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;font-size:.72rem;font-weight:900;
+  display:flex;align-items:center;justify-content:center;margin-top:1px;}
+.ai-plan-grid{display:flex;flex-direction:column;gap:8px;margin-bottom:14px;}
+.ai-plan-item{
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;background:var(--bg-histrow);
+  border:1.5px solid var(--bd-base);border-radius:13px;
+  font-size:.84rem;color:var(--tx-1);font-weight:500;
+  animation:taskSlideIn .25s ease both;}
+.ai-plan-day{
+  min-width:52px;font-size:.7rem;font-weight:800;
+  color:var(--c-p1);background:var(--bg-soft);
+  padding:2px 8px;border-radius:99px;text-align:center;flex-shrink:0;}
+.ai-plan-subj{
+  font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:99px;
+  background:rgba(99,102,241,.12);color:var(--c-p2);flex-shrink:0;}
+.ai-plan-title{flex:1;}
+.btn-ai-push{
+  display:flex;align-items:center;gap:7px;justify-content:center;
+  background:linear-gradient(135deg,#059669,#10b981);
+  color:#fff;border:none;border-radius:12px;
+  padding:11px 22px;font-family:inherit;font-size:.9rem;font-weight:700;
+  cursor:pointer;box-shadow:0 4px 14px rgba(5,150,105,.30);
+  transition:opacity .2s,transform .15s,box-shadow .2s;}
+.btn-ai-push:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 8px 22px rgba(5,150,105,.4);}
+.btn-ai-push:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.ai-test-select-row{
+  display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.ai-test-select-row select{
+  flex:1;min-width:140px;padding:9px 13px;
+  border:1.5px solid var(--bd-input);border-radius:11px;
+  font-family:inherit;font-size:.9rem;font-weight:500;
+  color:var(--tx-1);background:var(--bg-card);outline:none;
+  transition:border-color .2s;}
+.ai-test-select-row select:focus{border-color:var(--c-p1);}
+.btn-ai-gen{
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;border:none;border-radius:12px;padding:10px 20px;
+  font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 14px rgba(79,70,229,.32);white-space:nowrap;
+  transition:opacity .2s,transform .15s;}
+.btn-ai-gen:hover{opacity:.92;transform:translateY(-2px);}
+.btn-ai-gen:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.ai-quiz-wrap{display:flex;flex-direction:column;gap:14px;}
+.ai-q{
+  background:var(--bg-subj);border:1.5px solid var(--bd-base);
+  border-radius:16px;padding:14px 16px;
+  animation:taskSlideIn .3s cubic-bezier(.22,1,.36,1) both;}
+.ai-q-num{font-size:.68rem;font-weight:800;color:var(--tx-3);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
+.ai-q-text{font-size:.9rem;font-weight:700;color:var(--tx-1);
+  line-height:1.5;margin-bottom:10px;}
+.ai-opts{display:flex;flex-direction:column;gap:6px;}
+.ai-opt{
+  display:flex;align-items:center;gap:9px;padding:8px 12px;
+  background:var(--bg-card);border:1.5px solid var(--bd-base);
+  border-radius:10px;cursor:pointer;font-size:.84rem;font-weight:500;
+  color:var(--tx-1);transition:border-color .2s,background .2s,transform .1s;
+  user-select:none;}
+.ai-opt:hover{border-color:var(--c-p1);background:var(--bg-soft);}
+.ai-opt.selected{border-color:var(--c-p1);background:var(--bg-soft);font-weight:700;}
+.ai-opt.correct{border-color:#34d399;background:var(--g-bg);color:var(--g-tx);font-weight:700;}
+.ai-opt.wrong{border-color:#f87171;background:var(--y-bg);color:var(--y-tx);}
+.ai-opt-dot{
+  width:16px;height:16px;border-radius:50%;border:2px solid var(--bd-base);
+  flex-shrink:0;transition:background .2s,border-color .2s;}
+.ai-opt.selected .ai-opt-dot{background:var(--c-p1);border-color:var(--c-p1);}
+.ai-opt.correct .ai-opt-dot{background:#34d399;border-color:#34d399;}
+.ai-opt.wrong .ai-opt-dot{background:#f87171;border-color:#f87171;}
+.ai-q-explain{
+  margin-top:9px;padding:9px 12px;border-radius:10px;
+  background:var(--bg-rdtip);font-size:.8rem;
+  font-weight:500;color:var(--tx-2);line-height:1.5;display:none;}
+.ai-q-explain.show{display:block;animation:fadeIn .25s ease;}
+.ai-test-actions{
+  display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
+.btn-ai-submit{
+  background:linear-gradient(135deg,#f59e0b,#f97316);
+  color:#fff;border:none;border-radius:12px;padding:11px 22px;
+  font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
+  box-shadow:0 4px 14px rgba(245,158,11,.30);
+  transition:opacity .2s,transform .15s;}
+.btn-ai-submit:hover{opacity:.92;transform:translateY(-2px);}
+.btn-ai-retry{
+  background:var(--bg-soft);color:var(--c-p1);border:1.5px solid var(--bd-base);
+  border-radius:12px;padding:11px 18px;font-family:inherit;
+  font-size:.9rem;font-weight:700;cursor:pointer;
+  transition:background .15s,transform .1s;}
+.btn-ai-retry:hover{background:var(--bd-base);transform:translateY(-1px);}
+.ai-score-banner{
+  display:none;background:var(--bg-prog);
+  border:1.5px solid var(--bd-base);border-radius:14px;
+  padding:14px 18px;text-align:center;
+  font-size:1rem;font-weight:700;color:var(--tx-1);}
+.ai-score-banner.show{display:block;animation:fadeSlide .4s ease;}
+.ai-score-banner .ai-score-big{
+  font-size:2.4rem;font-weight:900;color:var(--c-p1);display:block;margin:4px 0;}
+.ai-loading{
+  display:flex;align-items:center;gap:10px;padding:14px 16px;
+  background:var(--bg-soft);border-radius:13px;
+  font-size:.85rem;font-weight:600;color:var(--c-p1);}
+.ai-loading-dots{display:flex;gap:4px;}
+.ai-loading-dots span{width:7px;height:7px;border-radius:50%;background:var(--c-p1);
+  animation:dotBounce 1.2s infinite ease-in-out;}
+.ai-loading-dots span:nth-child(2){animation-delay:.2s;}
+.ai-loading-dots span:nth-child(3){animation-delay:.4s;}
+@keyframes dotBounce{0%,80%,100%{transform:scale(.6);opacity:.5}40%{transform:scale(1);opacity:1}}
+.ai-gemini-resp{
+  background:var(--bg-prog);border:1px solid rgba(128,128,128,.12);
+  border-radius:14px;padding:14px 16px;
+  font-size:.85rem;line-height:1.7;color:var(--tx-1);font-weight:500;
+  white-space:pre-wrap;word-break:break-word;}
+.ai-api-key-block{
+  background:var(--bg-subj);border:1.5px solid var(--bd-base);
+  border-radius:16px;padding:16px 18px;margin-bottom:18px;}
+.ai-api-key-block label{
+  font-size:.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.07em;color:var(--tx-3);display:block;margin-bottom:7px;}
+.ai-api-key-row{display:flex;gap:8px;align-items:center;}
+.ai-api-key-inp{
+  flex:1;padding:9px 13px;border:1.5px solid var(--bd-input);
+  border-radius:11px;font-family:inherit;font-size:.85rem;
+  color:var(--tx-1);background:var(--bg-card);outline:none;
+  transition:border-color .2s;}
+.ai-api-key-inp:focus{border-color:var(--c-p1);box-shadow:0 0 0 3px rgba(99,102,241,.12);}
+.btn-key-save{
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;border:none;border-radius:10px;padding:9px 16px;
+  font-family:inherit;font-size:.82rem;font-weight:700;cursor:pointer;
+  white-space:nowrap;transition:opacity .2s,transform .15s;}
+.btn-key-save:hover{opacity:.9;transform:translateY(-1px);}
+.ai-key-status{font-size:.72rem;font-weight:600;margin-top:6px;}
+.ai-key-status.ok{color:#059669;}
+.ai-key-status.missing{color:#f87171;}
+.ai-profile-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:4px;}
+@media(max-width:560px){.ai-profile-grid{grid-template-columns:1fr;}}
+.ai-chat-wrap{display:flex;flex-direction:column;gap:0;}
+.ai-chat-box{
+  min-height:200px;max-height:340px;overflow-y:auto;
+  background:var(--bg-subj);border:1.5px solid var(--bd-base);
+  border-radius:14px;padding:14px;margin-bottom:10px;
+  display:flex;flex-direction:column;gap:10px;}
+.chat-msg{display:flex;gap:8px;align-items:flex-start;animation:fadeIn .25s ease;}
+.chat-msg.user{flex-direction:row-reverse;}
+.chat-bubble{
+  max-width:78%;padding:9px 13px;border-radius:14px;
+  font-size:.84rem;line-height:1.55;font-weight:500;
+  white-space:pre-wrap;word-break:break-word;}
+.chat-msg.user .chat-bubble{
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;border-radius:14px 14px 4px 14px;}
+.chat-msg.ai .chat-bubble{
+  background:var(--bg-prog);color:var(--tx-1);
+  border:1px solid var(--bd-base);border-radius:14px 14px 14px 4px;}
+.chat-avatar{width:28px;height:28px;border-radius:8px;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:.9rem;
+  background:var(--bg-soft);}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end;}
+.chat-textarea{
+  flex:1;padding:10px 13px;border:1.5px solid var(--bd-input);
+  border-radius:12px;font-family:inherit;font-size:.88rem;
+  color:var(--tx-1);background:var(--bg-card);outline:none;
+  resize:none;min-height:44px;max-height:120px;
+  transition:border-color .2s,box-shadow .2s;line-height:1.5;}
+.chat-textarea:focus{border-color:var(--c-p1);box-shadow:0 0 0 3px rgba(99,102,241,.12);}
+.btn-chat-send{
+  background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
+  color:#fff;border:none;border-radius:12px;padding:11px 18px;
+  font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
+  white-space:nowrap;box-shadow:0 4px 14px rgba(79,70,229,.32);
+  transition:opacity .2s,transform .15s;}
+.btn-chat-send:hover{opacity:.9;transform:translateY(-1px);}
+.btn-chat-send:disabled{opacity:.4;cursor:not-allowed;transform:none;}
+.btn-chat-clear{
+  background:var(--bg-soft);color:var(--tx-3);border:1.5px solid var(--bd-base);
+  border-radius:10px;padding:8px 12px;font-family:inherit;font-size:.75rem;
+  font-weight:700;cursor:pointer;margin-top:7px;align-self:flex-start;
+  transition:background .15s,color .15s;}
+.btn-chat-clear:hover{background:var(--y-bg);color:#f87171;}
 </style>
 </head>
 <body>
@@ -616,13 +831,14 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 <header class="pg-head">
   <span class="crown">🎓</span>
   <h1>Study System <span class="pro-badge">PRO</span></h1>
-  <p>Bảng điểm · Study Planner · Analytics · Pomodoro Pro</p>
+  <p>Bảng điểm · Study Planner · Analytics · Pomodoro Pro · AI Gemini</p>
 </header>
 
 <div class="tab-bar">
   <button class="tab-btn active" id="tab-grade"     onclick="switchTab('grade')">🎓 Học lực</button>
   <button class="tab-btn"        id="tab-planner"   onclick="switchTab('planner')">📅 Planner</button>
   <button class="tab-btn"        id="tab-analytics" onclick="switchTab('analytics')">📊 Analytics</button>
+  <button class="tab-btn"        id="tab-ai"        onclick="switchTab('ai')">🤖 AI</button>
 </div>
 
 <div class="card">
@@ -640,10 +856,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       </div>
       <p class="sec-lbl">📚 Điểm các môn học</p>
       <div class="mon-list" id="monList"></div>
-
-      <!-- ══ PATCH: Nút thêm môn học ══ -->
       <button class="btn-add-subj" onclick="openAddSubjModal()">➕ Thêm môn học khác</button>
-
       <div class="g-err" id="gErr"></div>
       <div class="actions">
         <button class="btn btn-calc"  onclick="tinhKQ()">✨ Tính kết quả</button>
@@ -915,6 +1128,133 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
       </div>
     </div>
 
+    <!-- TAB: AI MODULE -->
+    <div id="sec-ai" class="sp-section">
+      <p class="sec-lbl">🤖 AI Hỗ trợ học tập — Powered by Gemini</p>
+
+      <div class="ai-api-key-block">
+        <label>🔑 Gemini API Key</label>
+        <div class="ai-api-key-row">
+          <input type="password" class="ai-api-key-inp" id="ai-api-key-inp"
+            placeholder="Nhập Gemini API Key của bạn…"/>
+          <button class="btn-key-save" onclick="aiSaveKey()">💾 Lưu</button>
+        </div>
+        <div class="ai-key-status missing" id="ai-key-status">⚠️ Chưa có API Key — AI Gemini chưa hoạt động</div>
+        <div style="font-size:.68rem;color:var(--tx-3);margin-top:4px;">Lấy key miễn phí tại <a href="https://aistudio.google.com/app/apikey" target="_blank" style="color:var(--c-p1)">aistudio.google.com</a></div>
+      </div>
+
+      <div class="ai-block">
+        <div class="ai-block-title">
+          <span class="ai-ico">🎒</span>
+          <span>Hồ sơ học tập</span>
+        </div>
+        <div class="ai-profile-grid">
+          <div class="sp-field">
+            <label>Lớp</label>
+            <select class="sp-inp" id="profile-grade" onchange="aiSaveProfile()">
+              <option value="">-- Chọn lớp --</option>
+              <option value="9">Lớp 9</option>
+              <option value="10">Lớp 10</option>
+              <option value="11">Lớp 11</option>
+              <option value="12">Lớp 12</option>
+            </select>
+          </div>
+          <div class="sp-field">
+            <label>Bộ sách</label>
+            <select class="sp-inp" id="profile-textbook" onchange="aiSaveProfile()">
+              <option value="">-- Chọn sách --</option>
+              <option value="Cánh Diều">Cánh Diều</option>
+              <option value="KNTT">Kết nối tri thức</option>
+              <option value="CTST">Chân trời sáng tạo</option>
+            </select>
+          </div>
+          <div class="sp-field">
+            <label>Ban học</label>
+            <select class="sp-inp" id="profile-track" onchange="aiSaveProfile()">
+              <option value="">-- Chọn ban --</option>
+              <option value="Tự nhiên">Tự nhiên</option>
+              <option value="Xã hội">Xã hội</option>
+              <option value="Cơ bản">Cơ bản</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-top:8px;font-size:.72rem;font-weight:600;color:var(--tx-3)" id="profile-status">Chưa lưu hồ sơ</div>
+      </div>
+
+      <div class="ai-block" id="ai-block-analysis">
+        <div class="ai-block-title">
+          <span class="ai-ico">🧠</span>
+          <span>AI Phân tích học lực</span>
+        </div>
+        <div id="ai-analysis-content">
+          <div class="ai-no-data">
+            <span class="ai-nd-ico">📊</span>
+            Hãy tính kết quả ở tab <strong>Học lực</strong> trước, rồi bấm Phân tích để AI Gemini nhận xét.
+          </div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;">
+          <button class="btn-ai-gen" id="btn-ai-analysis" onclick="aiRunAnalysis()">🔍 Phân tích ngay</button>
+        </div>
+      </div>
+
+      <div class="ai-block" id="ai-block-plan">
+        <div class="ai-block-title">
+          <span class="ai-ico">📅</span>
+          <span>AI Tạo kế hoạch 14 ngày</span>
+        </div>
+        <div id="ai-plan-content">
+          <div class="ai-no-data">
+            <span class="ai-nd-ico">📋</span>
+            Cần có kết quả điểm trước. Bấm <strong>"Tạo kế hoạch"</strong> để AI tự động tạo 14 ngày ôn tập dựa trên các môn yếu nhất.
+          </div>
+        </div>
+        <div style="margin-top:14px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+          <button class="btn-ai-gen" id="btn-ai-plan" onclick="aiGenPlan()">✨ Tạo kế hoạch</button>
+          <button class="btn-ai-push" id="ai-push-btn" onclick="aiPushToPlanner()" disabled>➕ Thêm vào Planner</button>
+        </div>
+      </div>
+
+      <div class="ai-block" id="ai-block-test">
+        <div class="ai-block-title">
+          <span class="ai-ico">📝</span>
+          <span>AI Mini Test — 5 câu theo chương trình</span>
+        </div>
+        <div class="ai-test-select-row">
+          <select id="ai-test-subj"></select>
+          <button class="btn-ai-gen" id="btn-ai-test" onclick="aiGenTest()">🎲 Tạo đề thi</button>
+        </div>
+        <div id="ai-test-content">
+          <div class="ai-no-data">
+            <span class="ai-nd-ico">📝</span>
+            Chọn môn học và bấm <strong>"Tạo đề thi"</strong>. Gemini sẽ tạo 5 câu đúng chương trình lớp của bạn.
+          </div>
+        </div>
+      </div>
+
+      <div class="ai-block" id="ai-block-chat">
+        <div class="ai-block-title">
+          <span class="ai-ico">💬</span>
+          <span>AI Chat hỗ trợ học tập</span>
+        </div>
+        <div class="ai-chat-wrap">
+          <div class="ai-chat-box" id="ai-chat-box">
+            <div class="chat-msg ai">
+              <div class="chat-avatar">🤖</div>
+              <div class="chat-bubble">Xin chào! Tôi là trợ lý học tập AI. Hãy hỏi tôi bất cứ điều gì về môn học, bài tập, hay phương pháp học tập nhé! 📚</div>
+            </div>
+          </div>
+          <div class="chat-input-row">
+            <textarea class="chat-textarea" id="chat-input" rows="1"
+              placeholder="Hỏi về bài học, giải thích khái niệm, luyện tập…"
+              onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();aiChatSend();}"></textarea>
+            <button class="btn-chat-send" id="btn-chat-send" onclick="aiChatSend()">📤 Gửi</button>
+          </div>
+          <button class="btn-chat-clear" onclick="aiChatClear()">🗑 Xoá lịch sử chat</button>
+        </div>
+      </div>
+
+    </div>
+
   </div>
 </div>
 
@@ -956,7 +1296,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   </div>
 </div>
 
-<!-- ══ PATCH: Modal thêm môn học ══ -->
+<!-- Add Subject Modal -->
 <div class="asModal-overlay" id="asModal-overlay">
   <div class="asModal">
     <h3>➕ Thêm môn học mới</h3>
@@ -991,7 +1331,6 @@ const MON = [
   {id:'cn',   ten:'Công nghệ',        ico:'🛠️'},
 ];
 
-/* ════ 2. XẾP LOẠI ════ */
 const RANK = [
   {min:8.0,lbl:'Giỏi',      cls:'gioi',ico:'🏆',scCls:'sc-g',
    rgb:'52,211,153',pdfColor:[5,150,105],pdfBg:[209,250,229],
@@ -1011,7 +1350,6 @@ const RANK = [
    tips:['Bổ sung kiến thức','Tìm hỗ trợ thầy cô','Lập kế hoạch học','Không bỏ cuộc!']},
 ];
 
-/* ════ 3. STATE ════ */
 let currentResult  = null;
 let radarChartInst = null;
 let anBarChart     = null;
@@ -1019,9 +1357,9 @@ let anDoughnut     = null;
 const txCount = {};
 MON.forEach(m => { txCount[m.id] = {1: 4, 2: 4}; });
 
-/* ════ 4. TAB SWITCHING ════ */
+/* ════ TAB ════ */
 function switchTab(tab) {
-  ['grade','planner','analytics'].forEach(t => {
+  ['grade','planner','analytics','ai'].forEach(t => {
     const s = document.getElementById('sec-'+t);
     const b = document.getElementById('tab-'+t);
     if (s) s.style.display = 'none';
@@ -1033,9 +1371,10 @@ function switchTab(tab) {
   if (btn) btn.classList.add('active');
   if (tab === 'planner')   spRender();
   if (tab === 'analytics') anRender();
+  if (tab === 'ai')        { aiInitTestSubjSelect(); aiLoadProfile(); aiLoadKeyStatus(); }
 }
 
-/* ════ 5. DARK MODE ════ */
+/* ════ DARK MODE ════ */
 const DM_KEY = 'hocLucDarkMode';
 function applyTheme(dark) {
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
@@ -1055,7 +1394,7 @@ function toggleDark() {
   if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) applyTheme(true);
 })();
 
-/* ════ 6. XÂY DỰNG UI MÔN HỌC ════ */
+/* ════ UI MÔN HỌC ════ */
 function buildMonUI() {
   const list = document.getElementById('monList');
   list.innerHTML = '';
@@ -1064,7 +1403,6 @@ function buildMonUI() {
     const card = document.createElement('div');
     card.className = 'mon-card';
     card.id = 'card_' + m.id;
-    // Show delete button only for custom (non-default) subjects
     const isCustom = m._custom === true;
     const delBtn = isCustom
       ? `<button class="mon-del-btn" title="Xoá môn này" onclick="deleteCustomSubj('${m.id}',event)">✕</button>`
@@ -1159,7 +1497,7 @@ function toggleMon(mid) { document.getElementById('card_'+mid).classList.toggle(
 function addTX(mid, hk) { if (txCount[mid][hk] >= 6) return; txCount[mid][hk]++; buildTX(mid, hk); recalcMon(mid); }
 function delTX(mid, hk) { if (txCount[mid][hk] <= 1) return; txCount[mid][hk]--; buildTX(mid, hk); recalcMon(mid); }
 
-/* ════ 7. LOGIC TÍNH ĐIỂM ════ */
+/* ════ TÍNH ĐIỂM ════ */
 function getVal(id) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -1226,7 +1564,7 @@ function recalcMon(mid) {
   }
 }
 
-/* ════ 8. HELPERS ════ */
+/* ════ HELPERS ════ */
 function rankOf(d)  { return RANK.find(r=>d>=r.min)||RANK[RANK.length-1]; }
 function scColor(d) { return d>=8?'sc-g':d>=6.5?'sc-k':d>=5?'sc-t':'sc-y'; }
 let toastTimer;
@@ -1265,9 +1603,7 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-/* ════════════════════════════════════════════════
-   ██ PATCH: ADD CUSTOM SUBJECT ██
-════════════════════════════════════════════════ */
+/* ════ ADD CUSTOM SUBJECT ════ */
 function openAddSubjModal() {
   document.getElementById('asModal-name').value = '';
   document.getElementById('asModal-err').textContent = '';
@@ -1281,54 +1617,24 @@ function confirmAddSubj() {
   const nameInp = document.getElementById('asModal-name');
   const errEl   = document.getElementById('asModal-err');
   const name    = nameInp.value.trim();
-
-  if (!name) {
-    errEl.textContent = '⚠️ Vui lòng nhập tên môn học.';
-    nameInp.focus();
-    return;
-  }
-  // Check duplicate (case-insensitive)
+  if (!name) { errEl.textContent = '⚠️ Vui lòng nhập tên môn học.'; nameInp.focus(); return; }
   const dup = MON.some(m => m.ten.toLowerCase() === name.toLowerCase());
-  if (dup) {
-    errEl.textContent = '⚠️ Môn "' + name + '" đã tồn tại!';
-    nameInp.select();
-    return;
-  }
-
-  // Generate safe id from name (strip diacritics → slug)
-  const slug = name
-    .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-    .toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'')
-    || 'mon_' + Date.now();
+  if (dup) { errEl.textContent = '⚠️ Môn "' + name + '" đã tồn tại!'; nameInp.select(); return; }
+  const slug = name.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .toLowerCase().replace(/\s+/g,'_').replace(/[^a-z0-9_]/g,'') || 'mon_' + Date.now();
   const id = slug + '_' + Date.now();
-
-  // Push into MON array
   MON.push({ id, ten: name, ico: '📘', _custom: true });
-
-  // Init txCount for new subject
   txCount[id] = { 1: 4, 2: 4 };
-
-  // Rebuild grade UI
   buildMonUI();
-
-  // Rebuild all subject selects in Planner / Pomodoro / Timetable
   spBuildSubjSelect();
-
-  // Close modal & toast
+  aiInitTestSubjSelect();
   closeAddSubjModal();
   showToast('Đã thêm môn: ' + name);
-
-  // Scroll new card into view & open it
   requestAnimationFrame(() => {
     const newCard = document.getElementById('card_' + id);
-    if (newCard) {
-      newCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      newCard.classList.add('open');
-    }
+    if (newCard) { newCard.scrollIntoView({ behavior: 'smooth', block: 'center' }); newCard.classList.add('open'); }
   });
 }
-
-/* Delete a custom subject */
 function deleteCustomSubj(mid, e) {
   e.stopPropagation();
   const m = MON.find(x => x.id === mid);
@@ -1339,11 +1645,11 @@ function deleteCustomSubj(mid, e) {
   delete txCount[mid];
   buildMonUI();
   spBuildSubjSelect();
+  aiInitTestSubjSelect();
   showToast('Đã xoá môn ' + m.ten, false);
 }
-/* ════════════════════════════════════════════════ */
 
-/* ════ 9. TÍNH KẾT QUẢ ════ */
+/* ════ TÍNH KẾT QUẢ ════ */
 function tinhKQ() {
   const gErr=document.getElementById('gErr');
   gErr.style.display='none';
@@ -1411,7 +1717,7 @@ function hideResult() {
   currentResult=null;
 }
 
-/* ════ 10. RADAR CHART ════ */
+/* ════ RADAR CHART ════ */
 function getChartTheme() {
   const cs=getComputedStyle(document.documentElement);
   return {grid:cs.getPropertyValue('--chart-grid').trim(),
@@ -1456,7 +1762,7 @@ function updateRadarTheme() {
   radarChartInst.update();
 }
 
-/* ════ 11. XUẤT PDF ════ */
+/* ════ XUẤT PDF ════ */
 function xuatPDF() {
   if (!currentResult) return;
   const {jsPDF}=window.jspdf;
@@ -1535,7 +1841,7 @@ function xuatPDF() {
   showToast('Đã xuất PDF bảng điểm chi tiết!');
 }
 
-/* ════ 12. LƯU / LỊCH SỬ ════ */
+/* ════ LƯU / LỊCH SỬ ════ */
 const SK='hocLucHistoryV2';
 function docLS()  { try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];} }
 function ghiLS(a) { try{localStorage.setItem(SK,JSON.stringify(a));}catch(e){} }
@@ -1621,7 +1927,7 @@ function xoaTatCa() {
   ghiLS([]); renderLichSu(); showToast('Đã xoá tất cả',false);
 }
 
-/* ════ 13. NHẬP LẠI ════ */
+/* ════ NHẬP LẠI ════ */
 function nhapLai() {
   document.getElementById('tenHS').value='';
   MON.forEach(m=>{
@@ -1638,7 +1944,7 @@ function nhapLai() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ════ 14. STUDY PLANNER ════ */
+/* ════ STUDY PLANNER ════ */
 const SP_KEY = 'studyPlannerV1';
 let spFilter  = 'all';
 function spLoad()  { try{return JSON.parse(localStorage.getItem(SP_KEY))||[];}catch(e){return[];} }
@@ -1711,7 +2017,7 @@ function spDeadlineLabel(dl) {
   return {txt:`Còn ${diff} ngày`,cls:''};
 }
 
-/* ════ 15. STREAK ════ */
+/* ════ STREAK ════ */
 const STREAK_KEY='studyPlannerStreakV1';
 function streakLoad() {
   try{return JSON.parse(localStorage.getItem(STREAK_KEY))||{current:0,lastDate:null};}
@@ -1748,7 +2054,7 @@ function spRenderStreak(streak) {
   document.getElementById('streak-badge').style.display=streak.current>=7?'':'none';
 }
 
-/* ════ 16. 7-DAY HEATMAP ════ */
+/* ════ 7-DAY HEATMAP ════ */
 const DAY_LABELS=['CN','T2','T3','T4','T5','T6','T7'];
 function spRenderHeatmap() {
   const tasks=spLoad();
@@ -1775,7 +2081,7 @@ function spRenderHeatmap() {
   }).join('');
 }
 
-/* ════ 17. spRender ════ */
+/* ════ spRender ════ */
 function spRender() {
   const all=spLoad();
   const today=new Date(); today.setHours(0,0,0,0);
@@ -1815,7 +2121,7 @@ function spRender() {
   }).join('');
 }
 
-/* ════ 18. SOUND ENGINE ════ */
+/* ════ SOUND ENGINE ════ */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
@@ -1872,7 +2178,7 @@ function pomoNotify(msg) {
   }
 }
 
-/* ════ 19. POMODORO ════ */
+/* ════ POMODORO ════ */
 const TIMER_LOG_KEY='studyTimerLogsV1';
 const CIRC=2*Math.PI*52;
 let pomoState={running:false,phase:'ready',remaining:0,total:0,interval:null,subject:'toan'};
@@ -2019,10 +2325,9 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-/* ════ 20. TIMETABLE ════ */
+/* ════ TIMETABLE ════ */
 const TT_KEY='studyTimetableV1';
 const DAY_NAMES=['CN','T2','T3','T4','T5','T6','T7'];
-const DAY_FULL=['Chủ nhật','Thứ 2','Thứ 3','Thứ 4','Thứ 5','Thứ 6','Thứ 7'];
 function ttLoad(){try{return JSON.parse(localStorage.getItem(TT_KEY))||[];}catch(e){return[];}}
 function ttSave(a){try{localStorage.setItem(TT_KEY,JSON.stringify(a));}catch(e){}}
 function ttAutoColon(inp){
@@ -2127,7 +2432,7 @@ function ttRender(newId=null){
   }).join('');
 }
 
-/* ════ 21. ANALYTICS ════ */
+/* ════ ANALYTICS ════ */
 function anWeekRange(offset=0){
   const now=new Date(); now.setHours(0,0,0,0);
   const day=now.getDay();
@@ -2267,7 +2572,7 @@ function anRenderDoughnut(bySubj){
   }).join('');
 }
 
-/* ════ 22. AUTO REMINDER ════ */
+/* ════ AUTO REMINDER ════ */
 function checkReminder(){
   const items=ttLoad();
   const now=new Date();
@@ -2284,10 +2589,456 @@ function checkReminder(){
   setTimeout(()=>showToast(`📚 Hôm nay có lịch học ${mon.ten} lúc ${next.start}`),800);
 }
 
-/* ════ 23. INIT ════ */
+/* ════════════════════════════════════════════
+   AI MODULE — GEMINI (FIXED: No AbortController)
+════════════════════════════════════════════ */
+
+const GEMINI_API_KEY_STORAGE = 'geminiApiKey_v1';
+const GEMINI_PROFILE_KEY = 'studentProfile_v1';
+let _geminiKey = '';
+let _studentProfile = { grade: '', textbook: '', track: '' };
+let _aiPlanPreview = [];
+let _aiTestAnswers = {};
+let _aiTestData = [];
+let _aiTestSubmitted = false;
+let _chatHistory = [];
+
+function aiLoadKeyStatus() {
+  try { _geminiKey = localStorage.getItem(GEMINI_API_KEY_STORAGE) || ''; } catch(e) {}
+  const inp = document.getElementById('ai-api-key-inp');
+  const status = document.getElementById('ai-key-status');
+  if (_geminiKey) {
+    inp.value = _geminiKey;
+    status.textContent = '✅ API Key đã lưu — AI Gemini sẵn sàng!';
+    status.className = 'ai-key-status ok';
+  } else {
+    status.textContent = '⚠️ Chưa có API Key — AI Gemini chưa hoạt động';
+    status.className = 'ai-key-status missing';
+  }
+}
+function aiSaveKey() {
+  const v = document.getElementById('ai-api-key-inp').value.trim();
+  if (!v) { showToast('Nhập API Key trước!', false); return; }
+  _geminiKey = v;
+  try { localStorage.setItem(GEMINI_API_KEY_STORAGE, v); } catch(e) {}
+  aiLoadKeyStatus();
+  showToast('Đã lưu API Key!');
+}
+
+function aiLoadProfile() {
+  try {
+    const p = JSON.parse(localStorage.getItem(GEMINI_PROFILE_KEY));
+    if (p) {
+      _studentProfile = p;
+      if (p.grade)    document.getElementById('profile-grade').value    = p.grade;
+      if (p.textbook) document.getElementById('profile-textbook').value = p.textbook;
+      if (p.track)    document.getElementById('profile-track').value    = p.track;
+      _renderProfileStatus();
+    }
+  } catch(e) {}
+}
+function aiSaveProfile() {
+  _studentProfile = {
+    grade:    document.getElementById('profile-grade').value,
+    textbook: document.getElementById('profile-textbook').value,
+    track:    document.getElementById('profile-track').value,
+  };
+  try { localStorage.setItem(GEMINI_PROFILE_KEY, JSON.stringify(_studentProfile)); } catch(e) {}
+  _renderProfileStatus();
+}
+function _renderProfileStatus() {
+  const el = document.getElementById('profile-status');
+  const { grade, textbook, track } = _studentProfile;
+  if (grade && textbook && track) {
+    el.textContent = `✅ Lớp ${grade} · ${textbook} · Ban ${track}`;
+    el.style.color = '#059669';
+  } else {
+    el.textContent = '⚠️ Hãy chọn đầy đủ lớp, bộ sách và ban học';
+    el.style.color = '#f87171';
+  }
+}
+
+function _aiLoading(html='Đang gọi AI Gemini…') {
+  return `<div class="ai-loading">
+    <div class="ai-loading-dots"><span></span><span></span><span></span></div>
+    <span>${html}</span>
+  </div>`;
+}
+
+/* ── FIXED callGemini: No AbortController, no signal ── */
+async function callGemini(prompt) {
+  if (!_geminiKey) throw new Error('NO_KEY');
+  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${_geminiKey}`;
+  const body = JSON.stringify({
+    contents: [{ parts: [{ text: prompt }] }],
+    generationConfig: { temperature: 0.7, maxOutputTokens: 1800 }
+  });
+  const resp = await fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: body
+  });
+  if (!resp.ok) {
+    let errMsg = `HTTP ${resp.status}`;
+    try {
+      const errData = await resp.json();
+      errMsg = errData?.error?.message || errMsg;
+    } catch(_) {}
+    throw new Error(errMsg);
+  }
+  const data = await resp.json();
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  return text;
+}
+
+function _geminiErrMsg(e) {
+  if (e.message === 'NO_KEY') return '⚠️ Chưa có API Key. Hãy nhập key ở phần đầu tab AI.';
+  if (e.message?.includes('API_KEY_INVALID')) return '🔑 API Key không hợp lệ. Kiểm tra lại!';
+  return `❌ Lỗi: ${e.message}`;
+}
+
+function _setAiBtnsDisabled(flag) {
+  ['btn-ai-analysis','btn-ai-plan','btn-ai-test','btn-chat-send'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.disabled=flag;
+  });
+}
+
+function aiInitTestSubjSelect() {
+  const sel = document.getElementById('ai-test-subj');
+  if (!sel) return;
+  sel.innerHTML = MON.map(m => `<option value="${m.id}">${m.ico} ${m.ten}</option>`).join('');
+}
+
+function _addDays(base, n) {
+  const d = new Date(base); d.setDate(d.getDate() + n);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
+
+/* ════ BLOCK A: Phân tích học lực ════ */
+async function aiRunAnalysis() {
+  const el = document.getElementById('ai-analysis-content');
+  if (!currentResult || !currentResult.rows || !currentResult.rows.length) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Hãy tính kết quả ở tab <strong>Học lực</strong> trước.</div>`;
+    return;
+  }
+  const rows = currentResult.rows.filter(r => r.tbm !== null);
+  if (!rows.length) return;
+  el.innerHTML = _aiLoading('Đang phân tích học lực…');
+  _setAiBtnsDisabled(true);
+  const { grade, textbook, track } = _studentProfile;
+  const scoreLines = rows.map(r => `- ${r.m.ten}: ${r.tbm.toFixed(2)}`).join('\n');
+  const rnkLbl = rankOf(currentResult.dtb).lbl;
+  const prompt = `Bạn là giáo viên chủ nhiệm Việt Nam, chuyên tư vấn học sinh THCS/THPT.
+Học sinh: ${currentResult.ten || 'Học sinh'}
+Lớp: ${grade || 'Chưa xác định'} | Bộ sách: ${textbook || 'Chưa xác định'} | Ban: ${track || 'Chưa xác định'}
+Điểm trung bình cả năm các môn:
+${scoreLines}
+TBM chung: ${currentResult.dtb.toFixed(2)} — Xếp loại: ${rnkLbl}
+
+YÊU CẦU: Hãy nhận xét và phân tích học lực theo 3 phần rõ ràng:
+1. NHẬN XÉT TỔNG QUAN (2-3 câu, thực tế, không ngại nói thẳng nếu kết quả kém)
+2. PHÂN TÍCH CÁC MÔN YẾU (liệt kê và giải thích tại sao cần cải thiện)
+3. 3 HÀNH ĐỘNG CỤ THỂ (thực tế, đúng chương trình lớp ${grade||''}, không nói chung chung)
+
+Lưu ý:
+- Nếu TBM <5: cảnh báo nghiêm túc, không an ủi hão
+- Nếu TBM <6.5: không được nói "tiếp tục phát huy" hay "duy trì phong độ"
+- Trả lời bằng tiếng Việt, ngắn gọn, thân thiện nhưng thực tế
+- KHÔNG dùng markdown (**) hay bullet (-)`;
+  try {
+    const resp = await callGemini(prompt);
+    el.innerHTML = `<div class="ai-gemini-resp">${resp.trim()}</div>`;
+    showToast('AI Gemini đã phân tích xong!');
+  } catch(e) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
+  } finally {
+    _setAiBtnsDisabled(false);
+  }
+}
+
+/* ════ BLOCK B: Kế hoạch 14 ngày ════ */
+async function aiGenPlan() {
+  const el = document.getElementById('ai-plan-content');
+  const pushBtn = document.getElementById('ai-push-btn');
+  pushBtn.disabled = true;
+  _aiPlanPreview = [];
+  if (!currentResult || !currentResult.rows || !currentResult.rows.length) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Cần có kết quả điểm trước.</div>`;
+    return;
+  }
+  const rows = currentResult.rows.filter(r => r.tbm !== null);
+  if (!rows.length) return;
+  const sorted = [...rows].sort((a,b) => a.tbm - b.tbm);
+  const weak = sorted.slice(0, Math.min(3, sorted.length));
+  el.innerHTML = _aiLoading('Đang tạo kế hoạch 14 ngày…');
+  _setAiBtnsDisabled(true);
+  const { grade, textbook, track } = _studentProfile;
+  const weakLines = weak.map(w => `${w.m.ten} (${w.tbm.toFixed(2)})`).join(', ');
+  const prompt = `Bạn là giáo viên lập kế hoạch học tập cho học sinh Việt Nam.
+Lớp: ${grade||'THPT'} | Sách: ${textbook||'chương trình chuẩn'} | Ban: ${track||'cơ bản'}
+Các môn yếu cần ôn: ${weakLines}
+
+Tạo kế hoạch học 14 ngày liên tiếp, mỗi ngày 1 nhiệm vụ, xen kẽ các môn yếu.
+Trả lời CHÍNH XÁC theo định dạng JSON sau (không có markdown, không giải thích thêm):
+[
+  {"day":1,"subject":"tên môn","task":"nội dung nhiệm vụ cụ thể (15-40 từ)"},
+  {"day":2,"subject":"tên môn","task":"..."},
+  ...
+  {"day":14,"subject":"tên môn","task":"..."}
+]
+Chỉ trả về JSON, không thêm gì khác.`;
+  try {
+    const resp = await callGemini(prompt);
+    const clean = resp.replace(/```json|```/g,'').trim();
+    let plan;
+    try { plan = JSON.parse(clean); } catch(pe) {
+      throw new Error('JSON parse failed: ' + pe.message);
+    }
+    if (!Array.isArray(plan) || !plan.length) throw new Error('Kế hoạch rỗng');
+    const today = new Date(); today.setHours(0,0,0,0);
+    _aiPlanPreview = plan.map((p,i) => {
+      const matchMon = MON.find(m => m.ten.toLowerCase() === (p.subject||'').toLowerCase()) ||
+                       weak[i % weak.length].m;
+      return {
+        subject: matchMon.id,
+        title: `[AI] ${p.task}`,
+        deadline: _addDays(today, (p.day||i+1)),
+        day: p.day||i+1,
+        subjLabel: `${matchMon.ico} ${matchMon.ten}`,
+      };
+    });
+    el.innerHTML = `
+      <div style="font-size:.8rem;color:var(--tx-2);font-weight:600;margin-bottom:10px;
+        padding:8px 12px;background:var(--bg-rdtip);border-radius:10px;">
+        📌 Tập trung: ${weak.map(w=>`<strong>${w.m.ico} ${w.m.ten}</strong>`).join(' · ')}
+      </div>
+      <div class="ai-plan-grid">
+        ${_aiPlanPreview.map((t,i)=>`
+          <div class="ai-plan-item" style="--i:${i}">
+            <span class="ai-plan-day">Ngày ${t.day}</span>
+            <span class="ai-plan-subj">${t.subjLabel}</span>
+            <span class="ai-plan-title">${t.title.replace('[AI] ','')}</span>
+            <span style="font-size:.68rem;color:var(--tx-3);white-space:nowrap">📅 ${t.deadline.split('-').reverse().join('/')}</span>
+          </div>`).join('')}
+      </div>`;
+    pushBtn.disabled = false;
+    showToast('AI đã tạo kế hoạch 14 ngày!');
+  } catch(e) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
+  } finally {
+    _setAiBtnsDisabled(false);
+  }
+}
+
+function aiPushToPlanner() {
+  if (!_aiPlanPreview.length) { showToast('Chưa có kế hoạch để thêm!', false); return; }
+  const tasks = spLoad();
+  const now = Date.now();
+  _aiPlanPreview.forEach((t, i) => {
+    tasks.push({ id: now+i, subject: t.subject, title: t.title,
+      deadline: t.deadline, done: false, createdAt: now+i });
+  });
+  spSave(tasks);
+  document.getElementById('ai-push-btn').disabled = true;
+  _aiPlanPreview = [];
+  showToast('Đã thêm 14 task vào Planner!');
+}
+
+/* ════ BLOCK C: Mini Test ════ */
+async function aiGenTest() {
+  const subjId = document.getElementById('ai-test-subj').value;
+  const mon = MON.find(m => m.id === subjId) || MON[0];
+  const el = document.getElementById('ai-test-content');
+  const { grade, textbook, track } = _studentProfile;
+  if (!grade) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Hãy chọn lớp trong <strong>Hồ sơ học tập</strong> trước!</div>`;
+    return;
+  }
+  el.innerHTML = _aiLoading(`Gemini đang tạo đề ${mon.ten} lớp ${grade}…`);
+  _setAiBtnsDisabled(true);
+  _aiTestAnswers = {};
+  _aiTestData = [];
+  _aiTestSubmitted = false;
+  const prompt = `Bạn là giáo viên môn ${mon.ten}, lớp ${grade}, bộ sách ${textbook||'chuẩn'}, ban ${track||'cơ bản'} Việt Nam.
+Tạo ĐÚNG 5 câu hỏi trắc nghiệm 4 đáp án phù hợp chương trình, không quá khó hoặc quá dễ.
+Trả lời CHÍNH XÁC theo JSON sau (không markdown, không giải thích):
+[
+  {
+    "q": "Câu hỏi 1?",
+    "opts": ["A. ...", "B. ...", "C. ...", "D. ..."],
+    "ans": 0,
+    "exp": "Giải thích ngắn gọn"
+  },
+  ...
+]
+"ans" là chỉ số 0-3 của đáp án đúng. Chỉ trả về JSON.`;
+  try {
+    const resp = await callGemini(prompt);
+    const clean = resp.replace(/```json|```/g,'').trim();
+    let qs;
+    try { qs = JSON.parse(clean); } catch(pe) { throw new Error('Không parse được JSON'); }
+    if (!Array.isArray(qs) || qs.length < 3) throw new Error('Đề thi không đủ câu');
+    _aiTestData = qs.slice(0,5);
+    _aiTestSubmitted = false;
+    el.innerHTML = `
+      <div class="ai-quiz-wrap" id="ai-quiz-wrap">
+        ${_aiTestData.map((q,qi)=>`
+          <div class="ai-q" id="ai-q-${qi}">
+            <div class="ai-q-num">Câu ${qi+1} / ${_aiTestData.length} — ${mon.ico} ${mon.ten} · Lớp ${grade}</div>
+            <div class="ai-q-text">${q.q}</div>
+            <div class="ai-opts">
+              ${q.opts.map((opt,oi)=>`
+                <div class="ai-opt" id="ai-opt-${qi}-${oi}" onclick="aiSelectOpt(${qi},${oi})">
+                  <div class="ai-opt-dot"></div>
+                  <span>${opt}</span>
+                </div>`).join('')}
+            </div>
+            <div class="ai-q-explain" id="ai-explain-${qi}">💡 ${q.exp||''}</div>
+          </div>`).join('')}
+      </div>
+      <div class="ai-score-banner" id="ai-score-banner">
+        <span>Kết quả mini test</span>
+        <span class="ai-score-big" id="ai-score-val">—</span>
+        <span id="ai-score-msg" style="font-size:.85rem;color:var(--tx-2)"></span>
+      </div>
+      <div class="ai-test-actions">
+        <button class="btn-ai-submit" onclick="aiSubmitTest()">📩 Nộp bài</button>
+        <button class="btn-ai-retry"  onclick="aiGenTest()">🔄 Đề mới</button>
+      </div>`;
+    showToast(`Đã tạo ${_aiTestData.length} câu ${mon.ten} lớp ${grade}!`);
+  } catch(e) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
+  } finally {
+    _setAiBtnsDisabled(false);
+  }
+}
+
+function aiSelectOpt(qi, oi) {
+  if (_aiTestSubmitted) return;
+  const prev = _aiTestAnswers[qi];
+  if (prev !== undefined) document.getElementById(`ai-opt-${qi}-${prev}`)?.classList.remove('selected');
+  _aiTestAnswers[qi] = oi;
+  document.getElementById(`ai-opt-${qi}-${oi}`)?.classList.add('selected');
+}
+
+function aiSubmitTest() {
+  if (_aiTestSubmitted) return;
+  const answered = Object.keys(_aiTestAnswers).length;
+  if (answered < _aiTestData.length && !confirm(`Còn ${_aiTestData.length - answered} câu chưa trả lời. Nộp bài ngay?`)) return;
+  _aiTestSubmitted = true;
+  let correct = 0;
+  _aiTestData.forEach((q, qi) => {
+    const chosen = _aiTestAnswers[qi];
+    q.opts.forEach((_, oi) => {
+      const el = document.getElementById(`ai-opt-${qi}-${oi}`);
+      if (!el) return;
+      if (oi === q.ans) el.classList.add('correct');
+      else if (oi === chosen && oi !== q.ans) el.classList.add('wrong');
+      el.onclick = null;
+    });
+    if (chosen === q.ans) correct++;
+    const exp = document.getElementById(`ai-explain-${qi}`);
+    if (exp) exp.classList.add('show');
+  });
+  const pct = Math.round(correct / _aiTestData.length * 100);
+  const msgs = ['Cần cố gắng thêm nhiều!','Vẫn còn nhiều điểm cần ôn!','Khá ổn, tiếp tục luyện tập!','Rất tốt! Gần hoàn hảo!','Tuyệt vời! Hoàn hảo!'];
+  const mIdx = correct === _aiTestData.length ? 4 : correct >= 4 ? 3 : correct >= 3 ? 2 : correct >= 1 ? 1 : 0;
+  document.getElementById('ai-score-val').textContent = `${correct} / ${_aiTestData.length} đúng (${pct}%)`;
+  document.getElementById('ai-score-msg').textContent = msgs[mIdx];
+  const banner = document.getElementById('ai-score-banner');
+  banner.classList.add('show');
+  banner.scrollIntoView({ behavior:'smooth', block:'nearest' });
+}
+
+/* ════ BLOCK D: AI Chat ════ */
+async function aiChatSend() {
+  const inp = document.getElementById('chat-input');
+  const msg = inp.value.trim();
+  if (!msg) return;
+  inp.value = '';
+  _chatAppendMsg('user', msg);
+  _chatHistory.push({ role: 'user', text: msg });
+  const sendBtn = document.getElementById('btn-chat-send');
+  sendBtn.disabled = true;
+  const { grade, textbook, track } = _studentProfile;
+  const profileCtx = grade ? `Học sinh lớp ${grade}, sách ${textbook||'chuẩn'}, ban ${track||'cơ bản'}.` : '';
+  const scoreCtx = currentResult
+    ? `TBM chung: ${currentResult.dtb.toFixed(2)} (${rankOf(currentResult.dtb).lbl}).` : '';
+  const historyCtx = _chatHistory.slice(-6).map(h=>`${h.role==='user'?'Học sinh':'AI'}: ${h.text}`).join('\n');
+  const prompt = `Bạn là trợ lý học tập AI thông minh, thân thiện cho học sinh Việt Nam.
+${profileCtx} ${scoreCtx}
+Quy tắc:
+- Trả lời phù hợp cấp lớp${grade?' '+grade:''}
+- Không giảng dạy vượt quá chương trình phổ thông
+- Giải thích rõ ràng, dùng ví dụ thực tế Việt Nam
+- Khuyến khích tự học và tư duy độc lập
+- Ngắn gọn, thực dụng (dưới 200 từ trừ khi cần giải thích kỹ)
+
+Lịch sử hội thoại:
+${historyCtx}
+
+Câu hỏi mới: ${msg}`;
+  const thinkEl = _chatAppendLoading();
+  try {
+    const resp = await callGemini(prompt);
+    thinkEl.remove();
+    _chatAppendMsg('ai', resp.trim());
+    _chatHistory.push({ role: 'ai', text: resp.trim() });
+    if (_chatHistory.length > 20) _chatHistory.splice(0, 2);
+  } catch(e) {
+    thinkEl.remove();
+    _chatAppendMsg('ai', _geminiErrMsg(e));
+  } finally {
+    sendBtn.disabled = false;
+    inp.focus();
+  }
+}
+
+function _chatAppendMsg(role, text) {
+  const box = document.getElementById('ai-chat-box');
+  const div = document.createElement('div');
+  div.className = `chat-msg ${role}`;
+  div.innerHTML = `
+    <div class="chat-avatar">${role==='user'?'🧑':'🤖'}</div>
+    <div class="chat-bubble">${text}</div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  return div;
+}
+
+function _chatAppendLoading() {
+  const box = document.getElementById('ai-chat-box');
+  const div = document.createElement('div');
+  div.className = 'chat-msg ai';
+  div.innerHTML = `
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-bubble">
+      <div style="display:flex;gap:4px;padding:2px 0;">
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--c-p1);animation:dotBounce 1.2s infinite ease-in-out;display:inline-block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--c-p1);animation:dotBounce 1.2s infinite ease-in-out .2s;display:inline-block;"></span>
+        <span style="width:7px;height:7px;border-radius:50%;background:var(--c-p1);animation:dotBounce 1.2s infinite ease-in-out .4s;display:inline-block;"></span>
+      </div>
+    </div>`;
+  box.appendChild(div);
+  box.scrollTop = box.scrollHeight;
+  return div;
+}
+
+function aiChatClear() {
+  _chatHistory = [];
+  const box = document.getElementById('ai-chat-box');
+  box.innerHTML = `<div class="chat-msg ai">
+    <div class="chat-avatar">🤖</div>
+    <div class="chat-bubble">Xin chào! Tôi là trợ lý học tập AI. Hãy hỏi tôi bất cứ điều gì về môn học, bài tập, hay phương pháp học tập nhé! 📚</div>
+  </div>`;
+  showToast('Đã xoá lịch sử chat', false);
+}
+
+/* ════ INIT ════ */
 buildMonUI();
 renderLichSu();
 spBuildSubjSelect();
+aiInitTestSubjSelect();
 pomoRenderStats();
 spRender();
 ttRender();
