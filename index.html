@@ -2590,7 +2590,7 @@ function checkReminder(){
 }
 
 /* ════════════════════════════════════════════
-   AI MODULE — GEMINI (FIXED: No AbortController)
+   AI MODULE — GEMINI (v1beta endpoint fix)
 ════════════════════════════════════════════ */
 
 const GEMINI_API_KEY_STORAGE = 'geminiApiKey_v1';
@@ -2665,10 +2665,10 @@ function _aiLoading(html='Đang gọi AI Gemini…') {
   </div>`;
 }
 
-/* ── FIXED callGemini: No AbortController, no signal ── */
+/* ── FIXED: v1beta endpoint, no AbortController ── */
 async function callGemini(prompt) {
   if (!_geminiKey) throw new Error('NO_KEY');
-  const url = `https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${_geminiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${_geminiKey}`;
   const body = JSON.stringify({
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: { temperature: 0.7, maxOutputTokens: 1800 }
