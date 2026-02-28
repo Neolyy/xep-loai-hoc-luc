@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Study System PRO</title>
+<title>Hệ thống học tập PRO</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -669,15 +669,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   transition:opacity .2s,transform .15s,box-shadow .2s;}
 .btn-ai-push:hover{opacity:.92;transform:translateY(-2px);box-shadow:0 8px 22px rgba(5,150,105,.4);}
 .btn-ai-push:disabled{opacity:.35;cursor:not-allowed;transform:none;}
-.ai-test-select-row{
-  display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
-.ai-test-select-row select{
-  flex:1;min-width:140px;padding:9px 13px;
-  border:1.5px solid var(--bd-input);border-radius:11px;
-  font-family:inherit;font-size:.9rem;font-weight:500;
-  color:var(--tx-1);background:var(--bg-card);outline:none;
-  transition:border-color .2s;}
-.ai-test-select-row select:focus{border-color:var(--c-p1);}
 .btn-ai-gen{
   background:linear-gradient(135deg,var(--c-p1),var(--c-p2));
   color:#fff;border:none;border-radius:12px;padding:10px 20px;
@@ -686,60 +677,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   transition:opacity .2s,transform .15s;}
 .btn-ai-gen:hover{opacity:.92;transform:translateY(-2px);}
 .btn-ai-gen:disabled{opacity:.4;cursor:not-allowed;transform:none;}
-.ai-quiz-wrap{display:flex;flex-direction:column;gap:14px;}
-.ai-q{
-  background:var(--bg-subj);border:1.5px solid var(--bd-base);
-  border-radius:16px;padding:14px 16px;
-  animation:taskSlideIn .3s cubic-bezier(.22,1,.36,1) both;}
-.ai-q-num{font-size:.68rem;font-weight:800;color:var(--tx-3);
-  text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px;}
-.ai-q-text{font-size:.9rem;font-weight:700;color:var(--tx-1);
-  line-height:1.5;margin-bottom:10px;}
-.ai-opts{display:flex;flex-direction:column;gap:6px;}
-.ai-opt{
-  display:flex;align-items:center;gap:9px;padding:8px 12px;
-  background:var(--bg-card);border:1.5px solid var(--bd-base);
-  border-radius:10px;cursor:pointer;font-size:.84rem;font-weight:500;
-  color:var(--tx-1);transition:border-color .2s,background .2s,transform .1s;
-  user-select:none;}
-.ai-opt:hover{border-color:var(--c-p1);background:var(--bg-soft);}
-.ai-opt.selected{border-color:var(--c-p1);background:var(--bg-soft);font-weight:700;}
-.ai-opt.correct{border-color:#34d399;background:var(--g-bg);color:var(--g-tx);font-weight:700;}
-.ai-opt.wrong{border-color:#f87171;background:var(--y-bg);color:var(--y-tx);}
-.ai-opt-dot{
-  width:16px;height:16px;border-radius:50%;border:2px solid var(--bd-base);
-  flex-shrink:0;transition:background .2s,border-color .2s;}
-.ai-opt.selected .ai-opt-dot{background:var(--c-p1);border-color:var(--c-p1);}
-.ai-opt.correct .ai-opt-dot{background:#34d399;border-color:#34d399;}
-.ai-opt.wrong .ai-opt-dot{background:#f87171;border-color:#f87171;}
-.ai-q-explain{
-  margin-top:9px;padding:9px 12px;border-radius:10px;
-  background:var(--bg-rdtip);font-size:.8rem;
-  font-weight:500;color:var(--tx-2);line-height:1.5;display:none;}
-.ai-q-explain.show{display:block;animation:fadeIn .25s ease;}
-.ai-test-actions{
-  display:flex;align-items:center;gap:10px;margin-top:16px;flex-wrap:wrap;}
-.btn-ai-submit{
-  background:linear-gradient(135deg,#f59e0b,#f97316);
-  color:#fff;border:none;border-radius:12px;padding:11px 22px;
-  font-family:inherit;font-size:.9rem;font-weight:700;cursor:pointer;
-  box-shadow:0 4px 14px rgba(245,158,11,.30);
-  transition:opacity .2s,transform .15s;}
-.btn-ai-submit:hover{opacity:.92;transform:translateY(-2px);}
-.btn-ai-retry{
-  background:var(--bg-soft);color:var(--c-p1);border:1.5px solid var(--bd-base);
-  border-radius:12px;padding:11px 18px;font-family:inherit;
-  font-size:.9rem;font-weight:700;cursor:pointer;
-  transition:background .15s,transform .1s;}
-.btn-ai-retry:hover{background:var(--bd-base);transform:translateY(-1px);}
-.ai-score-banner{
-  display:none;background:var(--bg-prog);
-  border:1.5px solid var(--bd-base);border-radius:14px;
-  padding:14px 18px;text-align:center;
-  font-size:1rem;font-weight:700;color:var(--tx-1);}
-.ai-score-banner.show{display:block;animation:fadeSlide .4s ease;}
-.ai-score-banner .ai-score-big{
-  font-size:2.4rem;font-weight:900;color:var(--c-p1);display:block;margin:4px 0;}
 .ai-loading{
   display:flex;align-items:center;gap:10px;padding:14px 16px;
   background:var(--bg-soft);border-radius:13px;
@@ -800,6 +737,76 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   font-weight:700;cursor:pointer;margin-top:7px;align-self:flex-start;
   transition:background .15s,color .15s;}
 .btn-chat-clear:hover{background:var(--y-bg);color:#f87171;}
+.chat-limit-banner{
+  display:flex;align-items:center;gap:8px;
+  padding:10px 14px;border-radius:12px;
+  background:var(--y-bg);border:1.5px solid var(--y-bd);
+  font-size:.8rem;font-weight:600;color:var(--y-tx);
+  margin-bottom:8px;}
+.chat-cooldown-bar{
+  height:3px;border-radius:99px;background:var(--bd-base);
+  margin-top:6px;overflow:hidden;}
+.chat-cooldown-fill{
+  height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--c-p1),var(--c-p2));
+  transition:width .5s linear;}
+
+/* ══ FLASHCARD STYLES — patched: no 3D flip ══ */
+.fc-stats-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.fc-stat{flex:1;min-width:80px;background:var(--bg-subj);border:1.5px solid var(--bd-base);
+  border-radius:14px;padding:10px 12px;text-align:center;transition:transform .2s,box-shadow .2s;}
+.fc-stat:hover{transform:translateY(-2px);box-shadow:var(--sh-sm);}
+.fc-stat-val{font-size:1.4rem;font-weight:900;color:var(--c-p1);}
+.fc-stat-lbl{font-size:.66rem;font-weight:600;color:var(--tx-3);margin-top:2px;}
+.fc-progress-bar{height:7px;border-radius:99px;background:var(--bd-base);
+  margin-bottom:18px;overflow:hidden;}
+.fc-progress-fill{height:100%;border-radius:99px;
+  background:linear-gradient(90deg,var(--c-p1),#34d399);
+  transition:width .6s cubic-bezier(.22,1,.36,1);}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+@media(max-width:520px){.fc-grid{grid-template-columns:1fr;}}
+/* card wrapper — no perspective needed */
+.fc-card-wrap{}
+/* card — simple block, no 3D */
+.fc-card{position:relative;width:100%;cursor:pointer;}
+/* both faces share base styles */
+.fc-face{
+  border-radius:16px;padding:16px;display:flex;flex-direction:column;
+  border:1.5px solid var(--bd-base);box-shadow:var(--sh-sm);}
+.fc-face-front{background:var(--bg-histrow);}
+.fc-face-back{background:var(--bg-soft);display:none;}
+/* toggle: hide front, show back */
+.fc-card.show-back .fc-face-front{display:none;}
+.fc-card.show-back .fc-face-back{display:flex;}
+.fc-card-subj{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:99px;
+  background:rgba(99,102,241,.12);color:var(--c-p1);align-self:flex-start;margin-bottom:8px;}
+.fc-card-text{font-size:.9rem;font-weight:700;color:var(--tx-1);flex:1;
+  display:flex;align-items:center;line-height:1.5;word-break:break-word;min-height:48px;}
+.fc-card-hint{font-size:.65rem;font-weight:600;color:var(--tx-3);margin-top:8px;text-align:center;}
+.fc-card-actions{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
+.fc-remember-btn{display:flex;align-items:center;gap:5px;cursor:pointer;
+  font-size:.72rem;font-weight:700;color:var(--tx-3);background:none;border:none;
+  padding:4px 8px;border-radius:8px;font-family:inherit;
+  transition:color .15s,background .15s,transform .1s;}
+.fc-remember-btn:hover{transform:scale(1.05);}
+.fc-remember-btn.remembered{color:#059669;background:var(--g-bg);}
+[data-theme="dark"] .fc-remember-btn.remembered{color:#34d399;}
+.fc-del-btn{background:none;border:none;cursor:pointer;font-size:.8rem;
+  color:var(--tx-3);padding:3px 6px;border-radius:6px;
+  transition:color .15s,background .15s,transform .1s;}
+.fc-del-btn:hover{color:#f87171;background:var(--y-bg);transform:scale(1.1);}
+.fc-empty{text-align:center;padding:32px 20px;color:var(--tx-3);font-size:.88rem;font-weight:500;}
+.fc-empty-ico{font-size:2.5rem;display:block;margin-bottom:10px;}
+.fc-form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
+@media(max-width:520px){.fc-form-grid{grid-template-columns:1fr;}}
+.fc-textarea{width:100%;padding:9px 12px;border:1.5px solid var(--bd-input);
+  border-radius:11px;font-family:inherit;font-size:.88rem;font-weight:500;
+  color:var(--tx-1);background:var(--bg-card);outline:none;resize:vertical;min-height:60px;
+  transition:border-color .2s,box-shadow .2s;}
+.fc-textarea:focus{border-color:var(--c-p1);box-shadow:0 0 0 3px rgba(99,102,241,.12);}
+.fc-textarea::placeholder{color:var(--tx-3);}
+.fc-card.fc-enter{animation:taskSlideIn .3s cubic-bezier(.22,1,.36,1) both;}
+.fc-card.fc-exit{animation:taskSlideOut .25s ease both;}
 </style>
 </head>
 <body>
@@ -808,7 +815,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 
 <header class="pg-head">
   <span class="crown">🎓</span>
-  <h1>Study System <span class="pro-badge">PRO</span></h1>
+  <h1>Hệ thống học tập <span class="pro-badge">PRO</span></h1>
   <p>Bảng điểm · Kế hoạch học tập · Phân tích · Pomodoro Pro · Hỗ trợ AI</p>
 </header>
 
@@ -1110,8 +1117,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
     <div id="sec-ai" class="sp-section">
       <p class="sec-lbl">🤖 Trợ lý AI học tập — Hỗ trợ bởi Gemini</p>
 
-      <!-- API key block đã được ẩn — chạy qua proxy server -->
-
       <div class="ai-block">
         <div class="ai-block-title">
           <span class="ai-ico">🎒</span>
@@ -1183,21 +1188,47 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
         </div>
       </div>
 
-      <div class="ai-block" id="ai-block-test">
+      <!-- ══ FLASHCARD BLOCK ══ -->
+      <div class="ai-block" id="ai-block-flashcard">
         <div class="ai-block-title">
-          <span class="ai-ico">📝</span>
-          <span>AI Kiểm tra nhanh — 5 câu theo chương trình</span>
+          <span class="ai-ico">🃏</span>
+          <span>Flashcard ghi nhớ</span>
         </div>
-        <div class="ai-test-select-row">
-          <select id="ai-test-subj"></select>
-          <button class="btn-ai-gen" id="btn-ai-test" onclick="aiGenTest()">🎲 Tạo đề kiểm tra</button>
-        </div>
-        <div id="ai-test-content">
-          <div class="ai-no-data">
-            <span class="ai-nd-ico">📝</span>
-            Chọn môn học và bấm <strong>"Tạo đề kiểm tra"</strong>. AI sẽ tạo 5 câu đúng chương trình lớp của bạn.
+
+        <div class="sp-form" style="margin-bottom:16px;">
+          <div class="fc-form-grid">
+            <div class="sp-field">
+              <label>Môn học</label>
+              <select class="sp-inp" id="fc-subj"></select>
+            </div>
+            <div class="sp-field">
+              <label>Mặt trước (câu hỏi / khái niệm)</label>
+              <textarea class="fc-textarea" id="fc-front" placeholder="VD: Định lý Pytago…" maxlength="300"></textarea>
+            </div>
+            <div class="sp-field">
+              <label>Mặt sau (đáp án / giải thích)</label>
+              <textarea class="fc-textarea" id="fc-back" placeholder="VD: a² + b² = c²" maxlength="600"></textarea>
+            </div>
           </div>
+          <button class="btn-sp-add" onclick="fcAdd()">➕ Thêm thẻ</button>
         </div>
+
+        <div class="fc-stats-row">
+          <div class="fc-stat"><div class="fc-stat-val" id="fc-total">0</div><div class="fc-stat-lbl">Tổng thẻ</div></div>
+          <div class="fc-stat"><div class="fc-stat-val" id="fc-remembered-count" style="color:#059669">0</div><div class="fc-stat-lbl">Đã nhớ</div></div>
+          <div class="fc-stat"><div class="fc-stat-val" id="fc-pending-count" style="color:#f87171">0</div><div class="fc-stat-lbl">Chưa nhớ</div></div>
+          <div class="fc-stat"><div class="fc-stat-val" id="fc-pct">0%</div><div class="fc-stat-lbl">% Ghi nhớ</div></div>
+        </div>
+
+        <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-progress-fill" style="width:0%"></div></div>
+
+        <div class="sp-filter" style="margin-bottom:16px;">
+          <button class="sp-filter-btn active" onclick="fcSetFilter('all',this)">Tất cả</button>
+          <button class="sp-filter-btn" onclick="fcSetFilter('pending',this)">Chưa nhớ</button>
+          <button class="sp-filter-btn" onclick="fcSetFilter('remembered',this)">Đã nhớ</button>
+        </div>
+
+        <div class="fc-grid" id="fc-grid"></div>
       </div>
 
       <div class="ai-block" id="ai-block-chat">
@@ -1206,6 +1237,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
           <span>Trợ lý AI hỗ trợ học tập</span>
         </div>
         <div class="ai-chat-wrap">
+          <div id="chat-status-bar" style="display:none;margin-bottom:6px;"></div>
           <div class="ai-chat-box" id="ai-chat-box">
             <div class="chat-msg ai">
               <div class="chat-avatar">🤖</div>
@@ -1280,7 +1312,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   </div>
 </div>
 
-<footer class="pg-foot">© 2025 · Study System PRO · Chuẩn học bạ Việt Nam</footer>
+<footer class="pg-foot">© 2025 · Hệ thống học tập PRO · Chuẩn học bạ Việt Nam</footer>
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1340,7 +1372,7 @@ function switchTab(tab) {
   if (btn) btn.classList.add('active');
   if (tab === 'planner')   spRender();
   if (tab === 'analytics') anRender();
-  if (tab === 'ai')        { aiInitTestSubjSelect(); aiLoadProfile(); }
+  if (tab === 'ai')        { aiLoadProfile(); chatRenderStatusBar(); fcRender(); }
 }
 
 /* ════ DARK MODE ════ */
@@ -1596,7 +1628,6 @@ function confirmAddSubj() {
   txCount[id] = { 1: 4, 2: 4 };
   buildMonUI();
   spBuildSubjSelect();
-  aiInitTestSubjSelect();
   closeAddSubjModal();
   showToast('Đã thêm môn: ' + name);
   requestAnimationFrame(() => {
@@ -1614,7 +1645,6 @@ function deleteCustomSubj(mid, e) {
   delete txCount[mid];
   buildMonUI();
   spBuildSubjSelect();
-  aiInitTestSubjSelect();
   showToast('Đã xoá môn ' + m.ten, false);
 }
 
@@ -1745,7 +1775,7 @@ function xuatPDF() {
   doc.setFillColor(255,255,255);doc.circle(23,18,9,'F');
   sf(13,'bold',DARK);doc.text('HT',23,21.5,{align:'center'});
   sf(15,'bold',WHITE);doc.text('PHIEU XEP LOAI HOC LUC',38,13);
-  sf(8,'normal',[200,200,255]);doc.text('Study System PRO - Chuan VN',38,20);
+  sf(8,'normal',[200,200,255]);doc.text('He thong hoc tap PRO - Chuan VN',38,20);
   const now=new Date();
   const ds=`${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
   sf(7,'normal',[180,180,230]);doc.text(`Ngay: ${ds}`,38,27);
@@ -1804,7 +1834,7 @@ function xuatPDF() {
   sf(10,'bold',rnkObj.pdfColor);doc.text(currentResult.dtb.toFixed(2),W-14,y+6.5,{align:'right'});
   const fY=doc.internal.pageSize.getHeight()-10;
   doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.line(10,fY-4,W-10,fY-4);
-  sf(6.5,'normal',GREY);doc.text('Study System PRO · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
+  sf(6.5,'normal',GREY);doc.text('He thong hoc tap PRO · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
   const safe=(currentResult.ten||'hocsinh').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
   doc.save(`BangDiem_${safe}_${ds.replace(/\//g,'')}.pdf`);
   showToast('Đã xuất PDF bảng điểm chi tiết!');
@@ -1920,7 +1950,7 @@ function spLoad()  { try{return JSON.parse(localStorage.getItem(SP_KEY))||[];}ca
 function spSave(a) { try{localStorage.setItem(SP_KEY,JSON.stringify(a));}catch(e){} }
 
 function spBuildSubjSelect() {
-  ['sp-subj','pomo-subj','tt-subj','tt-edit-subj'].forEach(id=>{
+  ['sp-subj','pomo-subj','tt-subj','tt-edit-subj','fc-subj'].forEach(id=>{
     const sel=document.getElementById(id);
     if (sel) sel.innerHTML=MON.map(m=>`<option value="${m.id}">${m.ico} ${m.ten}</option>`).join('');
   });
@@ -2141,9 +2171,9 @@ function pomoNotify(msg) {
   if (document.visibilityState === 'visible') return;
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
-    new Notification('⏱ Study System PRO', {body: msg, icon: ''});
+    new Notification('⏱ Hệ thống học tập PRO', {body: msg, icon: ''});
   } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(p=>{ if(p==='granted') new Notification('⏱ Study System PRO',{body:msg}); });
+    Notification.requestPermission().then(p=>{ if(p==='granted') new Notification('⏱ Hệ thống học tập PRO',{body:msg}); });
   }
 }
 
@@ -2559,23 +2589,233 @@ function checkReminder(){
 }
 
 /* ════════════════════════════════════════════
-   AI MODULE — Cloudflare Worker Proxy
-   Vấn đề 1: Việt hoá hoàn toàn
-   Vấn đề 2: Không còn hiển thị API key block
-   Vấn đề 3+4: Parse JSON mạnh + prompt tiếng Việt theo hồ sơ
+   FLASHCARD MODULE — patched: toggle show-back
 ════════════════════════════════════════════ */
+const FC_KEY = 'flashcards';
+let fcFilter  = 'all';
 
+function fcLoad()  { try{return JSON.parse(localStorage.getItem(FC_KEY))||[];}catch(e){return[];} }
+function fcSave(a) { try{localStorage.setItem(FC_KEY,JSON.stringify(a));}catch(e){} }
+
+function fcAdd() {
+  const subj  = document.getElementById('fc-subj').value;
+  const front = document.getElementById('fc-front').value.trim();
+  const back  = document.getElementById('fc-back').value.trim();
+  if (!front) { showToast('Nhập mặt trước (câu hỏi) trước nhé!', false); return; }
+  if (!back)  { showToast('Nhập mặt sau (đáp án) trước nhé!', false); return; }
+  const cards = fcLoad();
+  const newCard = { id: Date.now(), subject: subj, front, back, remembered: false, createdAt: Date.now() };
+  cards.unshift(newCard);
+  fcSave(cards);
+  document.getElementById('fc-front').value = '';
+  document.getElementById('fc-back').value  = '';
+  fcRender();
+  showToast('Đã thêm flashcard!');
+}
+
+function fcToggleRemember(id, e) {
+  if (e) e.stopPropagation();
+  const cards = fcLoad();
+  const c = cards.find(x => x.id === id);
+  if (c) { c.remembered = !c.remembered; fcSave(cards); fcRender(); }
+}
+
+function fcDelete(id, e) {
+  if (e) e.stopPropagation();
+  fcSave(fcLoad().filter(x => x.id !== id));
+  fcRender();
+  showToast('Đã xoá thẻ', false);
+}
+
+/* ── PATCHED: toggle .show-back instead of 3D rotateY ── */
+function fcFlip(id) {
+  const el = document.getElementById('fc-card-' + id);
+  if (el) el.classList.toggle('show-back');
+}
+
+function fcSetFilter(f, btn) {
+  fcFilter = f;
+  const block = document.getElementById('ai-block-flashcard');
+  block.querySelectorAll('.sp-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  fcRender();
+}
+
+function fcRender() {
+  const all = fcLoad();
+  const tot = all.length;
+  const rem = all.filter(c => c.remembered).length;
+  const pend = tot - rem;
+  const pct  = tot ? Math.round(rem / tot * 100) : 0;
+
+  document.getElementById('fc-total').textContent           = tot;
+  document.getElementById('fc-remembered-count').textContent = rem;
+  document.getElementById('fc-pending-count').textContent    = pend;
+  document.getElementById('fc-pct').textContent              = pct + '%';
+  document.getElementById('fc-progress-fill').style.width    = pct + '%';
+
+  let cards = all;
+  if (fcFilter === 'pending')    cards = all.filter(c => !c.remembered);
+  if (fcFilter === 'remembered') cards = all.filter(c => c.remembered);
+
+  const grid = document.getElementById('fc-grid');
+  if (!cards.length) {
+    grid.innerHTML = `<div class="fc-empty" style="grid-column:1/-1;">
+      <span class="fc-empty-ico">🃏</span>
+      ${tot === 0 ? 'Chưa có thẻ nào. Thêm thẻ đầu tiên của bạn!' : 'Không có thẻ nào trong mục này.'}
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = cards.map(c => {
+    const mon = MON.find(m => m.id === c.subject) || MON[0];
+    const isRem = c.remembered;
+    return `<div class="fc-card-wrap">
+      <div class="fc-card fc-enter" id="fc-card-${c.id}" onclick="fcFlip(${c.id})">
+        <div class="fc-face fc-face-front">
+          <span class="fc-card-subj">${mon.ico} ${mon.ten}</span>
+          <div class="fc-card-text">${escHtml(c.front)}</div>
+          <div class="fc-card-hint">👆 Nhấn để xem đáp án</div>
+          <div class="fc-card-actions" onclick="event.stopPropagation()">
+            <button class="fc-remember-btn${isRem?' remembered':''}"
+              onclick="fcToggleRemember(${c.id},event)">
+              ${isRem?'✅ Đã nhớ':'⬜ Chưa nhớ'}
+            </button>
+            <button class="fc-del-btn" onclick="fcDelete(${c.id},event)">🗑</button>
+          </div>
+        </div>
+        <div class="fc-face fc-face-back">
+          <span class="fc-card-subj">${mon.ico} ${mon.ten}</span>
+          <div class="fc-card-text">${escHtml(c.back)}</div>
+          <div class="fc-card-hint">👆 Nhấn để xem câu hỏi</div>
+          <div class="fc-card-actions" onclick="event.stopPropagation()">
+            <button class="fc-remember-btn${isRem?' remembered':''}"
+              onclick="fcToggleRemember(${c.id},event)">
+              ${isRem?'✅ Đã nhớ':'⬜ Chưa nhớ'}
+            </button>
+            <button class="fc-del-btn" onclick="fcDelete(${c.id},event)">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* ══════════════════════════════════════════════════════
+   AI RATE LIMITING & COOLDOWN SYSTEM
+══════════════════════════════════════════════════════ */
+const AI_USAGE_KEY   = 'aiUsage';
+const AI_DAILY_LIMIT = 20;
+const CHAT_COOLDOWN  = 5000;
+const CHAT_WIN_MS    = 10 * 60 * 1000;
+const CHAT_WIN_LIMIT = 15;
+
+let _chatMsgTimestamps = [];
+let _chatCooldownEnd   = 0;
+let _chatIsLoading     = false;
+let _cooldownTimer     = null;
+
+function aiUsageLoad() {
+  try {
+    const raw = JSON.parse(localStorage.getItem(AI_USAGE_KEY));
+    if (raw && raw.date === todayStr()) return raw;
+  } catch(e){}
+  return { date: todayStr(), count: 0 };
+}
+function aiUsageSave(u) {
+  try { localStorage.setItem(AI_USAGE_KEY, JSON.stringify(u)); } catch(e){}
+}
+function aiUsageIncrement() {
+  const u = aiUsageLoad(); u.count++; aiUsageSave(u); return u.count;
+}
+function aiUsageRemaining() {
+  return Math.max(0, AI_DAILY_LIMIT - aiUsageLoad().count);
+}
+function aiDailyLimitReached() {
+  return aiUsageLoad().count >= AI_DAILY_LIMIT;
+}
+
+function chatValidateMsg(msg) {
+  if (!msg || msg.length < 3) return 'Tin nhắn quá ngắn (tối thiểu 3 ký tự).';
+  if (_chatHistory.length > 0) {
+    const last = _chatHistory[_chatHistory.length - 1];
+    if (last.role === 'user' && last.text === msg) return 'Tin nhắn trùng với tin trước.';
+  }
+  if (/^(.)\1{4,}$/.test(msg.trim())) return 'Tin nhắn không hợp lệ (ký tự lặp).';
+  return null;
+}
+
+function chatCheckLimits() {
+  const now = Date.now();
+  if (aiDailyLimitReached()) return 'Bạn đã đạt giới hạn AI hôm nay. Vui lòng quay lại vào ngày mai.';
+  if (_chatIsLoading) return 'Đang xử lý tin nhắn trước, vui lòng chờ…';
+  if (now < _chatCooldownEnd) {
+    const sLeft = Math.ceil((_chatCooldownEnd - now) / 1000);
+    return `Vui lòng đợi ${sLeft}s trước khi gửi tiếp.`;
+  }
+  _chatMsgTimestamps = _chatMsgTimestamps.filter(t => now - t < CHAT_WIN_MS);
+  if (_chatMsgTimestamps.length >= CHAT_WIN_LIMIT) {
+    const oldest = _chatMsgTimestamps[0];
+    const waitMs = CHAT_WIN_MS - (now - oldest);
+    const waitMin = Math.ceil(waitMs / 60000);
+    return `Bạn đã gửi ${CHAT_WIN_LIMIT} tin trong 10 phút. Đợi ${waitMin} phút nữa.`;
+  }
+  return null;
+}
+
+function chatRenderStatusBar() {
+  const bar = document.getElementById('chat-status-bar'); if (!bar) return;
+  const now = Date.now();
+  const remaining = aiUsageRemaining();
+  const inCooldown = now < _chatCooldownEnd;
+  const cdLeft = inCooldown ? Math.ceil((_chatCooldownEnd - now) / 1000) : 0;
+  _chatMsgTimestamps = _chatMsgTimestamps.filter(t => now - t < CHAT_WIN_MS);
+  const winUsed = _chatMsgTimestamps.length;
+  if (aiDailyLimitReached()) {
+    bar.style.display = '';
+    bar.innerHTML = `<div class="chat-limit-banner">⛔ Đã đạt giới hạn 20 lượt AI hôm nay. Quay lại vào ngày mai.</div>`;
+    return;
+  }
+  const parts = [];
+  parts.push(`🤖 Còn ${remaining}/${AI_DAILY_LIMIT} lượt hôm nay`);
+  parts.push(`💬 ${winUsed}/${CHAT_WIN_LIMIT} tin / 10 phút`);
+  if (inCooldown) parts.push(`⏳ Cooldown: ${cdLeft}s`);
+  bar.style.display = '';
+  bar.innerHTML = `<div style="font-size:.72rem;font-weight:600;color:var(--tx-3);
+    display:flex;gap:12px;flex-wrap:wrap;padding:6px 4px;">
+    ${parts.map(p=>`<span>${p}</span>`).join('')}
+  </div>${inCooldown ? `<div class="chat-cooldown-bar"><div class="chat-cooldown-fill" id="cd-fill"
+    style="width:${Math.round((1-((_chatCooldownEnd-now)/CHAT_COOLDOWN))*100)}%"></div></div>` : ''}`;
+}
+
+function chatStartCooldown() {
+  _chatCooldownEnd = Date.now() + CHAT_COOLDOWN;
+  chatRenderStatusBar();
+  clearInterval(_cooldownTimer);
+  _cooldownTimer = setInterval(() => {
+    chatRenderStatusBar();
+    if (Date.now() >= _chatCooldownEnd) {
+      clearInterval(_cooldownTimer);
+      _cooldownTimer = null;
+      chatRenderStatusBar();
+    }
+  }, 500);
+}
+
+/* ════════════════════════════════════════════
+   AI MODULE — Cloudflare Worker Proxy
+════════════════════════════════════════════ */
 const WORKER_URL = 'https://dark-wind-64fc.manhdat120609.workers.dev';
 const GEMINI_PROFILE_KEY = 'studentProfile_v1';
 
 let _studentProfile = { grade: '', textbook: '', track: '' };
 let _aiPlanPreview  = [];
-let _aiTestAnswers  = {};
-let _aiTestData     = [];
-let _aiTestSubmitted = false;
 let _chatHistory    = [];
 
-/* ── Gọi Worker proxy ── */
 async function callGemini(prompt) {
   let resp;
   try {
@@ -2596,18 +2836,13 @@ async function callGemini(prompt) {
   return text;
 }
 
-/* ── Trích xuất JSON từ phản hồi (robust) ── */
 function extractJSON(raw) {
-  // Thử parse trực tiếp trước
   try { return JSON.parse(raw); } catch(_) {}
-  // Loại bỏ markdown fence
   const stripped = raw.replace(/```json[\s\S]*?```/gi, m => m.replace(/```json\s*/,'').replace(/```$/,'').trim())
                       .replace(/```[\s\S]*?```/g, m => m.replace(/```\s*/g,'').trim());
   try { return JSON.parse(stripped.trim()); } catch(_) {}
-  // Tìm mảng JSON [...] đầu tiên
   const arrMatch = stripped.match(/\[[\s\S]*\]/);
   if (arrMatch) { try { return JSON.parse(arrMatch[0]); } catch(_) {} }
-  // Tìm object JSON {...} đầu tiên
   const objMatch = stripped.match(/\{[\s\S]*\}/);
   if (objMatch) { try { return JSON.parse(objMatch[0]); } catch(_) {} }
   throw new Error('Không thể đọc định dạng JSON từ phản hồi AI');
@@ -2617,9 +2852,10 @@ function _geminiErrMsg(e) {
   return `❌ Lỗi: ${e.message || 'Không xác định. Vui lòng thử lại.'}`;
 }
 
-/* ── API key: không cần, chỉ là no-op ── */
-function aiLoadKeyStatus() { /* proxy mode — không cần UI key */ }
-function aiSaveKey() { showToast('AI đang dùng máy chủ proxy — không cần API key', true); }
+function _addDays(base, n) {
+  const d = new Date(base); d.setDate(d.getDate() + n);
+  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+}
 
 function aiLoadProfile() {
   try {
@@ -2665,20 +2901,9 @@ function _aiLoading(html='Đang kết nối AI Gemini…') {
 }
 
 function _setAiBtnsDisabled(flag) {
-  ['btn-ai-analysis','btn-ai-plan','btn-ai-test','btn-chat-send'].forEach(id=>{
+  ['btn-ai-analysis','btn-ai-plan','btn-chat-send'].forEach(id=>{
     const el=document.getElementById(id); if(el) el.disabled=flag;
   });
-}
-
-function aiInitTestSubjSelect() {
-  const sel = document.getElementById('ai-test-subj');
-  if (!sel) return;
-  sel.innerHTML = MON.map(m => `<option value="${m.id}">${m.ico} ${m.ten}</option>`).join('');
-}
-
-function _addDays(base, n) {
-  const d = new Date(base); d.setDate(d.getDate() + n);
-  return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
 /* ════ BLOCK A: Phân tích học lực ════ */
@@ -2686,6 +2911,10 @@ async function aiRunAnalysis() {
   const el = document.getElementById('ai-analysis-content');
   if (!currentResult || !currentResult.rows || !currentResult.rows.length) {
     el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Hãy tính kết quả ở tab <strong>Học lực</strong> trước.</div>`;
+    return;
+  }
+  if (aiDailyLimitReached()) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⛔</span>Bạn đã đạt giới hạn AI hôm nay. Vui lòng quay lại vào ngày mai.</div>`;
     return;
   }
   const rows = currentResult.rows.filter(r => r.tbm !== null);
@@ -2713,6 +2942,7 @@ Lưu ý:
 - Trả lời bằng tiếng Việt, ngắn gọn, thân thiện nhưng thực tế
 - KHÔNG dùng markdown (**) hay bullet (-)`;
   try {
+    aiUsageIncrement();
     const resp = await callGemini(prompt);
     el.innerHTML = `<div class="ai-gemini-resp">${resp.trim()}</div>`;
     showToast('AI Gemini đã phân tích xong!');
@@ -2720,6 +2950,7 @@ Lưu ý:
     el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
   } finally {
     _setAiBtnsDisabled(false);
+    chatRenderStatusBar();
   }
 }
 
@@ -2729,6 +2960,10 @@ async function aiGenPlan() {
   const pushBtn = document.getElementById('ai-push-btn');
   if (pushBtn) pushBtn.disabled = true;
   _aiPlanPreview = [];
+  if (aiDailyLimitReached()) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⛔</span>Bạn đã đạt giới hạn AI hôm nay. Vui lòng quay lại vào ngày mai.</div>`;
+    return;
+  }
   if (!currentResult || !currentResult.rows || !currentResult.rows.length) {
     el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Cần có kết quả điểm trước.</div>`;
     return;
@@ -2755,6 +2990,7 @@ Trả lời CHÍNH XÁC theo định dạng JSON mảng (không có markdown, kh
 ]
 Chỉ trả về JSON, không thêm gì khác.`;
   try {
+    aiUsageIncrement();
     const resp = await callGemini(prompt);
     let plan;
     try { plan = extractJSON(resp); } catch(pe) {
@@ -2794,6 +3030,7 @@ Chỉ trả về JSON, không thêm gì khác.`;
     el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
   } finally {
     _setAiBtnsDisabled(false);
+    chatRenderStatusBar();
   }
 }
 
@@ -2812,167 +3049,23 @@ function aiPushToPlanner() {
   showToast('Đã thêm 14 nhiệm vụ vào Kế hoạch!');
 }
 
-/* ════ BLOCK C: Kiểm tra nhanh (vấn đề 3+4) ════ */
-async function aiGenTest() {
-  const subjId = document.getElementById('ai-test-subj').value;
-  const mon = MON.find(m => m.id === subjId) || MON[0];
-  const el = document.getElementById('ai-test-content');
-  const { grade, textbook, track } = _studentProfile;
-
-  if (!grade) {
-    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Hãy chọn <strong>lớp</strong> trong mục Hồ sơ học tập trước!</div>`;
-    return;
-  }
-
-  el.innerHTML = _aiLoading(`AI đang tạo đề ${mon.ten} lớp ${grade}…`);
-  _setAiBtnsDisabled(true);
-  _aiTestAnswers = {};
-  _aiTestData = [];
-  _aiTestSubmitted = false;
-
-  const prompt = `Bạn là giáo viên môn ${mon.ten} cấp THCS/THPT tại Việt Nam.
-Hãy tạo ĐÚNG 5 câu hỏi trắc nghiệm 4 lựa chọn, phù hợp với:
-- Lớp: ${grade}
-- Bộ sách giáo khoa: ${textbook || 'chương trình chuẩn Bộ GD&ĐT'}
-- Ban học: ${track || 'cơ bản'}
-
-Yêu cầu:
-- Câu hỏi bằng tiếng Việt, đúng kiến thức chương trình lớp ${grade}
-- Độ khó vừa phải, không quá dễ, không quá khó
-- Đáp án đúng phân bổ đều (không phải lúc nào cũng là A)
-- Giải thích ngắn gọn tại sao đáp án đó đúng
-
-Trả về ĐÚNG định dạng JSON sau, KHÔNG thêm bất kỳ nội dung nào khác ngoài JSON:
-[
-  {
-    "q": "Nội dung câu hỏi?",
-    "opts": ["A. lựa chọn 1", "B. lựa chọn 2", "C. lựa chọn 3", "D. lựa chọn 4"],
-    "ans": 0,
-    "exp": "Giải thích ngắn gọn"
-  }
-]
-Trong đó "ans" là chỉ số (0,1,2,3) tương ứng A,B,C,D của đáp án đúng.
-CHỈ trả về mảng JSON, không markdown, không giải thích.`;
-
-  try {
-    const resp = await callGemini(prompt);
-    let qs;
-    try {
-      qs = extractJSON(resp);
-    } catch(pe) {
-      el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>Không thể tạo đề. Vui lòng thử lại.</div>`;
-      _setAiBtnsDisabled(false);
-      return;
-    }
-    // Chuẩn hoá: nếu trả về object có key khác
-    if (!Array.isArray(qs)) {
-      qs = qs.questions || qs.data || qs.items || [];
-    }
-    // Chuyển đổi nếu format khác (question/options/answer thay vì q/opts/ans)
-    qs = qs.map(q => {
-      if (q.question !== undefined && q.options !== undefined) {
-        let ans = 0;
-        if (typeof q.answer === 'string') {
-          const map = {'A':0,'B':1,'C':2,'D':3};
-          ans = map[q.answer.toUpperCase().trim()] ?? 0;
-        } else if (typeof q.answer === 'number') {
-          ans = q.answer;
-        } else if (typeof q.correctAnswer === 'number') {
-          ans = q.correctAnswer;
-        }
-        return { q: q.question, opts: q.options, ans, exp: q.explanation || q.exp || '' };
-      }
-      return q;
-    });
-    if (!Array.isArray(qs) || qs.length < 3) {
-      el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>Không thể tạo đề. Vui lòng thử lại.</div>`;
-      _setAiBtnsDisabled(false);
-      return;
-    }
-    _aiTestData = qs.slice(0, 5);
-    _aiTestSubmitted = false;
-    el.innerHTML = `
-      <div class="ai-quiz-wrap" id="ai-quiz-wrap">
-        ${_aiTestData.map((q,qi)=>`
-          <div class="ai-q" id="ai-q-${qi}">
-            <div class="ai-q-num">Câu ${qi+1} / ${_aiTestData.length} — ${mon.ico} ${mon.ten} · Lớp ${grade}</div>
-            <div class="ai-q-text">${q.q}</div>
-            <div class="ai-opts">
-              ${q.opts.map((opt,oi)=>`
-                <div class="ai-opt" id="ai-opt-${qi}-${oi}" onclick="aiSelectOpt(${qi},${oi})">
-                  <div class="ai-opt-dot"></div>
-                  <span>${opt}</span>
-                </div>`).join('')}
-            </div>
-            <div class="ai-q-explain" id="ai-explain-${qi}">💡 ${q.exp||''}</div>
-          </div>`).join('')}
-      </div>
-      <div class="ai-score-banner" id="ai-score-banner">
-        <span>Kết quả kiểm tra nhanh</span>
-        <span class="ai-score-big" id="ai-score-val">—</span>
-        <span id="ai-score-msg" style="font-size:.85rem;color:var(--tx-2)"></span>
-      </div>
-      <div class="ai-test-actions">
-        <button class="btn-ai-submit" onclick="aiSubmitTest()">📩 Nộp bài</button>
-        <button class="btn-ai-retry"  onclick="aiGenTest()">🔄 Đề mới</button>
-      </div>`;
-    showToast(`Đã tạo ${_aiTestData.length} câu ${mon.ten} lớp ${grade}!`);
-  } catch(e) {
-    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
-  } finally {
-    _setAiBtnsDisabled(false);
-  }
-}
-
-function aiSelectOpt(qi, oi) {
-  if (_aiTestSubmitted) return;
-  const prev = _aiTestAnswers[qi];
-  if (prev !== undefined) document.getElementById(`ai-opt-${qi}-${prev}`)?.classList.remove('selected');
-  _aiTestAnswers[qi] = oi;
-  document.getElementById(`ai-opt-${qi}-${oi}`)?.classList.add('selected');
-}
-
-function aiSubmitTest() {
-  if (_aiTestSubmitted) return;
-  const answered = Object.keys(_aiTestAnswers).length;
-  if (answered < _aiTestData.length && !confirm(`Còn ${_aiTestData.length - answered} câu chưa trả lời. Nộp bài ngay?`)) return;
-  _aiTestSubmitted = true;
-  let correct = 0;
-  _aiTestData.forEach((q, qi) => {
-    const chosen = _aiTestAnswers[qi];
-    q.opts.forEach((_, oi) => {
-      const el = document.getElementById(`ai-opt-${qi}-${oi}`);
-      if (!el) return;
-      if (oi === q.ans) el.classList.add('correct');
-      else if (oi === chosen && oi !== q.ans) el.classList.add('wrong');
-      el.onclick = null;
-    });
-    if (chosen === q.ans) correct++;
-    const exp = document.getElementById(`ai-explain-${qi}`);
-    if (exp) exp.classList.add('show');
-  });
-  const pct = Math.round(correct / _aiTestData.length * 100);
-  const msgs = ['Cần cố gắng thêm nhiều!','Vẫn còn nhiều điểm cần ôn!','Khá ổn, tiếp tục luyện tập!','Rất tốt! Gần hoàn hảo!','Tuyệt vời! Hoàn hảo!'];
-  const mIdx = correct === _aiTestData.length ? 4 : correct >= 4 ? 3 : correct >= 3 ? 2 : correct >= 1 ? 1 : 0;
-  const scoreVal = document.getElementById('ai-score-val');
-  const scoreMsg = document.getElementById('ai-score-msg');
-  const banner = document.getElementById('ai-score-banner');
-  if (scoreVal) scoreVal.textContent = `${correct} / ${_aiTestData.length} đúng (${pct}%)`;
-  if (scoreMsg) scoreMsg.textContent = msgs[mIdx];
-  if (banner) { banner.classList.add('show'); banner.scrollIntoView({ behavior:'smooth', block:'nearest' }); }
-}
-
 /* ════ BLOCK D: AI Chat ════ */
 async function aiChatSend() {
   const inp = document.getElementById('chat-input');
   if (!inp) return;
   const msg = inp.value.trim();
-  if (!msg) return;
+  const msgErr = chatValidateMsg(msg);
+  if (msgErr) { showToast(msgErr, false); return; }
+  const limitErr = chatCheckLimits();
+  if (limitErr) { showToast(limitErr, false); chatRenderStatusBar(); return; }
   inp.value = '';
+  _chatMsgTimestamps.push(Date.now());
+  chatStartCooldown();
   _chatAppendMsg('user', msg);
   _chatHistory.push({ role: 'user', text: msg });
   const sendBtn = document.getElementById('btn-chat-send');
   if (sendBtn) sendBtn.disabled = true;
+  _chatIsLoading = true;
   const { grade, textbook, track } = _studentProfile;
   const profileCtx = grade ? `Học sinh lớp ${grade}, sách ${textbook||'chuẩn'}, ban ${track||'cơ bản'}.` : '';
   const scoreCtx = currentResult
@@ -2993,6 +3086,7 @@ ${historyCtx}
 Câu hỏi mới: ${msg}`;
   const thinkEl = _chatAppendLoading();
   try {
+    aiUsageIncrement();
     const resp = await callGemini(prompt);
     thinkEl.remove();
     _chatAppendMsg('ai', resp.trim());
@@ -3002,8 +3096,10 @@ Câu hỏi mới: ${msg}`;
     thinkEl.remove();
     _chatAppendMsg('ai', _geminiErrMsg(e));
   } finally {
+    _chatIsLoading = false;
     if (sendBtn) sendBtn.disabled = false;
     inp.focus();
+    chatRenderStatusBar();
   }
 }
 
@@ -3039,11 +3135,13 @@ function _chatAppendLoading() {
 
 function aiChatClear() {
   _chatHistory = [];
+  _chatMsgTimestamps = [];
   const box = document.getElementById('ai-chat-box'); if (!box) return;
   box.innerHTML = `<div class="chat-msg ai">
     <div class="chat-avatar">🤖</div>
     <div class="chat-bubble">Xin chào! Tôi là trợ lý học tập AI. Hãy hỏi tôi bất cứ điều gì về môn học, bài tập, hay phương pháp học tập nhé! 📚</div>
   </div>`;
+  chatRenderStatusBar();
   showToast('Đã xoá lịch sử chat', false);
 }
 
@@ -3051,11 +3149,11 @@ function aiChatClear() {
 buildMonUI();
 renderLichSu();
 spBuildSubjSelect();
-aiInitTestSubjSelect();
 pomoRenderStats();
 spRender();
 ttRender();
 checkReminder();
+fcRender();
 switchTab('grade');
 </script>
 </body>
