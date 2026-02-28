@@ -9,6 +9,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script>
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
 :root{
   --bg-page:#eef2ff;--bg-card:#fff;--bg-input:#f8f9ff;
@@ -750,8 +757,6 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   height:100%;border-radius:99px;
   background:linear-gradient(90deg,var(--c-p1),var(--c-p2));
   transition:width .5s linear;}
-
-/* ══ FLASHCARD STYLES — patched: no 3D flip ══ */
 .fc-stats-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
 .fc-stat{flex:1;min-width:80px;background:var(--bg-subj);border:1.5px solid var(--bd-base);
   border-radius:14px;padding:10px 12px;text-align:center;transition:transform .2s,box-shadow .2s;}
@@ -765,17 +770,13 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   transition:width .6s cubic-bezier(.22,1,.36,1);}
 .fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 @media(max-width:520px){.fc-grid{grid-template-columns:1fr;}}
-/* card wrapper — no perspective needed */
 .fc-card-wrap{}
-/* card — simple block, no 3D */
 .fc-card{position:relative;width:100%;cursor:pointer;}
-/* both faces share base styles */
 .fc-face{
   border-radius:16px;padding:16px;display:flex;flex-direction:column;
   border:1.5px solid var(--bd-base);box-shadow:var(--sh-sm);}
 .fc-face-front{background:var(--bg-histrow);}
 .fc-face-back{background:var(--bg-soft);display:none;}
-/* toggle: hide front, show back */
 .fc-card.show-back .fc-face-front{display:none;}
 .fc-card.show-back .fc-face-back{display:flex;}
 .fc-card-subj{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:99px;
@@ -1188,7 +1189,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
         </div>
       </div>
 
-      <!-- ══ FLASHCARD BLOCK ══ -->
+      <!-- FLASHCARD BLOCK -->
       <div class="ai-block" id="ai-block-flashcard">
         <div class="ai-block-title">
           <span class="ai-ico">🃏</span>
@@ -2588,9 +2589,7 @@ function checkReminder(){
   setTimeout(()=>showToast(`📚 Hôm nay có lịch học ${mon.ten} lúc ${next.start}`),800);
 }
 
-/* ════════════════════════════════════════════
-   FLASHCARD MODULE — patched: toggle show-back
-════════════════════════════════════════════ */
+/* ════ FLASHCARD MODULE ════ */
 const FC_KEY = 'flashcards';
 let fcFilter  = 'all';
 
@@ -2627,7 +2626,6 @@ function fcDelete(id, e) {
   showToast('Đã xoá thẻ', false);
 }
 
-/* ── PATCHED: toggle .show-back instead of 3D rotateY ── */
 function fcFlip(id) {
   const el = document.getElementById('fc-card-' + id);
   if (el) el.classList.toggle('show-back');
@@ -2705,9 +2703,7 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-/* ══════════════════════════════════════════════════════
-   AI RATE LIMITING & COOLDOWN SYSTEM
-══════════════════════════════════════════════════════ */
+/* ════ AI RATE LIMITING & COOLDOWN ════ */
 const AI_USAGE_KEY   = 'aiUsage';
 const AI_DAILY_LIMIT = 20;
 const CHAT_COOLDOWN  = 5000;
@@ -2806,9 +2802,7 @@ function chatStartCooldown() {
   }, 500);
 }
 
-/* ════════════════════════════════════════════
-   AI MODULE — Cloudflare Worker Proxy
-════════════════════════════════════════════ */
+/* ════ AI MODULE ════ */
 const WORKER_URL = 'https://dark-wind-64fc.manhdat120609.workers.dev';
 const GEMINI_PROFILE_KEY = 'studentProfile_v1';
 
@@ -3079,6 +3073,7 @@ Quy tắc:
 - Giải thích rõ ràng, dùng ví dụ thực tế Việt Nam
 - Khuyến khích tự học và tư duy độc lập
 - Ngắn gọn, thực dụng (dưới 200 từ trừ khi cần giải thích kỹ)
+- Khi viết công thức toán học, hãy dùng ký hiệu LaTeX: inline dùng $...$ và block dùng \\(...\\)
 
 Lịch sử hội thoại:
 ${historyCtx}
@@ -3089,9 +3084,12 @@ Câu hỏi mới: ${msg}`;
     aiUsageIncrement();
     const resp = await callGemini(prompt);
     thinkEl.remove();
-    _chatAppendMsg('ai', resp.trim());
+    const msgEl = _chatAppendMsg('ai', resp.trim());
     _chatHistory.push({ role: 'ai', text: resp.trim() });
     if (_chatHistory.length > 20) _chatHistory.splice(0, 2);
+    if (window.MathJax) {
+      MathJax.typesetPromise();
+    }
   } catch(e) {
     thinkEl.remove();
     _chatAppendMsg('ai', _geminiErrMsg(e));
