@@ -3,19 +3,12 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Hệ thống học tập PRO</title>
+<title>Edunova NĐK</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="styl  esheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
-<script>
-window.MathJax = {
-  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-  svg: { fontCache: 'global' }
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
 <style>
 :root{
   --bg-page:#eef2ff;--bg-card:#fff;--bg-input:#f8f9ff;
@@ -770,19 +763,19 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   transition:width .6s cubic-bezier(.22,1,.36,1);}
 .fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
 @media(max-width:520px){.fc-grid{grid-template-columns:1fr;}}
-.fc-card-wrap{}
-.fc-card{position:relative;width:100%;cursor:pointer;}
-.fc-face{
+.fc-card-wrap{perspective:900px;}
+.fc-card{position:relative;width:100%;min-height:140px;cursor:pointer;
+  transform-style:preserve-3d;transition:transform .45s cubic-bezier(.22,1,.36,1);}
+.fc-card.flipped{transform:rotateY(180deg);}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;
   border-radius:16px;padding:16px;display:flex;flex-direction:column;
   border:1.5px solid var(--bd-base);box-shadow:var(--sh-sm);}
 .fc-face-front{background:var(--bg-histrow);}
-.fc-face-back{background:var(--bg-soft);display:none;}
-.fc-card.show-back .fc-face-front{display:none;}
-.fc-card.show-back .fc-face-back{display:flex;}
+.fc-face-back{background:var(--bg-soft);transform:rotateY(180deg);}
 .fc-card-subj{font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:99px;
   background:rgba(99,102,241,.12);color:var(--c-p1);align-self:flex-start;margin-bottom:8px;}
 .fc-card-text{font-size:.9rem;font-weight:700;color:var(--tx-1);flex:1;
-  display:flex;align-items:center;line-height:1.5;word-break:break-word;min-height:48px;}
+  display:flex;align-items:center;line-height:1.5;word-break:break-word;}
 .fc-card-hint{font-size:.65rem;font-weight:600;color:var(--tx-3);margin-top:8px;text-align:center;}
 .fc-card-actions{display:flex;align-items:center;justify-content:space-between;margin-top:10px;}
 .fc-remember-btn{display:flex;align-items:center;gap:5px;cursor:pointer;
@@ -816,7 +809,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
 
 <header class="pg-head">
   <span class="crown">🎓</span>
-  <h1>Hệ thống học tập <span class="pro-badge">PRO</span></h1>
+  <h1>Edunova NĐK <span class="pro-badge">PRO</span></h1>
   <p>Bảng điểm · Kế hoạch học tập · Phân tích · Pomodoro Pro · Hỗ trợ AI</p>
 </header>
 
@@ -1128,6 +1121,7 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
             <label>Lớp</label>
             <select class="sp-inp" id="profile-grade" onchange="aiSaveProfile()">
               <option value="">-- Chọn lớp --</option>
+              <option value="9">Lớp 9</option>
               <option value="10">Lớp 10</option>
               <option value="11">Lớp 11</option>
               <option value="12">Lớp 12</option>
@@ -1188,13 +1182,11 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
         </div>
       </div>
 
-      <!-- FLASHCARD BLOCK -->
       <div class="ai-block" id="ai-block-flashcard">
         <div class="ai-block-title">
           <span class="ai-ico">🃏</span>
           <span>Flashcard ghi nhớ</span>
         </div>
-
         <div class="sp-form" style="margin-bottom:16px;">
           <div class="fc-form-grid">
             <div class="sp-field">
@@ -1212,22 +1204,18 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
           </div>
           <button class="btn-sp-add" onclick="fcAdd()">➕ Thêm thẻ</button>
         </div>
-
         <div class="fc-stats-row">
           <div class="fc-stat"><div class="fc-stat-val" id="fc-total">0</div><div class="fc-stat-lbl">Tổng thẻ</div></div>
           <div class="fc-stat"><div class="fc-stat-val" id="fc-remembered-count" style="color:#059669">0</div><div class="fc-stat-lbl">Đã nhớ</div></div>
           <div class="fc-stat"><div class="fc-stat-val" id="fc-pending-count" style="color:#f87171">0</div><div class="fc-stat-lbl">Chưa nhớ</div></div>
           <div class="fc-stat"><div class="fc-stat-val" id="fc-pct">0%</div><div class="fc-stat-lbl">% Ghi nhớ</div></div>
         </div>
-
         <div class="fc-progress-bar"><div class="fc-progress-fill" id="fc-progress-fill" style="width:0%"></div></div>
-
         <div class="sp-filter" style="margin-bottom:16px;">
           <button class="sp-filter-btn active" onclick="fcSetFilter('all',this)">Tất cả</button>
           <button class="sp-filter-btn" onclick="fcSetFilter('pending',this)">Chưa nhớ</button>
           <button class="sp-filter-btn" onclick="fcSetFilter('remembered',this)">Đã nhớ</button>
         </div>
-
         <div class="fc-grid" id="fc-grid"></div>
       </div>
 
@@ -1312,11 +1300,10 @@ body{font-family:'Inter',system-ui,sans-serif;background-color:var(--bg-page);
   </div>
 </div>
 
-<footer class="pg-foot">© 2025 · Hệ thống học tập PRO · Chuẩn học bạ Việt Nam</footer>
+<footer class="pg-foot">© 2025 · Edunova NĐK · Chuẩn học bạ Việt Nam</footer>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ════ 1. DỮ LIỆU MÔN HỌC ════ */
 const MON = [
   {id:'toan', ten:'Toán',             ico:'➕'},
   {id:'van',  ten:'Ngữ văn',          ico:'📖'},
@@ -1358,7 +1345,6 @@ let anDoughnut     = null;
 const txCount = {};
 MON.forEach(m => { txCount[m.id] = {1: 4, 2: 4}; });
 
-/* ════ TAB ════ */
 function switchTab(tab) {
   ['grade','planner','analytics','ai'].forEach(t => {
     const s = document.getElementById('sec-'+t);
@@ -1375,7 +1361,6 @@ function switchTab(tab) {
   if (tab === 'ai')        { aiLoadProfile(); chatRenderStatusBar(); fcRender(); }
 }
 
-/* ════ DARK MODE ════ */
 const DM_KEY = 'hocLucDarkMode';
 function applyTheme(dark) {
   document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
@@ -1395,7 +1380,6 @@ function toggleDark() {
   if (window.matchMedia?.('(prefers-color-scheme: dark)').matches) applyTheme(true);
 })();
 
-/* ════ UI MÔN HỌC ════ */
 function buildMonUI() {
   const list = document.getElementById('monList');
   list.innerHTML = '';
@@ -1498,7 +1482,6 @@ function toggleMon(mid) { document.getElementById('card_'+mid).classList.toggle(
 function addTX(mid, hk) { if (txCount[mid][hk] >= 6) return; txCount[mid][hk]++; buildTX(mid, hk); recalcMon(mid); }
 function delTX(mid, hk) { if (txCount[mid][hk] <= 1) return; txCount[mid][hk]--; buildTX(mid, hk); recalcMon(mid); }
 
-/* ════ TÍNH ĐIỂM ════ */
 function getVal(id) {
   const el = document.getElementById(id);
   if (!el) return null;
@@ -1565,7 +1548,6 @@ function recalcMon(mid) {
   }
 }
 
-/* ════ HELPERS ════ */
 function rankOf(d)  { return RANK.find(r=>d>=r.min)||RANK[RANK.length-1]; }
 function scColor(d) { return d>=8?'sc-g':d>=6.5?'sc-k':d>=5?'sc-t':'sc-y'; }
 let toastTimer;
@@ -1604,7 +1586,6 @@ function todayStr() {
   return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
 }
 
-/* ════ ADD CUSTOM SUBJECT ════ */
 function openAddSubjModal() {
   document.getElementById('asModal-name').value = '';
   document.getElementById('asModal-err').textContent = '';
@@ -1648,7 +1629,6 @@ function deleteCustomSubj(mid, e) {
   showToast('Đã xoá môn ' + m.ten, false);
 }
 
-/* ════ TÍNH KẾT QUẢ ════ */
 function tinhKQ() {
   const gErr=document.getElementById('gErr');
   gErr.style.display='none';
@@ -1716,7 +1696,6 @@ function hideResult() {
   currentResult=null;
 }
 
-/* ════ RADAR CHART ════ */
 function getChartTheme() {
   const cs=getComputedStyle(document.documentElement);
   return {grid:cs.getPropertyValue('--chart-grid').trim(),
@@ -1761,7 +1740,6 @@ function updateRadarTheme() {
   radarChartInst.update();
 }
 
-/* ════ XUẤT PDF ════ */
 function xuatPDF() {
   if (!currentResult) return;
   const {jsPDF}=window.jspdf;
@@ -1773,9 +1751,9 @@ function xuatPDF() {
   const rc=(x,y,w,h,c,r=0)=>{doc.setFillColor(...c);r>0?doc.roundedRect(x,y,w,h,r,r,'F'):doc.rect(x,y,w,h,'F');};
   rc(0,0,W,36,[79,70,229]);rc(W*.55,0,W*.45,36,[124,58,237]);
   doc.setFillColor(255,255,255);doc.circle(23,18,9,'F');
-  sf(13,'bold',DARK);doc.text('HT',23,21.5,{align:'center'});
+  sf(13,'bold',DARK);doc.text('EN',23,21.5,{align:'center'});
   sf(15,'bold',WHITE);doc.text('PHIEU XEP LOAI HOC LUC',38,13);
-  sf(8,'normal',[200,200,255]);doc.text('He thong hoc tap PRO - Chuan VN',38,20);
+  sf(8,'normal',[200,200,255]);doc.text('Edunova NDK - Chuan VN',38,20);
   const now=new Date();
   const ds=`${now.getDate().toString().padStart(2,'0')}/${(now.getMonth()+1).toString().padStart(2,'0')}/${now.getFullYear()}`;
   sf(7,'normal',[180,180,230]);doc.text(`Ngay: ${ds}`,38,27);
@@ -1834,13 +1812,12 @@ function xuatPDF() {
   sf(10,'bold',rnkObj.pdfColor);doc.text(currentResult.dtb.toFixed(2),W-14,y+6.5,{align:'right'});
   const fY=doc.internal.pageSize.getHeight()-10;
   doc.setDrawColor(...LGREY);doc.setLineWidth(.3);doc.line(10,fY-4,W-10,fY-4);
-  sf(6.5,'normal',GREY);doc.text('He thong hoc tap PRO · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
+  sf(6.5,'normal',GREY);doc.text('Edunova NDK · Chuan hoc ba Viet Nam',W/2,fY,{align:'center'});
   const safe=(currentResult.ten||'hocsinh').replace(/\s+/g,'-').replace(/[^a-zA-Z0-9\-]/g,'');
   doc.save(`BangDiem_${safe}_${ds.replace(/\//g,'')}.pdf`);
   showToast('Đã xuất PDF bảng điểm chi tiết!');
 }
 
-/* ════ LƯU / LỊCH SỬ ════ */
 const SK='hocLucHistoryV2';
 function docLS()  { try{return JSON.parse(localStorage.getItem(SK))||[];}catch(e){return[];} }
 function ghiLS(a) { try{localStorage.setItem(SK,JSON.stringify(a));}catch(e){} }
@@ -1926,7 +1903,6 @@ function xoaTatCa() {
   ghiLS([]); renderLichSu(); showToast('Đã xoá tất cả',false);
 }
 
-/* ════ NHẬP LẠI ════ */
 function nhapLai() {
   document.getElementById('tenHS').value='';
   MON.forEach(m=>{
@@ -1943,7 +1919,6 @@ function nhapLai() {
   window.scrollTo({top:0,behavior:'smooth'});
 }
 
-/* ════ STUDY PLANNER ════ */
 const SP_KEY = 'studyPlannerV1';
 let spFilter  = 'all';
 function spLoad()  { try{return JSON.parse(localStorage.getItem(SP_KEY))||[];}catch(e){return[];} }
@@ -2016,7 +1991,6 @@ function spDeadlineLabel(dl) {
   return {txt:`Còn ${diff} ngày`,cls:''};
 }
 
-/* ════ STREAK ════ */
 const STREAK_KEY='studyPlannerStreakV1';
 function streakLoad() {
   try{return JSON.parse(localStorage.getItem(STREAK_KEY))||{current:0,lastDate:null};}
@@ -2053,7 +2027,6 @@ function spRenderStreak(streak) {
   document.getElementById('streak-badge').style.display=streak.current>=7?'':'none';
 }
 
-/* ════ 7-DAY HEATMAP ════ */
 const DAY_LABELS=['CN','T2','T3','T4','T5','T6','T7'];
 function spRenderHeatmap() {
   const tasks=spLoad();
@@ -2080,7 +2053,6 @@ function spRenderHeatmap() {
   }).join('');
 }
 
-/* ════ spRender ════ */
 function spRender() {
   const all=spLoad();
   const today=new Date(); today.setHours(0,0,0,0);
@@ -2120,7 +2092,6 @@ function spRender() {
   }).join('');
 }
 
-/* ════ SOUND ENGINE ════ */
 let audioCtx = null;
 function getAudioCtx() {
   if (!audioCtx) audioCtx = new (window.AudioContext||window.webkitAudioContext)();
@@ -2171,13 +2142,12 @@ function pomoNotify(msg) {
   if (document.visibilityState === 'visible') return;
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
-    new Notification('⏱ Hệ thống học tập PRO', {body: msg, icon: ''});
+    new Notification('⏱ Edunova NĐK', {body: msg, icon: ''});
   } else if (Notification.permission !== 'denied') {
-    Notification.requestPermission().then(p=>{ if(p==='granted') new Notification('⏱ Hệ thống học tập PRO',{body:msg}); });
+    Notification.requestPermission().then(p=>{ if(p==='granted') new Notification('⏱ Edunova NĐK',{body:msg}); });
   }
 }
 
-/* ════ POMODORO ════ */
 const TIMER_LOG_KEY='studyTimerLogsV1';
 const CIRC=2*Math.PI*52;
 let pomoState={running:false,phase:'ready',remaining:0,total:0,interval:null,subject:'toan'};
@@ -2324,7 +2294,6 @@ document.addEventListener('DOMContentLoaded',()=>{
   }
 });
 
-/* ════ TIMETABLE ════ */
 const TT_KEY='studyTimetableV1';
 const DAY_NAMES=['CN','T2','T3','T4','T5','T6','T7'];
 function ttLoad(){try{return JSON.parse(localStorage.getItem(TT_KEY))||[];}catch(e){return[];}}
@@ -2431,7 +2400,6 @@ function ttRender(newId=null){
   }).join('');
 }
 
-/* ════ ANALYTICS ════ */
 function anWeekRange(offset=0){
   const now=new Date(); now.setHours(0,0,0,0);
   const day=now.getDay();
@@ -2571,7 +2539,6 @@ function anRenderDoughnut(bySubj){
   }).join('');
 }
 
-/* ════ AUTO REMINDER ════ */
 function checkReminder(){
   const items=ttLoad();
   const now=new Date();
@@ -2591,6 +2558,7 @@ function checkReminder(){
 /* ════ FLASHCARD MODULE ════ */
 const FC_KEY = 'flashcards';
 let fcFilter  = 'all';
+const fcFlipped = new Set();
 
 function fcLoad()  { try{return JSON.parse(localStorage.getItem(FC_KEY))||[];}catch(e){return[];} }
 function fcSave(a) { try{localStorage.setItem(FC_KEY,JSON.stringify(a));}catch(e){} }
@@ -2611,23 +2579,24 @@ function fcAdd() {
   showToast('Đã thêm flashcard!');
 }
 
-function fcToggleRemember(id, e) {
-  if (e) e.stopPropagation();
+function fcToggleRemember(id) {
   const cards = fcLoad();
   const c = cards.find(x => x.id === id);
   if (c) { c.remembered = !c.remembered; fcSave(cards); fcRender(); }
 }
 
-function fcDelete(id, e) {
-  if (e) e.stopPropagation();
+function fcDelete(id) {
+  fcFlipped.delete(id);
   fcSave(fcLoad().filter(x => x.id !== id));
   fcRender();
   showToast('Đã xoá thẻ', false);
 }
 
 function fcFlip(id) {
+  if (fcFlipped.has(id)) fcFlipped.delete(id);
+  else fcFlipped.add(id);
   const el = document.getElementById('fc-card-' + id);
-  if (el) el.classList.toggle('show-back');
+  if (el) el.classList.toggle('flipped', fcFlipped.has(id));
 }
 
 function fcSetFilter(f, btn) {
@@ -2666,19 +2635,20 @@ function fcRender() {
 
   grid.innerHTML = cards.map(c => {
     const mon = MON.find(m => m.id === c.subject) || MON[0];
+    const isFlipped = fcFlipped.has(c.id);
     const isRem = c.remembered;
     return `<div class="fc-card-wrap">
-      <div class="fc-card fc-enter" id="fc-card-${c.id}" onclick="fcFlip(${c.id})">
+      <div class="fc-card${isFlipped?' flipped':''} fc-enter" id="fc-card-${c.id}" onclick="fcFlip(${c.id})">
         <div class="fc-face fc-face-front">
           <span class="fc-card-subj">${mon.ico} ${mon.ten}</span>
           <div class="fc-card-text">${escHtml(c.front)}</div>
           <div class="fc-card-hint">👆 Nhấn để xem đáp án</div>
           <div class="fc-card-actions" onclick="event.stopPropagation()">
             <button class="fc-remember-btn${isRem?' remembered':''}"
-              onclick="fcToggleRemember(${c.id},event)">
+              onclick="fcToggleRemember(${c.id})">
               ${isRem?'✅ Đã nhớ':'⬜ Chưa nhớ'}
             </button>
-            <button class="fc-del-btn" onclick="fcDelete(${c.id},event)">🗑</button>
+            <button class="fc-del-btn" onclick="fcDelete(${c.id})">🗑</button>
           </div>
         </div>
         <div class="fc-face fc-face-back">
@@ -2687,10 +2657,10 @@ function fcRender() {
           <div class="fc-card-hint">👆 Nhấn để xem câu hỏi</div>
           <div class="fc-card-actions" onclick="event.stopPropagation()">
             <button class="fc-remember-btn${isRem?' remembered':''}"
-              onclick="fcToggleRemember(${c.id},event)">
+              onclick="fcToggleRemember(${c.id})">
               ${isRem?'✅ Đã nhớ':'⬜ Chưa nhớ'}
             </button>
-            <button class="fc-del-btn" onclick="fcDelete(${c.id},event)">🗑</button>
+            <button class="fc-del-btn" onclick="fcDelete(${c.id})">🗑</button>
           </div>
         </div>
       </div>
@@ -2702,7 +2672,7 @@ function escHtml(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-/* ════ AI RATE LIMITING & COOLDOWN ════ */
+/* ════ AI RATE LIMITING ════ */
 const AI_USAGE_KEY   = 'aiUsage';
 const AI_DAILY_LIMIT = 20;
 const CHAT_COOLDOWN  = 5000;
@@ -2824,25 +2794,30 @@ async function callGemini(prompt) {
   try { data = await resp.json(); } catch(_) { throw new Error(`Lỗi HTTP ${resp.status} — phản hồi không hợp lệ`); }
   if (data && data.error) throw new Error(data.error);
   if (!resp.ok) throw new Error(`Lỗi HTTP ${resp.status}`);
-  const text = data.text || data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+  const text = data.text || (data.candidates && data.candidates[0] && data.candidates[0].content && data.candidates[0].content.parts && data.candidates[0].content.parts[0] && data.candidates[0].content.parts[0].text) || '';
   if (!text) throw new Error('Máy chủ không trả về nội dung');
   return text;
 }
 
 function extractJSON(raw) {
-  try { return JSON.parse(raw); } catch(_) {}
-  const stripped = raw.replace(/```json[\s\S]*?```/gi, m => m.replace(/```json\s*/,'').replace(/```$/,'').trim())
-                      .replace(/```[\s\S]*?```/g, m => m.replace(/```\s*/g,'').trim());
-  try { return JSON.parse(stripped.trim()); } catch(_) {}
-  const arrMatch = stripped.match(/\[[\s\S]*\]/);
+  /* strip markdown fences first */
+  const clean = raw
+    .replace(/```json\s*/gi, '')
+    .replace(/```\s*/g, '')
+    .trim();
+  /* try direct parse */
+  try { return JSON.parse(clean); } catch(_) {}
+  /* find array */
+  const arrMatch = clean.match(/\[[\s\S]*\]/);
   if (arrMatch) { try { return JSON.parse(arrMatch[0]); } catch(_) {} }
-  const objMatch = stripped.match(/\{[\s\S]*\}/);
+  /* find object */
+  const objMatch = clean.match(/\{[\s\S]*\}/);
   if (objMatch) { try { return JSON.parse(objMatch[0]); } catch(_) {} }
   throw new Error('Không thể đọc định dạng JSON từ phản hồi AI');
 }
 
 function _geminiErrMsg(e) {
-  return `❌ Lỗi: ${e.message || 'Không xác định. Vui lòng thử lại.'}`;
+  return `❌ Không thể tạo kế hoạch. Vui lòng thử lại. (${e.message || 'Lỗi không xác định'})`;
 }
 
 function _addDays(base, n) {
@@ -2947,62 +2922,101 @@ Lưu ý:
   }
 }
 
-/* ════ BLOCK B: Kế hoạch 14 ngày ════ */
+/* ════ BLOCK B: Kế hoạch 14 ngày — FIXED ════ */
 async function aiGenPlan() {
   const el = document.getElementById('ai-plan-content');
   const pushBtn = document.getElementById('ai-push-btn');
   if (pushBtn) pushBtn.disabled = true;
   _aiPlanPreview = [];
+
   if (aiDailyLimitReached()) {
     el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⛔</span>Bạn đã đạt giới hạn AI hôm nay. Vui lòng quay lại vào ngày mai.</div>`;
     return;
   }
   if (!currentResult || !currentResult.rows || !currentResult.rows.length) {
-    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Cần có kết quả điểm trước.</div>`;
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Cần có kết quả điểm trước. Hãy tính kết quả ở tab <strong>Học lực</strong>.</div>`;
     return;
   }
+
   const rows = currentResult.rows.filter(r => r.tbm !== null);
-  if (!rows.length) return;
+  if (!rows.length) {
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">⚠️</span>Không có dữ liệu điểm hợp lệ.</div>`;
+    return;
+  }
+
   const sorted = [...rows].sort((a,b) => a.tbm - b.tbm);
   const weak = sorted.slice(0, Math.min(3, sorted.length));
+
   el.innerHTML = _aiLoading('Đang tạo kế hoạch 14 ngày…');
   _setAiBtnsDisabled(true);
+
   const { grade, textbook, track } = _studentProfile;
   const weakLines = weak.map(w => `${w.m.ten} (${w.tbm.toFixed(2)})`).join(', ');
+
   const prompt = `Bạn là giáo viên lập kế hoạch học tập cho học sinh Việt Nam.
 Lớp: ${grade||'THPT'} | Sách: ${textbook||'chương trình chuẩn'} | Ban: ${track||'cơ bản'}
 Các môn yếu cần ôn: ${weakLines}
 
 Tạo kế hoạch học 14 ngày liên tiếp, mỗi ngày 1 nhiệm vụ, xen kẽ các môn yếu.
 Trả lời CHÍNH XÁC theo định dạng JSON mảng (không có markdown, không giải thích thêm):
-[
-  {"day":1,"subject":"tên môn","task":"nội dung nhiệm vụ cụ thể (15-40 từ)"},
-  {"day":2,"subject":"tên môn","task":"..."},
-  ...
-  {"day":14,"subject":"tên môn","task":"..."}
-]
-Chỉ trả về JSON, không thêm gì khác.`;
+[{"day":1,"subject":"tên môn","task":"nội dung nhiệm vụ cụ thể (15-40 từ)"},{"day":2,"subject":"tên môn","task":"..."},{"day":3,"subject":"tên môn","task":"..."},{"day":4,"subject":"tên môn","task":"..."},{"day":5,"subject":"tên môn","task":"..."},{"day":6,"subject":"tên môn","task":"..."},{"day":7,"subject":"tên môn","task":"..."},{"day":8,"subject":"tên môn","task":"..."},{"day":9,"subject":"tên môn","task":"..."},{"day":10,"subject":"tên môn","task":"..."},{"day":11,"subject":"tên môn","task":"..."},{"day":12,"subject":"tên môn","task":"..."},{"day":13,"subject":"tên môn","task":"..."},{"day":14,"subject":"tên môn","task":"..."}]
+Chỉ trả về JSON array, không thêm bất kỳ text nào khác.`;
+
   try {
     aiUsageIncrement();
-    const resp = await callGemini(prompt);
+    const rawResp = await callGemini(prompt);
+
     let plan;
-    try { plan = extractJSON(resp); } catch(pe) {
-      throw new Error('Không đọc được kế hoạch từ AI. Vui lòng thử lại.');
+    try {
+      plan = extractJSON(rawResp);
+    } catch(pe) {
+      /* fallback: build plan from raw text lines */
+      const lines = rawResp.split('\n').map(l => l.trim()).filter(Boolean);
+      plan = [];
+      let dayNum = 1;
+      for (const line of lines) {
+        if (dayNum > 14) break;
+        const taskText = line.replace(/^\d+[\.\)]\s*/, '').replace(/^\-\s*/, '').trim();
+        if (taskText.length > 5) {
+          plan.push({ day: dayNum, subject: weak[(dayNum-1) % weak.length].m.ten, task: taskText });
+          dayNum++;
+        }
+      }
+      if (!plan.length) throw new Error('Không đọc được kế hoạch. Vui lòng thử lại.');
     }
-    if (!Array.isArray(plan)) plan = plan.plan || plan.tasks || plan.data || [];
+
+    if (!Array.isArray(plan)) {
+      plan = plan.plan || plan.tasks || plan.data || plan.schedule || [];
+    }
     if (!plan.length) throw new Error('Kế hoạch trống, vui lòng thử lại.');
+
+    /* ensure 14 items */
+    while (plan.length < 14) {
+      const i = plan.length;
+      const w = weak[i % weak.length];
+      plan.push({ day: i+1, subject: w.m.ten, task: `Ôn tập và luyện đề ${w.m.ten}` });
+    }
+    plan = plan.slice(0, 14);
+
     const today = new Date(); today.setHours(0,0,0,0);
-    _aiPlanPreview = plan.map((p,i) => {
-      const matchMon = MON.find(m => m.ten.toLowerCase() === (p.subject||'').toLowerCase()) ||
-                       weak[i % weak.length].m;
+
+    _aiPlanPreview = plan.map((p, i) => {
+      const subjName = (p.subject || '').toLowerCase().trim();
+      const matchMon = MON.find(m =>
+        m.ten.toLowerCase() === subjName ||
+        m.ten.toLowerCase().includes(subjName) ||
+        subjName.includes(m.ten.toLowerCase())
+      ) || weak[i % weak.length].m;
+
       return {
-        subject: matchMon.id,
-        title: `[AI] ${p.task}`,
-        deadline: _addDays(today, (p.day||i+1)),
-        day: p.day||i+1,
-        subjLabel: `${matchMon.ico} ${matchMon.ten}`,
+        subject:    matchMon.id,
+        title:      `[AI] ${(p.task || '').trim()}`,
+        deadline:   _addDays(today, (p.day || i+1)),
+        day:        p.day || i+1,
+        subjLabel:  `${matchMon.ico} ${matchMon.ten}`,
       };
     });
+
     el.innerHTML = `
       <div style="font-size:.8rem;color:var(--tx-2);font-weight:600;margin-bottom:10px;
         padding:8px 12px;background:var(--bg-rdtip);border-radius:10px;">
@@ -3013,14 +3027,17 @@ Chỉ trả về JSON, không thêm gì khác.`;
           <div class="ai-plan-item" style="--i:${i}">
             <span class="ai-plan-day">Ngày ${t.day}</span>
             <span class="ai-plan-subj">${t.subjLabel}</span>
-            <span class="ai-plan-title">${t.title.replace('[AI] ','')}</span>
+            <span class="ai-plan-title">${escHtml(t.title.replace('[AI] ',''))}</span>
             <span style="font-size:.68rem;color:var(--tx-3);white-space:nowrap">📅 ${t.deadline.split('-').reverse().join('/')}</span>
           </div>`).join('')}
       </div>`;
+
     if (pushBtn) pushBtn.disabled = false;
     showToast('AI đã tạo kế hoạch 14 ngày!');
+
   } catch(e) {
-    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>${_geminiErrMsg(e)}</div>`;
+    el.innerHTML = `<div class="ai-no-data"><span class="ai-nd-ico">❌</span>Không thể tạo kế hoạch. Vui lòng thử lại.<br><small style="opacity:.6">${e.message||''}</small></div>`;
+    showToast('Không tạo được kế hoạch, thử lại nhé!', false);
   } finally {
     _setAiBtnsDisabled(false);
     chatRenderStatusBar();
@@ -3072,7 +3089,6 @@ Quy tắc:
 - Giải thích rõ ràng, dùng ví dụ thực tế Việt Nam
 - Khuyến khích tự học và tư duy độc lập
 - Ngắn gọn, thực dụng (dưới 200 từ trừ khi cần giải thích kỹ)
-- Khi viết công thức toán học, hãy dùng ký hiệu LaTeX: inline dùng $...$ và block dùng \\(...\\)
 
 Lịch sử hội thoại:
 ${historyCtx}
@@ -3083,15 +3099,12 @@ Câu hỏi mới: ${msg}`;
     aiUsageIncrement();
     const resp = await callGemini(prompt);
     thinkEl.remove();
-    const msgEl = _chatAppendMsg('ai', resp.trim());
+    _chatAppendMsg('ai', resp.trim());
     _chatHistory.push({ role: 'ai', text: resp.trim() });
     if (_chatHistory.length > 20) _chatHistory.splice(0, 2);
-    if (window.MathJax) {
-      MathJax.typesetPromise();
-    }
   } catch(e) {
     thinkEl.remove();
-    _chatAppendMsg('ai', _geminiErrMsg(e));
+    _chatAppendMsg('ai', `❌ Lỗi: ${e.message || 'Không xác định. Vui lòng thử lại.'}`);
   } finally {
     _chatIsLoading = false;
     if (sendBtn) sendBtn.disabled = false;
@@ -3155,4 +3168,3 @@ switchTab('grade');
 </script>
 </body>
 </html>
-
